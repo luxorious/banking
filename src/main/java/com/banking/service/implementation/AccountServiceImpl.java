@@ -7,6 +7,7 @@ import com.banking.entity.entityEnumerations.CurrencyCode;
 import com.banking.repository.AccountRepository;
 import com.banking.service.interfaces.AccountService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@Primary
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
 
