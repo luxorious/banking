@@ -19,11 +19,11 @@ import org.springframework.data.annotation.CreatedDate;
 import java.util.Date;
 import java.util.UUID;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
-@Table(name = "transaction")
+//@Data
+//@AllArgsConstructor
+//@NoArgsConstructor
+//@Entity
+//@Table(name = "transaction")
 public class Transaction {
 
     @Id

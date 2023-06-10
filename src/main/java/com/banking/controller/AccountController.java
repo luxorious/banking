@@ -21,10 +21,12 @@ public class AccountController {
 
     @PostMapping(value = "/create_account")
     public String createAccount(@RequestBody Account account) {
+        accountService.createAccount(account);
+
         if (account.getId() == null) {
             return "nothing to create";
         } else {
-            accountService.createAccount(account);
+//            accountService.createAccount(account);
             return "Account created";
         }
     }

@@ -17,6 +17,8 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -67,4 +69,8 @@ public class Account {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
+    public Account(String name, Double balance) {
+        this.name = name;
+        this.balance = balance;
+    }
 }

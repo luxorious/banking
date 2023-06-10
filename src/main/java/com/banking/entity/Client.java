@@ -18,11 +18,11 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.UUID;
 
-@Data
-@Entity
-@Table(name = "client")
-@AllArgsConstructor
-@NoArgsConstructor
+//@Data
+//@Entity
+//@Table(name = "client")
+//@AllArgsConstructor
+//@NoArgsConstructor
 public class Client {
 
     @Id
