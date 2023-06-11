@@ -1,6 +1,7 @@
 package com.banking.controller;
 
 import com.banking.entity.Account;
+import com.banking.service.implementation.AccountServiceImpl;
 import com.banking.service.interfaces.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +13,11 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AccountController {
 
-    private final AccountService accountService;
+    private final AccountServiceImpl accountService;
 
     @GetMapping(value = "/{id}")
     public Optional<Account> getAccountById(@PathVariable UUID id) {
+        System.out.println(accountService.findAccountById(id));
         return accountService.findAccountById(id);
     }
 

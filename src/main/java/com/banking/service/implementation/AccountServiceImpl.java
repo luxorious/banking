@@ -16,7 +16,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@Primary
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
 
