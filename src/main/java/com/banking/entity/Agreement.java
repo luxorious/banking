@@ -15,6 +15,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -39,18 +41,18 @@ public class Agreement {
     @Column(name = "interest_rate")
     private Double interestRate;
 
-    @Column(name = "status")
+    @Column(name = "agreement_status")
     @Enumerated(EnumType.STRING)
     private AgreementStatus status;
 
-    @Column(name = "sum")
+    @Column(name = "agreement_sum")
     private Double sum;
 
-    @Column(name = "created_at", updatable = false, nullable = false)
+    @Column(name = "created_at", updatable = false, nullable = false, columnDefinition = "DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private Timestamp createdAt;
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at", nullable = false, columnDefinition = "DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt;
+    private Timestamp updatedAt;
 }

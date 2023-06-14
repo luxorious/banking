@@ -15,6 +15,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -55,11 +57,12 @@ public class Client {
     @Column(name = "phone", length = 20)//, columnDefinition = "VARCHAR(20)")
     private String phone;
 
-    @Column(name = "created_at", nullable = false, updatable = false)//,columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "DATE")//,columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private Timestamp createdAt;
 
-    @Column(name = "updated_at", nullable = false)//, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    private Date updatedAt;
+    @Column(name = "updated_at", nullable = false, columnDefinition = "DATE")//, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp updatedAt;
 
 }

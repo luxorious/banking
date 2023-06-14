@@ -16,6 +16,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -34,10 +36,10 @@ public class Product {
     @Column(name = "manager_id")
     private UUID managerId;
 
-    @Column(name = "name")
+    @Column(name = "product_name")
     private String name;
 
-    @Column(name = "status")
+    @Column(name = "product_status")
     @Enumerated(EnumType.STRING)
     private ProductStatus status;
 
@@ -48,14 +50,14 @@ public class Product {
     @Column(name = "interest_rate")
     private Double interestRate; //numeric(6,4) | interest rate of product |
 
-    @Column(name = "limit")
+    @Column(name = "product_limit")
     private Double limit;//numeric(15,2) | limit of credit a product ( 0 - no limit, 0 < - limit which can be used) |
 
-    @Column(name = "created_at", updatable = false, nullable = false)
+    @Column(name = "created_at", updatable = false, nullable = false, columnDefinition = "DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private Timestamp createdAt;
 
-    @Column(name = "updated_at", updatable = false, nullable = false)
+    @Column(name = "updated_at", updatable = false, nullable = false, columnDefinition = "DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private String updatedAt;
+    private Timestamp updatedAt;
 }

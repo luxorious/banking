@@ -16,6 +16,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -37,18 +39,17 @@ public class Transaction {
     @Column(name = "credit_account_id")
     private UUID creditAccountId;
 
-    @Column(name = "type", length = 60)
+    @Column(name = "transaction_type", length = 60)
     @Enumerated(EnumType.STRING)
     private TransactionType type;
 
-    @Column(name = "amount") //numeric(12,2)
+    @Column(name = "transaction_amount") //numeric(12,2)
     private Double amount;
 
-    @Column(name = "description", length = 255)
+    @Column(name = "transaction_description", length = 255)
     private String description;
 
-    @Column(name = "created_at")
-    @CreatedDate
+    @Column(name = "created_at", columnDefinition = "DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private Timestamp createdAt;
 }

@@ -15,6 +15,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -36,15 +38,15 @@ public class Manager {
     @Column(name = "last_name", length = 50)
     private String lastName;
 
-    @Column(name = "status")
+    @Column(name = "manager_status")
     @Enumerated(EnumType.STRING)
     private ManagerStatus status;
 
-    @Column(name = "description")
+    @Column(name = "manager_description")
     private String description;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", columnDefinition = "DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private Timestamp createdAt;
 
 }

@@ -7,12 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BankingApplication {
 
     public static void main(String[] args) {
-//        Account account = new Account();
-//        account.setName("name");
-//        account.setBalance(111.0);
-//
-//        System.out.println(account);
-
         SpringApplication.run(BankingApplication.class, args);
     }
 
