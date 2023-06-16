@@ -10,8 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -33,13 +31,6 @@ public interface AccountRepository extends JpaRepository<Account, UUID> {
     List<Account> findAccountsByCreatedAt(Timestamp dateCreation);
 
     List<Account> findAccountsByUpdatedAt(Timestamp dateUpdate);
-
-    boolean updateAccountByClientId(UUID clientId, Account account);
-    void updateAccountById(UUID id, Account account);
-
-    Account deleteAccountById(UUID id);
-
-    List<Account> deleteAccountsByStatus(AccountStatus status);
 
     List<Account> findAccountsByDeletedStatus(DeletedStatus deletedStatus);
 }

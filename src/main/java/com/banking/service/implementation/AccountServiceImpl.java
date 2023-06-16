@@ -83,7 +83,8 @@ public class AccountServiceImpl implements AccountService {
     public Boolean updateAccountById(UUID id, Account accountFromFE) {
         Optional<Account> accountFromDB = accountRepository.findAccountById(id);
         if (accountFromDB.isPresent()){
-            accountRepository.updateAccountById(id, accountConverter.convertFields(accountFromDB.get(), accountFromFE));
+            Account accountToUpdate = accountConverter.convertFields(accountFromDB.get(), accountFromFE);
+            accountRepository.save(accountToUpdate);
             log.info("Account updated successfully for client ID: " + id);
             return true;
         } else {
@@ -98,7 +99,7 @@ public class AccountServiceImpl implements AccountService {
         Optional<Account> accountFromDB = accountRepository.findAccountById(id);
         if (accountFromDB.isPresent()){
             accountFromDB.get().setStatus(status);
-            accountRepository.updateAccountById(id, accountFromDB.get());
+            accountRepository.save(accountFromDB.get());
             log.info("Account status successfully updated: " + id);
         } else {
             log.info("Account with client ID: " + id + " not found");
@@ -123,7 +124,7 @@ public class AccountServiceImpl implements AccountService {
         List<Account> accounts = accountRepository.findAccountsByStatus(status);
         accounts.forEach(account -> account.setDeletedStatus(DeletedStatus.DELETED));
         log.info("deleting accounts where Account Status - " + status);
-        return accountRepository.deleteAccountsByStatus(status);
+        return accounts;
     }
 //що трясця його матері тут повертати? нулл не можна, бо впаде, а пустий екземпляр класу - то хз чи можна
 //ААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААА

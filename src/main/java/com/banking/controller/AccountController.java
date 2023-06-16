@@ -37,37 +37,43 @@ public class AccountController {
         return accountService.createAccount(account);
     }
 
-    @GetMapping(value = "/accounts/{name}")
+    @GetMapping(value = "/name/{name}")
     @ResponseStatus(HttpStatus.OK)
     public List<Account> findAccountsByName(@PathVariable String name) {
         return accountService.findAccountsByName(name);
     }
 
-    @GetMapping(value = "/accounts/{status}")
+    @GetMapping(value = "/status/{status}")
     @ResponseStatus(HttpStatus.OK)
     public List<Account> findAccountsByStatus(@PathVariable AccountStatus status) {
         return accountService.findAccountsByStatus(status);
     }
+    @GetMapping(value = "/get-all")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Account> getAll(){
+        log.info("get alllllllllllllllll");
+        return accountService.findAll();
+    }
 
-    @GetMapping(value = "/{type}")
+    @GetMapping(value = "/type/{type}")
     @ResponseStatus(HttpStatus.OK)
     public List<Account> findAccountsByType(@PathVariable AccountType type) {
         return accountService.findAccountsByType(type);
     }
 
-    @GetMapping(value = "/{currencyCode}")
+    @GetMapping(value = "/currency-code/{currencyCode}")
     @ResponseStatus(HttpStatus.OK)
     public List<Account> findAccountsByCurrencyCode(@PathVariable CurrencyCode currencyCode) {
         return accountService.findAccountsByCurrencyCode(currencyCode);
     }
 
-    @GetMapping(value = "/{dateCreation}")
+    @GetMapping(value = "/date-create/{dateCreation}")
     @ResponseStatus(HttpStatus.OK)
     public List<Account> findAccountsByCreatedAt(@PathVariable Timestamp dateCreation) {
         return accountService.findAccountsByCreatedAt(dateCreation);
     }
 
-    @GetMapping(value = "/{dateUpdate}")
+    @GetMapping(value = "/date-update/{dateUpdate}")
     @ResponseStatus(HttpStatus.OK)
     public List<Account> findAccountsByUpdatedAt(@PathVariable Timestamp dateUpdate) {
         return accountService.findAccountsByUpdatedAt(dateUpdate);
