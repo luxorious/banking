@@ -4,8 +4,10 @@ import com.banking.entity.Account;
 import com.banking.entity.entityEnumerations.AccountStatus;
 import com.banking.entity.entityEnumerations.AccountType;
 import com.banking.entity.entityEnumerations.CurrencyCode;
+import com.banking.entity.entityEnumerations.DeletedStatus;
 import com.banking.repository.AccountRepository;
 import com.banking.service.interfaces.AccountService;
+import com.banking.service.interfaces.utility.Converter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,11 +23,18 @@ import java.util.UUID;
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
+    private final Converter<Account> accountConverter;
 
     @Override
     public Account createAccount(Account account) {
         log.info("creating account " + account);
         return accountRepository.save(account);
+    }
+
+    @Override
+    public List<Account> findAll() {
+        log.info("get all accounts");
+        return accountRepository.findAll();
     }
 
     @Override
@@ -71,43 +80,80 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account updateAccountByClientId(UUID clientId, Account account) {
-        if (accountRepository.updateAccountByClientId(clientId)) {
-            log.info("Account updated successfully for client ID: " + clientId);
-            return null;
+    public Boolean updateAccountById(UUID id, Account accountFromFE) {
+        Optional<Account> accountFromDB = accountRepository.findAccountById(id);
+        if (accountFromDB.isPresent()){
+            accountRepository.updateAccountById(id, accountConverter.convertFields(accountFromDB.get(), accountFromFE));
+            log.info("Account updated successfully for client ID: " + id);
+            return true;
         } else {
-            log.info("Account with client ID: " + clientId + " not found");
-            return null;
+            log.info("Account with client ID: " + id + " not found");
+            return false;
+        }
+    }
+
+
+    @Override
+    public void updateStatusById(UUID id, AccountStatus status){
+        Optional<Account> accountFromDB = accountRepository.findAccountById(id);
+        if (accountFromDB.isPresent()){
+            accountFromDB.get().setStatus(status);
+            accountRepository.updateAccountById(id, accountFromDB.get());
+            log.info("Account status successfully updated: " + id);
+        } else {
+            log.info("Account with client ID: " + id + " not found");
         }
     }
 
     @Override
-    public Account updateAccountById(UUID id) {
-        log.info("update account where UUID - " + id);
-        return null;
-    }
-
-    @Override
-    public List<Account> updateAccountsByStatus(AccountStatus status) {
-        log.info("update accounts where status - " + status);
-        return null;
-    }
-
-    @Override
-    public Account deleteById(UUID id) {
-        log.info("delete account where UUID - " + id);
-        return null;
-    }
-
-    @Override
-    public Account deleteAccountsByName(String name) {
-        log.info("delete accounts where name - " + name);
-        return null;
+    public Account deleteAccountById(UUID id){
+        Optional<Account> deletedAccount = accountRepository.findAccountById(id);
+        if (deletedAccount.isPresent()){
+            deletedAccount.ifPresent(account -> account.setDeletedStatus(DeletedStatus.DELETED));
+            log.info("delete account where UUID - " + id);
+            return deletedAccount.get();
+        } else {
+            log.info("Account not found!");
+            return new Account();
+        }
     }
 
     @Override
     public List<Account> deleteAccountsByStatus(AccountStatus status) {
-        log.info("delete accounts where Account Status - " + status);
-        return null;
+        List<Account> accounts = accountRepository.findAccountsByStatus(status);
+        accounts.forEach(account -> account.setDeletedStatus(DeletedStatus.DELETED));
+        log.info("deleting accounts where Account Status - " + status);
+        return accountRepository.deleteAccountsByStatus(status);
+    }
+//що трясця його матері тут повертати? нулл не можна, бо впаде, а пустий екземпляр класу - то хз чи можна
+//ААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААА
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!ХЕЛП!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //і метод deleteAccountById теж повертає...
+    @Override
+    public Account restoreById(UUID id) {
+        Optional<Account> account = accountRepository.findAccountById(id);
+        if (account.isPresent()){
+            account.get().setDeletedStatus(DeletedStatus.ACTIVE);
+            log.info("account restored");
+            return account.get();
+        } else {
+            log.error("account not found");
+            return new Account();
+        }
+    }
+
+    @Override
+    public List<Account> restoreAll() {
+        List<Account> accounts = accountRepository.findAccountsByDeletedStatus(DeletedStatus.DELETED);
+        accounts.forEach(account -> account.setDeletedStatus(DeletedStatus.ACTIVE));
+        return accounts;
+    }
+
+    //чи залишити цей метод тут, чи створити інтерфейс з дженеріками
+    //і різні реалізації для кожної сутності(або одну параметризовану)
+    //надалі планую використовувати його для відображення аккаунтів
+    // або інших сутностей які не є заблоковані, чи це зайве?
+    private boolean checkDeletedStatus(Account account){
+        return account.getDeletedStatus() == DeletedStatus.ACTIVE;
     }
 }

@@ -6,14 +6,14 @@ import com.banking.entity.entityEnumerations.AccountType;
 import com.banking.entity.entityEnumerations.CurrencyCode;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 public interface AccountService {
     Account createAccount(Account account);
+
+    List<Account> findAll();
 
     Optional<Account> findAccountById(UUID uuid);
 
@@ -29,13 +29,15 @@ public interface AccountService {
 
     List<Account> findAccountsByUpdatedAt(Timestamp dateUpdate);
 
-    Account updateAccountByClientId(UUID clientId, Account account);
-    Account updateAccountById(UUID id);
-    List<Account> updateAccountsByStatus(AccountStatus status);
+    Boolean updateAccountById(UUID id, Account accountFromDB);
 
-    Account deleteById(UUID id);
+    void updateStatusById(UUID id, AccountStatus status);
 
-    Account deleteAccountsByName(String name);
+    Account deleteAccountById(UUID id);
+
     List<Account> deleteAccountsByStatus(AccountStatus status);
+
+    Account restoreById(UUID id);
+    List<Account> restoreAll();
 
 }

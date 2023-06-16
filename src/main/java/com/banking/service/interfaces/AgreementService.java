@@ -8,8 +8,6 @@ public interface AgreementService {
 
     Agreement createAgreement(Agreement agreement);
 
-//    Optional<Agreement> findById(UUID uuid);
-//
     List<Agreement> findAgreementByInterestRate(Double interestRate);
 
 }
