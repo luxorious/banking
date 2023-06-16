@@ -33,7 +33,17 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<Account> findAll() {
-        log.info("get all accounts");
+        log.info("get all active accounts");
+        return accountRepository.findAccountsByDeletedStatus(DeletedStatus.ACTIVE);
+    }
+
+    @Override
+    public List<Account> showAllDeleted(){
+        return accountRepository.findAccountsByDeletedStatus(DeletedStatus.DELETED);
+    }
+
+    @Override
+    public List<Account> showAllAccountsForAdmin(){
         return accountRepository.findAll();
     }
 
@@ -110,7 +120,9 @@ public class AccountServiceImpl implements AccountService {
     public Account deleteAccountById(UUID id){
         Optional<Account> deletedAccount = accountRepository.findAccountById(id);
         if (deletedAccount.isPresent()){
-            deletedAccount.ifPresent(account -> account.setDeletedStatus(DeletedStatus.DELETED));
+            Account account = deletedAccount.get();
+            account.setDeletedStatus(DeletedStatus.DELETED);
+            accountRepository.save(account);
             log.info("delete account where UUID - " + id);
             return deletedAccount.get();
         } else {
@@ -157,4 +169,6 @@ public class AccountServiceImpl implements AccountService {
     private boolean checkDeletedStatus(Account account){
         return account.getDeletedStatus() == DeletedStatus.ACTIVE;
     }
+
+
 }

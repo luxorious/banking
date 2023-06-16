@@ -14,7 +14,8 @@ public interface AccountService {
     Account createAccount(Account account);
 
     List<Account> findAll();
-
+    List<Account> showAllDeleted();
+    List<Account> showAllAccountsForAdmin();
     Optional<Account> findAccountById(UUID uuid);
 
     List<Account> findAccountsByName(String name);

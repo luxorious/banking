@@ -51,7 +51,6 @@ public class AccountController {
     @GetMapping(value = "/get-all")
     @ResponseStatus(HttpStatus.OK)
     public List<Account> getAll(){
-        log.info("get alllllllllllllllll");
         return accountService.findAll();
     }
 

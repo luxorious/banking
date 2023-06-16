@@ -23,6 +23,7 @@ import org.springframework.data.annotation.CreatedDate;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -70,8 +71,8 @@ public class Account {
 
     @Column(name = "updated_at", nullable = false, columnDefinition = "DATE")
     @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Timestamp updatedAt;
-
 
     public Account(String name, Double balance) {
         this.name = name;
