@@ -7,6 +7,8 @@ import com.banking.entity.entityEnumerations.CurrencyCode;
 import com.banking.service.interfaces.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -17,48 +19,95 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/account")
 public class AccountController {
 
     private final AccountService accountService;
 
-    @GetMapping(value = "/account/{id}")
+    @GetMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Optional<Account> getAccountById(@PathVariable UUID id) {
         return accountService.findAccountById(id);
     }
 
     @PostMapping(value = "/create_account")
-    public void createAccount(@RequestBody Account account) {
-        accountService.createAccount(account);
+    @ResponseStatus(HttpStatus.OK)
+    public Account createAccount(@RequestBody Account account) {
         log.info("account " + account + " added");
+        return accountService.createAccount(account);
     }
 
     @GetMapping(value = "/accounts/{name}")
+    @ResponseStatus(HttpStatus.OK)
     public List<Account> findAccountsByName(@PathVariable String name) {
         return accountService.findAccountsByName(name);
     }
 
     @GetMapping(value = "/accounts/{status}")
+    @ResponseStatus(HttpStatus.OK)
     public List<Account> findAccountsByStatus(@PathVariable AccountStatus status) {
         return accountService.findAccountsByStatus(status);
     }
 
-    @GetMapping(value = "/account/{type}")
+    @GetMapping(value = "/{type}")
+    @ResponseStatus(HttpStatus.OK)
     public List<Account> findAccountsByType(@PathVariable AccountType type) {
         return accountService.findAccountsByType(type);
     }
 
-    @GetMapping(value = "/account/{currencyCode}")
+    @GetMapping(value = "/{currencyCode}")
+    @ResponseStatus(HttpStatus.OK)
     public List<Account> findAccountsByCurrencyCode(@PathVariable CurrencyCode currencyCode) {
         return accountService.findAccountsByCurrencyCode(currencyCode);
     }
 
-    @GetMapping(value = "/account/{dateCreation}")
+    @GetMapping(value = "/{dateCreation}")
+    @ResponseStatus(HttpStatus.OK)
     public List<Account> findAccountsByCreatedAt(@PathVariable Timestamp dateCreation) {
         return accountService.findAccountsByCreatedAt(dateCreation);
     }
 
-    @GetMapping(value = "/account/{dateUpdate}")
+    @GetMapping(value = "/{dateUpdate}")
+    @ResponseStatus(HttpStatus.OK)
     public List<Account> findAccountsByUpdatedAt(@PathVariable Timestamp dateUpdate) {
         return accountService.findAccountsByUpdatedAt(dateUpdate);
+    }
+
+    @PutMapping(value = "/update/{id}")
+    public ResponseEntity<Account> updateAccount(@PathVariable UUID id, @RequestBody Account accountFromFE){
+        if (accountService.updateAccountById(id, accountFromFE)){
+            return ResponseEntity.ok(accountFromFE);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping(value = "/update/status/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateStatusById(@PathVariable UUID id, @RequestParam AccountStatus status){
+        accountService.updateStatusById(id, status);
+    }
+
+    @DeleteMapping(value = "/delete/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Account deleteAccountById(@PathVariable UUID id){
+        return accountService.deleteAccountById(id);
+    }
+
+    @DeleteMapping(value = "/delete/status/{status}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Account> deleteAccountsByStatus(@PathVariable AccountStatus status){
+        return accountService.deleteAccountsByStatus(status);
+    }
+
+    @PutMapping(value = "/restore/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Account restoreById(@PathVariable UUID id){
+        return accountService.restoreById(id);
+    }
+
+    @PutMapping(value = "/restore/all")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Account> restoreAll(){
+        return accountService.restoreAll();
     }
 }
