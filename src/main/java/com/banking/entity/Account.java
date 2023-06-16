@@ -1,9 +1,6 @@
 package com.banking.entity;
 
-import com.banking.entity.entityEnumerations.AccountStatus;
-import com.banking.entity.entityEnumerations.AccountType;
-import com.banking.entity.entityEnumerations.ClientStatus;
-import com.banking.entity.entityEnumerations.CurrencyCode;
+import com.banking.entity.entityEnumerations.*;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -62,6 +59,11 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private CurrencyCode currencyCode;
 
+    @Column(name = "deleted_status")
+    @Enumerated(EnumType.STRING)
+    //як краще зробити щоб так було, чи у методі save entity - змінити це поле на DeletedStatus.ACTIVE
+    private DeletedStatus deletedStatus = DeletedStatus.ACTIVE;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
     private Timestamp createdAt;
@@ -69,6 +71,7 @@ public class Account {
     @Column(name = "updated_at", nullable = false, columnDefinition = "DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp updatedAt;
+
 
     public Account(String name, Double balance) {
         this.name = name;
