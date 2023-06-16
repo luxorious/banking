@@ -4,6 +4,7 @@ import com.banking.entity.Account;
 import com.banking.entity.entityEnumerations.AccountStatus;
 import com.banking.entity.entityEnumerations.AccountType;
 import com.banking.entity.entityEnumerations.CurrencyCode;
+import com.banking.entity.entityEnumerations.DeletedStatus;
 import io.micrometer.common.lang.NonNullApi;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -33,12 +34,12 @@ public interface AccountRepository extends JpaRepository<Account, UUID> {
 
     List<Account> findAccountsByUpdatedAt(Timestamp dateUpdate);
 
-    boolean updateAccountByClientId(UUID clientId);
-    void updateAccountById(UUID id);
-    List<Account> updateAccountsByStatus(AccountStatus status);
+    boolean updateAccountByClientId(UUID clientId, Account account);
+    void updateAccountById(UUID id, Account account);
 
-    void deleteById(UUID id);
+    Account deleteAccountById(UUID id);
 
-    void deleteAccountsByName(String name);
     List<Account> deleteAccountsByStatus(AccountStatus status);
+
+    List<Account> findAccountsByDeletedStatus(DeletedStatus deletedStatus);
 }
