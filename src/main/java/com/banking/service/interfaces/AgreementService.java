@@ -2,7 +2,7 @@ package com.banking.service.interfaces;
 
 import com.banking.entity.Agreement;
 import com.banking.entity.entityEnumerations.AgreementStatus;
-import com.banking.repository.AgreementRepository;
+
 
 import java.util.List;
 import java.util.UUID;
