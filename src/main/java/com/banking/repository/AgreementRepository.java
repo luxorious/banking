@@ -17,4 +17,6 @@ public interface AgreementRepository extends JpaRepository<Agreement, UUID> {
 
     List<Agreement> findAgreementByInterestRate(Double interestRate);
 
+    List<Agreement> findAgreementsByStatus(AgreementStatus status);
+
 }

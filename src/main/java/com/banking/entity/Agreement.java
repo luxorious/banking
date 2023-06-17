@@ -1,6 +1,7 @@
 package com.banking.entity;
 
 import com.banking.entity.entityEnumerations.AgreementStatus;
+import com.banking.entity.entityEnumerations.DeletedStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -47,6 +48,10 @@ public class Agreement {
 
     @Column(name = "agreement_sum")
     private Double sum;
+
+    @Column(name = "deleted_status")
+    @Enumerated(EnumType.STRING)
+    private DeletedStatus deletedStatus = DeletedStatus.ACTIVE;
 
     @Column(name = "created_at", updatable = false, nullable = false, columnDefinition = "DATE")
     @Temporal(TemporalType.TIMESTAMP)
