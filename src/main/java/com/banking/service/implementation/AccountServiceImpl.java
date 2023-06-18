@@ -92,8 +92,12 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Boolean updateAccountById(UUID id, Account accountFromFE) {
         Optional<Account> accountFromDB = accountRepository.findAccountById(id);
+        log.info("show akkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk " + accountFromDB);
+
         if (accountFromDB.isPresent()){
-            Account accountToUpdate = accountConverter.convertFields(accountFromDB.get(), accountFromFE);
+            Account account =accountFromDB.get();
+            log.info("sdfgjioerlsnglskenfuklsehgflhrselkuh " + account);
+            Account accountToUpdate = accountConverter.convertFields(account, accountFromFE);
             accountRepository.save(accountToUpdate);
             log.info("Account updated successfully for client ID: " + id);
             return true;

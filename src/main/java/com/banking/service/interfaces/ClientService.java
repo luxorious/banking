@@ -1,7 +1,10 @@
 package com.banking.service.interfaces;
 
+import com.banking.entity.Account;
 import com.banking.entity.Client;
+import com.banking.entity.entityEnumerations.AccountStatus;
 import com.banking.entity.entityEnumerations.ClientStatus;
+import com.banking.entity.entityEnumerations.DeletedStatus;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,5 +18,25 @@ public interface ClientService {
 
     Optional<Client> findClientByFirstNameAndLastName(String firstName, String lastName);
 
-    List<Client> findClientByStatus(ClientStatus status);
+    List<Client> findClientsByStatus(ClientStatus status);
+
+    Client editAgreement(UUID id, Client clientFE);
+
+    Client deleteClientById(UUID id);
+
+
+    List<Client> deleteClientsByStatus(ClientStatus status);
+
+    Client editEmailById(UUID id, String eMail);
+
+    Client editPhoneById(UUID id, String eMail);
+
+    //Admin
+    List<Client> findClientsByDeletedStatus(DeletedStatus deletedStatus);
+
+    Client restoreById(UUID id);
+    List<Client> restoreAll();
 }
+
+
+

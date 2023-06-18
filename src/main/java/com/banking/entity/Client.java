@@ -1,6 +1,7 @@
 package com.banking.entity;
 
 import com.banking.entity.entityEnumerations.ClientStatus;
+import com.banking.entity.entityEnumerations.DeletedStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -56,6 +57,10 @@ public class Client {
 
     @Column(name = "phone", length = 20)//, columnDefinition = "VARCHAR(20)")
     private String phone;
+
+    @Column(name = "deleted_status")
+    @Enumerated(EnumType.STRING)
+    private DeletedStatus deletedStatus = DeletedStatus.ACTIVE;
 
     @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "DATE")//,columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)

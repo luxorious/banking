@@ -48,6 +48,7 @@ public class AccountController {
     public List<Account> findAccountsByStatus(@PathVariable AccountStatus status) {
         return accountService.findAccountsByStatus(status);
     }
+
     @GetMapping(value = "/get-all")
     @ResponseStatus(HttpStatus.OK)
     public List<Account> getAll(){
@@ -78,9 +79,10 @@ public class AccountController {
         return accountService.findAccountsByUpdatedAt(dateUpdate);
     }
 
-    @PutMapping(value = "/update/{id}")
+   @PutMapping(value = "/update/{id}")
     public ResponseEntity<Account> updateAccount(@PathVariable UUID id, @RequestBody Account accountFromFE){
-        if (accountService.updateAccountById(id, accountFromFE)){
+        boolean update = accountService.updateAccountById(id, accountFromFE);
+        if (update){
             return ResponseEntity.ok(accountFromFE);
         }
         return ResponseEntity.notFound().build();

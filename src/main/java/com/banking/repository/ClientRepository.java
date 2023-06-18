@@ -1,8 +1,9 @@
 package com.banking.repository;
 
-import com.banking.entity.Agreement;
 import com.banking.entity.Client;
 import com.banking.entity.entityEnumerations.ClientStatus;
+import com.banking.entity.entityEnumerations.DeletedStatus;
+import io.micrometer.common.lang.NonNullApi;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
+@NonNullApi
 public interface ClientRepository extends JpaRepository<Client, UUID> {
 
     @Override
@@ -18,7 +20,10 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
 
     Optional<Client> findClientByFirstNameAndLastName(String firstName, String lastName);
 
-    List<Client> findClientByStatus(ClientStatus status);
+    List<Client> findClientsByStatus(ClientStatus status);
+
+    List<Client> findClientsByDeletedStatus(DeletedStatus deletedStatus);
+
 
 
 }

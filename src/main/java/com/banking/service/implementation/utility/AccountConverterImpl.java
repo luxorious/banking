@@ -5,7 +5,6 @@ import com.banking.service.interfaces.utility.Converter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 
@@ -16,38 +15,52 @@ public class AccountConverterImpl implements Converter<Account> {
     public Account copyObjects(Account accountFromDB) {
         Account accountCopy = new Account();
         try {
-            BeanUtils.copyProperties(accountCopy, accountFromDB);
+            BeanUtils.copyProperties(accountFromDB, accountCopy);
         } catch (Exception e){
             log.error("Wrong type of Account");
         }
+
         return accountCopy;
     }
 
+
     @Override
     public Account convertFields(Account accountFromDB, Account accountFromFE) {
+        String message = " was changed to ";
         Account account = copyObjects(accountFromDB);
-        if (!accountFromDB.getName().equalsIgnoreCase(accountFromFE.getName()) &&
-                accountFromFE.getName() != null){
+        if (accountFromFE.getName() != null &&
+                !accountFromDB.getName().equalsIgnoreCase(accountFromFE.getName())){
             account.setName(accountFromFE.getName());
-            log.info("name " + accountFromDB.getName() + " was changed to " + accountFromFE.getName());
+            log.info("account name " +
+                    message + accountFromFE.getName());
         }
 
-        if (accountFromDB.getType() != accountFromFE.getType() &&
-                accountFromFE.getType() != null){
+        if (accountFromFE.getType() != null &&
+                accountFromDB.getType() != accountFromFE.getType()){
             account.setType(accountFromFE.getType());
-            log.info("account type " + accountFromDB.getType() + " was changed to " + accountFromFE.getType());
+            log.info("account type " +
+                    message + accountFromFE.getType());
         }
 
-        if (accountFromDB.getStatus() != accountFromFE.getStatus() &&
-                accountFromFE.getStatus() != null){
+        if (accountFromFE.getStatus() != null &&
+                accountFromDB.getStatus() != accountFromFE.getStatus()){
             account.setStatus(accountFromFE.getStatus());
-            log.info("account status " + accountFromDB.getStatus() + " was changed to " + accountFromFE.getStatus());
+            log.info("account status " +
+                    message + accountFromFE.getStatus());
         }
-//чи потрібно взагалі змінювати валюту???!
-//        if (accountFromDB.getCurrencyCode() != accountFromFE.getCurrencyCode() &&
-//                accountFromFE.getCurrencyCode() != null){
-//            account.setCurrencyCode(accountFromFE.getCurrencyCode());
-//            log.info("account currency code " + accountFromDB.getStatus() + " was changed to " + accountFromFE.getStatus());
+
+        if (accountFromFE.getBalance() != null &&
+        !accountFromDB.getBalance().equals(accountFromFE.getBalance())){
+            account.setBalance(accountFromFE.getBalance());
+            log.info("account balance " +
+                    message + accountFromFE.getBalance());
+        }
+
+//        if (accountFromFE.getDeletedStatus() != null &&
+//        accountFromDB.getDeletedStatus().equals(accountFromFE.getDeletedStatus())){
+//            account.setDeletedStatus(accountFromFE.getDeletedStatus());
+//            log.info("deleted status " + accountFromDB.getDeletedStatus() +
+//                    message + accountFromFE.getDeletedStatus());
 //        }
 
         account.setUpdatedAt(new Timestamp(System.currentTimeMillis()));

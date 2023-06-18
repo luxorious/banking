@@ -14,8 +14,7 @@ public interface AccountService {
     Account createAccount(Account account);
 
     List<Account> findAll();
-    List<Account> showAllDeleted();
-    List<Account> showAllAccountsForAdmin();
+
     Optional<Account> findAccountById(UUID uuid);
 
     List<Account> findAccountsByName(String name);
@@ -39,6 +38,11 @@ public interface AccountService {
     List<Account> deleteAccountsByStatus(AccountStatus status);
 
     Account restoreById(UUID id);
+
     List<Account> restoreAll();
+
+    List<Account> showAllDeleted();
+
+    List<Account> showAllAccountsForAdmin();
 
 }

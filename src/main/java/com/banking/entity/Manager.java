@@ -1,5 +1,6 @@
 package com.banking.entity;
 
+import com.banking.entity.entityEnumerations.DeletedStatus;
 import com.banking.entity.entityEnumerations.ManagerStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,6 +45,10 @@ public class Manager {
 
     @Column(name = "manager_description")
     private String description;
+
+    @Column(name = "deleted_status")
+    @Enumerated(EnumType.STRING)
+    private DeletedStatus deletedStatus = DeletedStatus.ACTIVE;
 
     @Column(name = "created_at", columnDefinition = "DATE")
     @Temporal(TemporalType.TIMESTAMP)
