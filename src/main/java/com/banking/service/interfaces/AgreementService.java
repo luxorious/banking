@@ -9,6 +9,8 @@ import java.util.UUID;
 
 public interface AgreementService {
 
+    List<Agreement> findAll();
+
     Agreement createAgreement(Agreement agreement);
 
     List<Agreement> findAgreementByInterestRate(Double interestRate);
@@ -21,4 +23,5 @@ public interface AgreementService {
 
     Agreement changeSumById(UUID id, Double newSum);
 
+    List<Agreement> showDeleted();
 }

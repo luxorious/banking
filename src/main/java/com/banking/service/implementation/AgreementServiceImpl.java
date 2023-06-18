@@ -21,6 +21,12 @@ public class AgreementServiceImpl implements AgreementService {
 
     private final AgreementRepository agreementRepository;
     private final AgreementConverterImpl agreementConverter;
+
+    @Override
+    public List<Agreement> findAll() {
+        return agreementRepository.findAgreementsByDeletedStatus(DeletedStatus.ACTIVE);
+    }
+
     @Override
     public Agreement createAgreement(Agreement agreement) {
         return agreementRepository.save(agreement);
@@ -100,5 +106,10 @@ public class AgreementServiceImpl implements AgreementService {
             log.error("Agreement not found!");
             return new Agreement();
         }
+    }
+
+    @Override
+    public List<Agreement> showDeleted() {
+        return agreementRepository.findAgreementsByDeletedStatus(DeletedStatus.DELETED);
     }
 }
