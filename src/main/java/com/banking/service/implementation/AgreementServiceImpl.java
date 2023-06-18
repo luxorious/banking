@@ -111,6 +111,7 @@ public class AgreementServiceImpl implements AgreementService {
 
     @Override
     public List<Agreement> showDeleted() {
+        log.info("Show all deleted clients:");
         return agreementRepository.findAgreementsByDeletedStatus(DeletedStatus.DELETED);
     }
 }
