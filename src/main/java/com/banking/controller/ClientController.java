@@ -20,7 +20,7 @@ public class ClientController {
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.OK)
-    public Client createClient(Client client){
+    public Client createClient(@RequestBody Client client){
         return clientService.createClient(client);
     }
 
@@ -37,39 +37,39 @@ public class ClientController {
         return clientService.findClientByFirstNameAndLastName(firstName,lastName);
     }
 
-    @GetMapping("/create")
+    @GetMapping("/find/status/{status}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Client> findClientsByStatus(ClientStatus status){
+    public List<Client> findClientsByStatus(@PathVariable ClientStatus status){
         return clientService.findClientsByStatus(status);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/edit/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Client editClient(UUID id, Client clientFE){
+    public Client editClient(@PathVariable UUID id, @RequestBody Client clientFE){
         return clientService.editClient(id,clientFE);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Client deleteClientById(UUID id){
+    public Client deleteClientById(@PathVariable UUID id){
         return clientService.deleteClientById(id);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/delete/status/{status}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Client> deleteClientsByStatus(ClientStatus status){
+    public List<Client> deleteClientsByStatus(@PathVariable ClientStatus status){
         return clientService.deleteClientsByStatus(status);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/edit/e-mail/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Client editEmailById(UUID id, String eMail){
+    public Client editEmailById(@PathVariable UUID id, @RequestParam String eMail){
         return clientService.editEmailById(id, eMail);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/edit/phone/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Client editPhoneById(UUID id, String phone){
+    public Client editPhoneById(@PathVariable UUID id, @RequestParam String phone){
         return clientService.editPhoneById(id, phone);
     }
 

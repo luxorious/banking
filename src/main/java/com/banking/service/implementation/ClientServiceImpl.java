@@ -83,8 +83,9 @@ public class ClientServiceImpl implements ClientService {
     public Client editEmailById(UUID id, String eMail) {
         Optional<Client> clientFromDB = clientRepository.findById(id);
         if (clientFromDB.isPresent()) {
-            clientFromDB.get().setEmail(eMail);
-            clientRepository.save(clientFromDB.get());
+            Client client = clientFromDB.get();
+            client.setEmail(eMail);
+            clientRepository.save(client);
             log.info("Client's eMail successfully updated: " + id);
             return clientFromDB.get();
         } else {
