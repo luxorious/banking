@@ -1,6 +1,7 @@
 package com.banking.entity;
 
 import com.banking.entity.entityEnumerations.CurrencyCode;
+import com.banking.entity.entityEnumerations.DeletedStatus;
 import com.banking.entity.entityEnumerations.ProductStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -52,6 +53,10 @@ public class Product {
 
     @Column(name = "product_limit")
     private Double limit;//numeric(15,2) | limit of credit a product ( 0 - no limit, 0 < - limit which can be used) |
+
+    @Column(name = "deleted_status")
+    @Enumerated(EnumType.STRING)
+    private DeletedStatus deletedStatus = DeletedStatus.ACTIVE;
 
     @Column(name = "created_at", updatable = false, nullable = false, columnDefinition = "DATE")
     @Temporal(TemporalType.TIMESTAMP)
