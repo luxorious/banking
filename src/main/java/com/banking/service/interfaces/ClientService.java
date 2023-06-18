@@ -20,7 +20,7 @@ public interface ClientService {
 
     List<Client> findClientsByStatus(ClientStatus status);
 
-    Client editAgreement(UUID id, Client clientFE);
+    Client editClient(UUID id, Client clientFE);
 
     Client deleteClientById(UUID id);
 
@@ -29,7 +29,7 @@ public interface ClientService {
 
     Client editEmailById(UUID id, String eMail);
 
-    Client editPhoneById(UUID id, String eMail);
+    Client editPhoneById(UUID id, String phone);
 
     //Admin
     List<Client> findClientsByDeletedStatus(DeletedStatus deletedStatus);

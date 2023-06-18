@@ -43,7 +43,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client editAgreement(UUID id, Client clientFE) {
+    public Client editClient(UUID id, Client clientFE) {
         Optional<Client> clientFromDB = clientRepository.findById(id);
         if (clientFromDB.isPresent()) {
             Client clientToUpdate = clientConverter.convertFields(clientFromDB.get(), clientFE);
