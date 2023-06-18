@@ -117,9 +117,11 @@ public class ClientServiceImpl implements ClientService {
     public Client restoreById(UUID id) {
         Optional<Client> client = clientRepository.findById(id);
         if (client.isPresent()) {
-            client.get().setDeletedStatus(DeletedStatus.ACTIVE);
+            Client toRestore = client.get();
+            toRestore.setDeletedStatus(DeletedStatus.ACTIVE);
+            clientRepository.save(toRestore);
             log.info("client restored");
-            return client.get();
+            return toRestore;
         } else {
             log.error("client not found");
             return new Client();
@@ -130,6 +132,8 @@ public class ClientServiceImpl implements ClientService {
     public List<Client> restoreAll() {
         List<Client> clients = clientRepository.findClientsByDeletedStatus(DeletedStatus.DELETED);
         clients.forEach(client -> client.setDeletedStatus(DeletedStatus.ACTIVE));
+        clientRepository.saveAll(clients);
+        log.info("all deleted Clients are restored!");
         return clients;
     }
 }
