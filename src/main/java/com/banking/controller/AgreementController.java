@@ -29,9 +29,9 @@ public class AgreementController {
         return agreementService.findAll();
     }
 
-    @GetMapping(value = "/find-all")
+    @GetMapping(value = "/find/interest-rate/{interestRate}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Agreement> findAgreementByInterestRate(Double interestRate){
+    public List<Agreement> findAgreementByInterestRate(@PathVariable Double interestRate){
         return agreementService.findAgreementByInterestRate(interestRate);
     }
 

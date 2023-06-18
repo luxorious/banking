@@ -42,6 +42,7 @@ public class AgreementServiceImpl implements AgreementService {
         Optional<Agreement> agreement = agreementRepository.findById(id);
         if (agreement.isPresent()){
             Agreement changedAgreement = agreementConverter.convertFields(agreement.get(), agreementFE);
+            agreementRepository.save(changedAgreement);
             log.info("agreement changed!");
             return changedAgreement;
         } else {
