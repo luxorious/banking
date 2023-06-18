@@ -16,7 +16,7 @@ public class ClientConverterImpl implements Converter<Client> {
         Client clientCopy = new Client();
         try {
             BeanUtils.copyProperties(clientCopy, clientFromDB);
-        } catch (Exception e){
+        } catch (Exception e) {
             log.error("Wrong type of Account");
         }
         return clientCopy;
@@ -26,41 +26,54 @@ public class ClientConverterImpl implements Converter<Client> {
     @Override
     public Client convertFields(Client clientFromDB, Client clientFromFE) {
         Client client = copyObjects(clientFromDB);
+        String message = " was changed to ";
 
-        if (clientFromDB.getStatus() != clientFromFE.getStatus() &&
-                clientFromFE.getStatus() != null){
+        if (clientFromFE.getStatus() != null && clientFromDB.getStatus() != clientFromFE.getStatus()) {
             client.setStatus(clientFromFE.getStatus());
-            log.info("client's status" + clientFromDB.getStatus() + " was changed to " + clientFromFE.getStatus());
+            log.info("client's status" +
+                    message + clientFromFE.getStatus());
         }
 
-        if (!clientFromDB.getTaxCode().equalsIgnoreCase(clientFromFE.getTaxCode()) &&
-                clientFromFE.getTaxCode() != null){
+        if (clientFromFE.getTaxCode() != null &&
+                !clientFromDB.getTaxCode().equalsIgnoreCase(clientFromFE.getTaxCode())) {
             client.setTaxCode(clientFromFE.getTaxCode());
-            log.info("client's tax code " + clientFromDB.getTaxCode() + " was changed to " + clientFromFE.getTaxCode());
+            log.info("client's tax code " +
+                    message + clientFromFE.getTaxCode());
         }
 
-        if (!clientFromDB.getLastName().equalsIgnoreCase(clientFromFE.getLastName()) &&
-                clientFromFE.getLastName() != null){
+        if (clientFromFE.getFirstName() != null &&
+                !clientFromDB.getFirstName().equalsIgnoreCase(clientFromFE.getFirstName())) {
+            client.setFirstName(clientFromFE.getFirstName());
+            log.info("client's last name " +
+                    message + clientFromFE.getFirstName());
+        }
+
+        if (clientFromFE.getLastName() != null &&
+                !clientFromDB.getLastName().equalsIgnoreCase(clientFromFE.getLastName())) {
             client.setLastName(clientFromFE.getLastName());
-            log.info("client's last name " + clientFromDB.getLastName() + " was changed to " + clientFromFE.getLastName());
+            log.info("client's last name " +
+                    message + clientFromFE.getLastName());
         }
 
-        if (!clientFromDB.getEmail().equalsIgnoreCase(clientFromFE.getEmail()) &&
-                clientFromFE.getEmail() != null){
+        if (clientFromFE.getEmail() != null &&
+                !clientFromDB.getEmail().equalsIgnoreCase(clientFromFE.getEmail())) {
             client.setEmail(clientFromFE.getEmail());
-            log.info("client's E-mail " + clientFromDB.getEmail() + " was changed to " + clientFromFE.getEmail());
+            log.info("client's E-mail " +
+                    message + clientFromFE.getEmail());
         }
 
-        if (!clientFromDB.getAddress().equalsIgnoreCase(clientFromFE.getAddress()) &&
-                clientFromFE.getAddress() != null){
+        if (clientFromFE.getAddress() != null &&
+                !clientFromDB.getAddress().equalsIgnoreCase(clientFromFE.getAddress())) {
             client.setAddress(clientFromFE.getAddress());
-            log.info("client's address " + clientFromDB.getAddress() + " was changed to " + clientFromFE.getAddress());
+            log.info("client's address " +
+                    message + clientFromFE.getAddress());
         }
 
-        if (!clientFromDB.getPhone().equalsIgnoreCase(clientFromFE.getPhone()) &&
-                clientFromFE.getPhone() != null){
+        if (clientFromFE.getPhone() != null &&
+                !clientFromDB.getPhone().equalsIgnoreCase(clientFromFE.getPhone())) {
             client.setPhone(clientFromFE.getPhone());
-            log.info("client's phone " + clientFromDB.getPhone() + " was changed to " + clientFromFE.getPhone());
+            log.info("client's phone " +
+                    message + clientFromFE.getPhone());
         }
 
         client.setUpdatedAt(new Timestamp(System.currentTimeMillis()));

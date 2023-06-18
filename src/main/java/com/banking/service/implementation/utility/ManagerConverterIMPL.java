@@ -1,15 +1,11 @@
 package com.banking.service.implementation.utility;
 
 
-import com.banking.entity.Agreement;
 import com.banking.entity.Manager;
 import com.banking.service.interfaces.utility.Converter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
-
-import java.lang.annotation.Annotation;
-import java.sql.Timestamp;
 
 @Slf4j
 @Component
@@ -21,7 +17,7 @@ public class ManagerConverterIMPL implements Converter<Manager> {
         Manager managerCopy = new Manager();
         try {
             BeanUtils.copyProperties(managerCopy, managerFromDB);
-        } catch (Exception e){
+        } catch (Exception e) {
             log.error("Wrong type of agreement");
         }
         return managerCopy;
@@ -31,28 +27,34 @@ public class ManagerConverterIMPL implements Converter<Manager> {
     public Manager convertFields(Manager managerFromDB, Manager managerFromFE) {
         Manager manager = copyObjects(managerFromDB);
 
-        if (managerFromDB.getStatus() != managerFromFE.getStatus() &&
-                managerFromFE.getStatus() != null){
+        if (managerFromFE.getStatus() != null &&
+                managerFromDB.getStatus() != managerFromFE.getStatus()) {
             manager.setStatus(managerFromFE.getStatus());
-            log.info("manager status" + managerFromDB.getStatus() + " was changed to " + managerFromFE.getStatus());
+            log.info("manager status was changed to " + managerFromFE.getStatus());
         }
 
-        if (!managerFromDB.getFirstName().equalsIgnoreCase(managerFromFE.getFirstName()) &&
-                managerFromFE.getFirstName() != null){
+        if (managerFromFE.getFirstName() != null &&
+                !managerFromDB.getFirstName().equals(managerFromFE.getFirstName())) {
             manager.setFirstName(managerFromFE.getFirstName());
-            log.info("manager first name  " + managerFromDB.getFirstName() + " was changed to " + managerFromFE.getFirstName());
+            log.info("manager first name was changed to " + managerFromFE.getFirstName());
         }
 
-        if (!managerFromDB.getLastName().equalsIgnoreCase(managerFromFE.getLastName()) &&
-                managerFromFE.getLastName() != null){
+        if (managerFromFE.getLastName() != null &&
+                !managerFromDB.getLastName().equalsIgnoreCase(managerFromFE.getLastName())) {
             manager.setLastName(managerFromFE.getLastName());
-            log.info("manager last name " + managerFromDB.getLastName() + " was changed to " + managerFromFE.getLastName());
+            log.info("manager last name was changed to " + managerFromFE.getLastName());
         }
 
-        if (!managerFromDB.getDescription().equalsIgnoreCase(managerFromFE.getDescription()) &&
-                managerFromFE.getDescription() != null){
+        if (managerFromFE.getDescription() != null &&
+                !managerFromDB.getDescription().equalsIgnoreCase(managerFromFE.getDescription())) {
             manager.setDescription(managerFromFE.getDescription());
-            log.info("manager description " + managerFromDB.getDescription() + " was changed to " + managerFromFE.getDescription());
+            log.info("manager description was changed to " + managerFromFE.getDescription());
+        }
+
+        if (managerFromFE.getDeletedStatus() != null &&
+                managerFromDB.getDeletedStatus() != managerFromFE.getDeletedStatus()) {
+            manager.setDeletedStatus(managerFromFE.getDeletedStatus());
+            log.info("manager status was changed to " + managerFromFE.getDeletedStatus());
         }
 
         return manager;

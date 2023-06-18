@@ -26,30 +26,28 @@ public class ProductConverterImpl implements Converter<Product> {
     public Product convertFields(Product productFromDB, Product productFromFE) {
         Product product = copyObjects(productFromDB);
 
-        if (!productFromDB.getName().equalsIgnoreCase(productFromFE.getName()) &&
-                productFromFE.getName() != null){
+        if (productFromFE.getName() != null &&
+                !productFromDB.getName().equals(productFromFE.getName())){
             product.setName(productFromDB.getName());
             log.info("product name " + productFromDB.getName() + " was changed to " + productFromDB.getName());
         }
 
-        if (productFromDB.getInterestRate() != productFromFE.getInterestRate() &&
-                productFromFE.getInterestRate() != null){
+        if (productFromFE.getInterestRate() != null &&
+                !productFromDB.getInterestRate().equals(productFromFE.getInterestRate())){
             product.setInterestRate(productFromFE.getInterestRate());
-            log.info("interest rate " + productFromDB.getInterestRate() +
-                    " was changed to " + productFromFE.getInterestRate());
+            log.info("interest rate was changed to " + productFromFE.getInterestRate());
         }
 
-        if (productFromDB.getStatus() != productFromFE.getStatus() &&
-                productFromFE.getStatus() != null){
+        if (productFromFE.getStatus() != null &&
+                productFromDB.getStatus() != productFromFE.getStatus()){
             product.setStatus(productFromFE.getStatus());
-            log.info("account status " + productFromDB.getStatus() + " was changed to " + productFromFE.getStatus());
+            log.info("account status was changed to " + productFromFE.getStatus());
         }
 
-        if (productFromDB.getLimit() != productFromFE.getLimit() &&
-                productFromFE.getLimit() != null){
+        if (productFromFE.getLimit() != null &&
+                productFromDB.getLimit().equals(productFromFE.getLimit())){
             product.setLimit(productFromFE.getLimit());
-            log.info("limit " + productFromDB.getLimit() +
-                    " was changed to " + productFromFE.getLimit());
+            log.info("limit was changed to " + productFromFE.getLimit());
         }
 
         product.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
@@ -57,7 +55,3 @@ public class ProductConverterImpl implements Converter<Product> {
         return product;
     }
 }
-
-//    @Column(name = "updated_at", updatable = false, nullable = false, columnDefinition = "DATE")
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Timestamp updatedAt;

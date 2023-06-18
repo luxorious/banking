@@ -26,24 +26,26 @@ public class AgreementConverterImpl implements Converter<Agreement> {
     @Override
     public Agreement convertFields(Agreement agreementFromDB, Agreement agreementFromFE) {
         Agreement agreement = copyObjects(agreementFromDB);
-
-        if (agreementFromDB.getInterestRate() != agreementFromFE.getInterestRate() &&
-                agreementFromFE.getInterestRate() != null){
+        String message = " was changed to ";
+        if (agreementFromFE.getInterestRate() != null &&
+                !agreementFromDB.getInterestRate().equals(agreementFromFE.getInterestRate())){
             agreement.setInterestRate(agreementFromFE.getInterestRate());
-            log.info("interest rate " + agreementFromDB.getInterestRate() +
-                    " was changed to " + agreementFromFE.getInterestRate());
+            log.info("interest rate " +
+                    message + agreementFromFE.getInterestRate());
         }
 
-        if (agreementFromDB.getStatus() != agreementFromFE.getStatus() &&
-                agreementFromFE.getStatus() != null){
+        if (agreementFromFE.getStatus() != null &&
+                agreementFromDB.getStatus() != agreementFromFE.getStatus()){
             agreement.setStatus(agreementFromFE.getStatus());
-            log.info("agreement status" + agreementFromDB.getStatus() + " was changed to " + agreementFromFE.getStatus());
+            log.info("agreement status" +
+                    message + agreementFromFE.getStatus());
         }
 
-        if (agreementFromDB.getSum() != agreementFromFE.getSum() &&
-                agreementFromFE.getSum() != null){
+        if (agreementFromFE.getSum() != null &&
+                !agreementFromDB.getSum().equals(agreementFromFE.getSum())){
             agreement.setSum(agreementFromFE.getSum());
-            log.info("agreement sum " + agreementFromDB.getStatus() + " was changed to " + agreementFromFE.getStatus());
+            log.info("agreement sum " +
+                    message + agreementFromFE.getStatus());
         }
 
         agreement.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
