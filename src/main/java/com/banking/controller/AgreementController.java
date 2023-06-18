@@ -24,31 +24,37 @@ public class AgreementController {
     }
 
     @GetMapping(value = "/find-all")
+    @ResponseStatus(HttpStatus.OK)
     public List<Agreement> findAll(){
         return agreementService.findAll();
     }
 
     @GetMapping(value = "/find-all")
+    @ResponseStatus(HttpStatus.OK)
     public List<Agreement> findAgreementByInterestRate(Double interestRate){
         return agreementService.findAgreementByInterestRate(interestRate);
     }
 
     @PostMapping(value = "/edit/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Agreement editAgreement(@PathVariable UUID id, @RequestBody Agreement agreementFE){
         return agreementService.editAgreement(id,agreementFE);
     }
 
     @DeleteMapping(value = "/delete/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Agreement deleteAgreementById(@PathVariable UUID id){
         return agreementService.deleteAgreementById(id);
     }
 
     @DeleteMapping(value = "/delete/all-by-status/{status}")
+    @ResponseStatus(HttpStatus.OK)
     public List<Agreement> deleteAgreementsByStatus(@PathVariable AgreementStatus status){
         return agreementService.deleteAgreementsByStatus(status);
     }
 
     @PutMapping(value = "/edit/sum/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Agreement changeSumById(@PathVariable UUID id, @RequestParam Double newSum){
         return agreementService.changeSumById(id, newSum);
     }
