@@ -92,11 +92,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Boolean updateAccountById(UUID id, Account accountFromFE) {
         Optional<Account> accountFromDB = accountRepository.findAccountById(id);
-        log.info("show akkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk " + accountFromDB);
-
         if (accountFromDB.isPresent()){
             Account account =accountFromDB.get();
-            log.info("sdfgjioerlsnglskenfuklsehgflhrselkuh " + account);
             Account accountToUpdate = accountConverter.convertFields(account, accountFromFE);
             accountRepository.save(accountToUpdate);
             log.info("Account updated successfully for client ID: " + id);
@@ -150,9 +147,11 @@ public class AccountServiceImpl implements AccountService {
     public Account restoreById(UUID id) {
         Optional<Account> account = accountRepository.findAccountById(id);
         if (account.isPresent()){
-            account.get().setDeletedStatus(DeletedStatus.ACTIVE);
+            Account accountToRestore = account.get();
+            accountToRestore.setDeletedStatus(DeletedStatus.ACTIVE);
+            accountRepository.save(accountToRestore);
             log.info("account restored");
-            return account.get();
+            return accountToRestore;
         } else {
             log.error("account not found");
             return new Account();
@@ -163,6 +162,7 @@ public class AccountServiceImpl implements AccountService {
     public List<Account> restoreAll() {
         List<Account> accounts = accountRepository.findAccountsByDeletedStatus(DeletedStatus.DELETED);
         accounts.forEach(account -> account.setDeletedStatus(DeletedStatus.ACTIVE));
+        accountRepository.saveAll(accounts);
         return accounts;
     }
 
