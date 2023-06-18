@@ -139,10 +139,7 @@ public class AccountServiceImpl implements AccountService {
         log.info("deleting accounts where Account Status - " + status);
         return accounts;
     }
-//що трясця його матері тут повертати? нулл не можна, бо впаде, а пустий екземпляр класу - то хз чи можна
-//ААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААА
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!ХЕЛП!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //і метод deleteAccountById теж повертає...
+
     @Override
     public Account restoreById(UUID id) {
         Optional<Account> account = accountRepository.findAccountById(id);

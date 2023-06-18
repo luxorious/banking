@@ -1,8 +1,6 @@
 package com.banking.service.interfaces;
 
-import com.banking.entity.Account;
 import com.banking.entity.Client;
-import com.banking.entity.entityEnumerations.AccountStatus;
 import com.banking.entity.entityEnumerations.ClientStatus;
 import com.banking.entity.entityEnumerations.DeletedStatus;
 

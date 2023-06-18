@@ -1,9 +1,7 @@
 package com.banking.service.interfaces;
 
-import com.banking.entity.Manager;
 import com.banking.entity.Product;
 import com.banking.entity.entityEnumerations.CurrencyCode;
-import com.banking.entity.entityEnumerations.ManagerStatus;
 import com.banking.entity.entityEnumerations.ProductStatus;
 
 import java.util.List;

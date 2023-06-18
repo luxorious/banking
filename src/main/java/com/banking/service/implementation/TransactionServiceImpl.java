@@ -28,12 +28,17 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<Transaction> findTransactionByType(TransactionType type) {
-        return transactionRepository.findTransactionByType(type);
+    public List<Transaction> findTransactionsByType(TransactionType type) {
+        return transactionRepository.findTransactionsByType(type);
     }
 
     @Override
-    public List<Transaction> findTransactionByAmount(Double amount) {
-        return transactionRepository.findTransactionByAmount(amount);
+    public List<Transaction> findTransactionsByAmount(Double amount) {
+        return transactionRepository.findTransactionsByAmount(amount);
+    }
+
+    @Override
+    public List<Transaction> findTransactionsByDescription(String description) {
+        return transactionRepository.findTransactionsByDescription(description);
     }
 }

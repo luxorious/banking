@@ -12,7 +12,9 @@ public interface TransactionService {
 
     Optional<Transaction> findById(UUID uuid);
 
-    List<Transaction> findTransactionByType(TransactionType type);
+    List<Transaction> findTransactionsByType(TransactionType type);
 
-    List<Transaction> findTransactionByAmount(Double amount);
+    List<Transaction> findTransactionsByAmount(Double amount);
+
+    List<Transaction> findTransactionsByDescription(String description);
 }

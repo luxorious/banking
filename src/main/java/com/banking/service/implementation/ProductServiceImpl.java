@@ -1,7 +1,5 @@
 package com.banking.service.implementation;
 
-import com.banking.entity.Account;
-import com.banking.entity.Manager;
 import com.banking.entity.Product;
 import com.banking.entity.entityEnumerations.CurrencyCode;
 import com.banking.entity.entityEnumerations.DeletedStatus;
