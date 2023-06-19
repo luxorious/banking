@@ -44,7 +44,7 @@ public class Transaction {
     @Column(name = "transaction_amount", precision = 20, scale = 2) //numeric(12,2)
     private BigDecimal amount;
 
-    @Column(name = "transaction_description", length = 255)
+    @Column(name = "transaction_description", length = 254)
     private String description;
 
     @Column(name = "created_at", columnDefinition = "DATE")

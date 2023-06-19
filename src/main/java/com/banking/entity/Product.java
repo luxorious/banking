@@ -48,10 +48,10 @@ public class Product {
     private CurrencyCode currencyCode;
 
     @Column(name = "interest_rate", precision = 20, scale = 2)
-    private BigDecimal interestRate; //numeric(6,4) | interest rate of product |
+    private BigDecimal interestRate;
 
     @Column(name = "product_limit", precision = 20, scale = 2)
-    private BigDecimal limit;//numeric(15,2) | limit of credit a product ( 0 - no limit, 0 < - limit which can be used) |
+    private BigDecimal limit;
 
     @Column(name = "deleted_status")
     @Enumerated(EnumType.STRING)
@@ -64,4 +64,9 @@ public class Product {
     @Column(name = "updated_at", updatable = false, nullable = false, columnDefinition = "DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp updatedAt;
+
+    public boolean checkDeletedStatus(){
+        return getDeletedStatus() == DeletedStatus.ACTIVE;
+    }
+
 }

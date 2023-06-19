@@ -26,20 +26,20 @@ public class AccountConverterImpl implements Converter<Account> {
 
     @Override
     public Account convertFields(Account accountFromDB, Account accountFromFE) {
-        String message = " was changed to ";
+        String message = " was changed to ";//NOSONAR
         Account account = copyObjects(accountFromDB);
         if (accountFromFE.getName() != null &&
                 !accountFromDB.getName().equalsIgnoreCase(accountFromFE.getName())){
             account.setName(accountFromFE.getName());
             log.info("account name " +
-                    message + accountFromFE.getName());
+                    " was changed to " + accountFromFE.getName());
         }
 
         if (accountFromFE.getType() != null &&
                 accountFromDB.getType() != accountFromFE.getType()){
             account.setType(accountFromFE.getType());
             log.info("account type " +
-                    message + accountFromFE.getType());
+                    " was changed to " + accountFromFE.getType());//NOSONAR
         }
 
         if (accountFromFE.getStatus() != null &&
@@ -56,12 +56,6 @@ public class AccountConverterImpl implements Converter<Account> {
                     message + accountFromFE.getBalance());
         }
 
-//        if (accountFromFE.getDeletedStatus() != null &&
-//        accountFromDB.getDeletedStatus().equals(accountFromFE.getDeletedStatus())){
-//            account.setDeletedStatus(accountFromFE.getDeletedStatus());
-//            log.info("deleted status " + accountFromDB.getDeletedStatus() +
-//                    message + accountFromFE.getDeletedStatus());
-//        }
 
         account.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
 

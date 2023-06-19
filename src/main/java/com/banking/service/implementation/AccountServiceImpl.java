@@ -163,13 +163,7 @@ public class AccountServiceImpl implements AccountService {
         return accounts;
     }
 
-    //чи залишити цей метод тут, чи створити інтерфейс з дженеріками
-    //і різні реалізації для кожної сутності(або одну параметризовану)
-    //надалі планую використовувати його для відображення аккаунтів
-    // або інших сутностей які не є заблоковані, чи це зайве?
-    private boolean checkDeletedStatus(Account account){
-        return account.getDeletedStatus() == DeletedStatus.ACTIVE;
-    }
+
 
 
 }

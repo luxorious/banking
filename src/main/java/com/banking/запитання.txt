@@ -8,10 +8,6 @@ AgreementServiceImpl - 33
 
 updateAccountById(UUID id); - як працює цей метод в  як замінити тут дані? аккаунт репозіторі
 
-чому не можна в мапінгах використовувати напр
-@GetMapping("/home/{id}"
-@GetMapping("/home/{status}"???
-
 
  @GetMapping("/find/id/{id}")
     @ResponseStatus(HttpStatus.OK)

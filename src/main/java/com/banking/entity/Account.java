@@ -30,11 +30,8 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;//String
 
-//    @Column(name = "client_id")
-//    private UUID clientId;
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
+    @Column(name = "client_id")
+    private UUID clientId;
 
     @Column(name = "account_name", length = 100)
     private String name;
@@ -47,7 +44,7 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private AccountStatus status;
 
-    @Column(name = "account_balance", precision = 15, scale = 2)//, columnDefinition = "NUMERIC(15,2)")
+    @Column(name = "account_balance", precision = 15, scale = 2)
     private BigDecimal balance;
 
     @Column(name = "currency_code")
@@ -56,7 +53,7 @@ public class Account {
 
     @Column(name = "deleted_status")
     @Enumerated(EnumType.STRING)
-    //як краще зробити щоб так було, чи у методі save entity - змінити це поле на DeletedStatus.ACTIVE
+    //sdfghjkl;lkjhgfds
     private DeletedStatus deletedStatus = DeletedStatus.ACTIVE;
 
     @Column(name = "created_at", nullable = false, updatable = false)
