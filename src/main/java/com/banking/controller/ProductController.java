@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -45,13 +46,13 @@ public class ProductController {
 
     @GetMapping("/find/all/interest-rate")
     @ResponseStatus(HttpStatus.OK)
-    public List<Product> findProductsByInterestRate(@RequestParam Double interestRate){
+    public List<Product> findProductsByInterestRate(@RequestParam BigDecimal interestRate){
         return productService.findProductsByInterestRate(interestRate);
     }
 
     @GetMapping("/find/all/limit")
     @ResponseStatus(HttpStatus.OK)
-    public List<Product> findProductsByLimit(@RequestParam Double limit){
+    public List<Product> findProductsByLimit(@RequestParam BigDecimal limit){
        return productService.findProductsByLimit(limit);
     }
 

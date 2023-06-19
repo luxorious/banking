@@ -7,6 +7,7 @@ import io.micrometer.common.lang.NonNullApi;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -16,7 +17,7 @@ import java.util.UUID;
 public interface AgreementRepository extends JpaRepository<Agreement, UUID> {
     Optional<Agreement> findById(UUID uuid);
 
-    List<Agreement> findAgreementByInterestRate(Double interestRate);
+    List<Agreement> findAgreementByInterestRate(BigDecimal interestRate);
 
     List<Agreement> findAgreementsByStatus(AgreementStatus status);
 

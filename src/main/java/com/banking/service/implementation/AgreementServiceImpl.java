@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -33,7 +34,7 @@ public class AgreementServiceImpl implements AgreementService {
     }
 
     @Override
-    public List<Agreement> findAgreementByInterestRate(Double interestRate) {
+    public List<Agreement> findAgreementByInterestRate(BigDecimal interestRate) {
         return agreementRepository.findAgreementByInterestRate(interestRate);
     }
 
@@ -77,7 +78,7 @@ public class AgreementServiceImpl implements AgreementService {
     }
 
     @Override
-    public Agreement changeSumById(UUID id, Double newSum) {
+    public Agreement changeSumById(UUID id, BigDecimal newSum) {
         Optional<Agreement> agreement = agreementRepository.findById(id);
         if (agreement.isPresent()){
             Agreement changedAgreement = agreement.get();

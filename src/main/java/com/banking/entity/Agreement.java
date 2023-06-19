@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -37,15 +38,15 @@ public class Agreement {
     @Column(name = "product_id")
     private UUID productId;
 
-    @Column(name = "interest_rate")
-    private Double interestRate;
+    @Column(name = "interest_rate", precision = 20, scale = 2)
+    private BigDecimal interestRate;
 
     @Column(name = "agreement_status")
     @Enumerated(EnumType.STRING)
     private AgreementStatus status;
 
-    @Column(name = "agreement_sum")
-    private Double sum;
+    @Column(name = "agreement_sum", precision = 20, scale = 2)
+    private BigDecimal sum;
 
     @Column(name = "deleted_status")
     @Enumerated(EnumType.STRING)

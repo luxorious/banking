@@ -1,16 +1,7 @@
 package com.banking.entity;
 
 import com.banking.entity.entityEnumerations.*;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,8 +30,11 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;//String
 
-    @Column(name = "client_id")
-    private UUID clientId;
+//    @Column(name = "client_id")
+//    private UUID clientId;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
 
     @Column(name = "account_name", length = 100)
     private String name;
@@ -53,8 +47,8 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private AccountStatus status;
 
-    @Column(name = "account_balance")//, columnDefinition = "NUMERIC(15,2)")
-    private Double balance;
+    @Column(name = "account_balance", precision = 15, scale = 2)//, columnDefinition = "NUMERIC(15,2)")
+    private BigDecimal balance;
 
     @Column(name = "currency_code")
     @Enumerated(EnumType.STRING)
@@ -74,7 +68,8 @@ public class Account {
     @CreationTimestamp
     private Timestamp updatedAt;
 
-    public Account(String name, Double balance) {
+
+    public Account(String name, BigDecimal balance) {
         this.name = name;
         this.balance = balance;
     }

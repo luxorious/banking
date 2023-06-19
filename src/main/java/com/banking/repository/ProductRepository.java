@@ -8,6 +8,7 @@ import io.micrometer.common.lang.NonNullApi;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -22,9 +23,9 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     List<Product> findProductsByCurrencyCode(CurrencyCode currencyCode);
 
-    List<Product> findProductsByInterestRate(Double interestRate);
+    List<Product> findProductsByInterestRate(BigDecimal interestRate);
 
-    List<Product> findProductsByLimit(Double limit);
+    List<Product> findProductsByLimit(BigDecimal limit);
 
     List<Product> findProductByDeletedStatus(DeletedStatus deletedStatus);
 }

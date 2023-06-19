@@ -4,6 +4,7 @@ import com.banking.entity.Product;
 import com.banking.entity.entityEnumerations.CurrencyCode;
 import com.banking.entity.entityEnumerations.ProductStatus;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -18,9 +19,9 @@ public interface ProductService {
 
     List<Product> findProductsByCurrencyCode(CurrencyCode currencyCode);
 
-    List<Product> findProductsByInterestRate(Double interestRate);
+    List<Product> findProductsByInterestRate(BigDecimal interestRate);
 
-    List<Product> findProductsByLimit(Double limit);
+    List<Product> findProductsByLimit(BigDecimal limit);
 
     Boolean updateProductById(UUID id, Product productFromFE);
 

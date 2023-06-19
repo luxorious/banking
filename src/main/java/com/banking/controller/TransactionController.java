@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -38,7 +39,7 @@ public class TransactionController {
 
     @GetMapping("/find/amount")
     @ResponseStatus(HttpStatus.OK)
-    public List<Transaction> findTransactionsByAmount(@RequestParam Double amount) {
+    public List<Transaction> findTransactionsByAmount(@RequestParam BigDecimal amount) {
         return transactionService.findTransactionsByAmount(amount);
     }
 

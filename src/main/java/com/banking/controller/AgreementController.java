@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,7 +32,7 @@ public class AgreementController {
 
     @GetMapping(value = "/find/interest-rate/{interestRate}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Agreement> findAgreementByInterestRate(@PathVariable Double interestRate){
+    public List<Agreement> findAgreementByInterestRate(@PathVariable BigDecimal interestRate){
         return agreementService.findAgreementByInterestRate(interestRate);
     }
 
@@ -55,7 +56,7 @@ public class AgreementController {
 
     @PutMapping(value = "/edit/sum/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Agreement changeSumById(@PathVariable UUID id, @RequestParam Double newSum){
+    public Agreement changeSumById(@PathVariable UUID id, @RequestParam BigDecimal newSum){
         return agreementService.changeSumById(id, newSum);
     }
 }

@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -46,11 +47,11 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private CurrencyCode currencyCode;
 
-    @Column(name = "interest_rate")
-    private Double interestRate; //numeric(6,4) | interest rate of product |
+    @Column(name = "interest_rate", precision = 20, scale = 2)
+    private BigDecimal interestRate; //numeric(6,4) | interest rate of product |
 
-    @Column(name = "product_limit")
-    private Double limit;//numeric(15,2) | limit of credit a product ( 0 - no limit, 0 < - limit which can be used) |
+    @Column(name = "product_limit", precision = 20, scale = 2)
+    private BigDecimal limit;//numeric(15,2) | limit of credit a product ( 0 - no limit, 0 < - limit which can be used) |
 
     @Column(name = "deleted_status")
     @Enumerated(EnumType.STRING)

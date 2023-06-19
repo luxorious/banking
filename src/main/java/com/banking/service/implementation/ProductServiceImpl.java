@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -48,12 +49,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findProductsByInterestRate(Double interestRate) {
+    public List<Product> findProductsByInterestRate(BigDecimal interestRate) {
         return productRepository.findProductsByInterestRate(interestRate);
     }
 
     @Override
-    public List<Product> findProductsByLimit(Double limit) {
+    public List<Product> findProductsByLimit(BigDecimal limit) {
         log.info("find all products where limit = " + limit);
         return productRepository.findProductsByLimit(limit);
     }

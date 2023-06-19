@@ -7,6 +7,7 @@ import com.banking.service.interfaces.TransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -33,7 +34,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<Transaction> findTransactionsByAmount(Double amount) {
+    public List<Transaction> findTransactionsByAmount(BigDecimal amount) {
         return transactionRepository.findTransactionsByAmount(amount);
     }
 

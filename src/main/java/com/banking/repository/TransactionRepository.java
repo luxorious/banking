@@ -6,6 +6,7 @@ import io.micrometer.common.lang.NonNullApi;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -19,7 +20,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
 
     List<Transaction> findTransactionsByType(TransactionType type);
 
-    List<Transaction> findTransactionsByAmount(Double amount);
+    List<Transaction> findTransactionsByAmount(BigDecimal amount);
 
     List<Transaction> findTransactionsByDescription(String description);
 

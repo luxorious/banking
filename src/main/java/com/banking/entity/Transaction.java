@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -40,8 +41,8 @@ public class Transaction {
     @Enumerated(EnumType.STRING)
     private TransactionType type;
 
-    @Column(name = "transaction_amount") //numeric(12,2)
-    private Double amount;
+    @Column(name = "transaction_amount", precision = 20, scale = 2) //numeric(12,2)
+    private BigDecimal amount;
 
     @Column(name = "transaction_description", length = 255)
     private String description;
