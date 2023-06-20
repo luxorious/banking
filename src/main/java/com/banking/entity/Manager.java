@@ -2,6 +2,7 @@ package com.banking.entity;
 
 import com.banking.entity.entityEnumerations.DeletedStatus;
 import com.banking.entity.entityEnumerations.ManagerStatus;
+import com.banking.entity.entityEnumerations.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -47,6 +48,10 @@ public class Manager {
     @Column(name = "deleted_status")
     @Enumerated(EnumType.STRING)
     private DeletedStatus deletedStatus = DeletedStatus.ACTIVE;
+
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(name = "created_at", columnDefinition = "DATE")
     @Temporal(TemporalType.TIMESTAMP)
