@@ -47,6 +47,9 @@ public class Transaction {
     @Column(name = "transaction_description", length = 254)
     private String description;
 
+    @Column(name = "iban", length = 29)
+    private String iBan;
+
     @Column(name = "created_at", columnDefinition = "DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp createdAt;

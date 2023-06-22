@@ -13,9 +13,9 @@ import java.util.UUID;
 public interface AccountService {
     Account createAccount(Account account);
 
-    List<Account> findAll();
+    List<Account> findAllActive();
 
-    Optional<Account> findAccountById(UUID uuid);
+    Account findAccountById(UUID uuid);
 
     List<Account> findAccountsByName(String name);
 
@@ -41,8 +41,10 @@ public interface AccountService {
 
     List<Account> restoreAll();
 
-    List<Account> showAllDeleted();
+    Account findAccountByIban(String iban);
 
-    List<Account> showAllAccountsForAdmin();
+    List<Account> findAllDeleted();
+
+    List<Account> findAllAccountsForAdmin();
 
 }

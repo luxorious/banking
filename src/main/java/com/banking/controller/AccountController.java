@@ -26,7 +26,7 @@ public class AccountController {
 
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Account> getAccountById(@PathVariable UUID id) {
+    public Account getAccountById(@PathVariable UUID id) {
         return accountService.findAccountById(id);
     }
 
@@ -52,7 +52,7 @@ public class AccountController {
     @GetMapping(value = "/get-all")
     @ResponseStatus(HttpStatus.OK)
     public List<Account> getAll(){
-        return accountService.findAll();
+        return accountService.findAllActive();
     }
 
     @GetMapping(value = "/type/{type}")

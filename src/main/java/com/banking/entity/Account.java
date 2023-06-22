@@ -53,12 +53,14 @@ public class Account {
 
     @Column(name = "deleted_status")
     @Enumerated(EnumType.STRING)
-    //sdfghjkl;lkjhgfds
-    private DeletedStatus deletedStatus = DeletedStatus.ACTIVE;
+    private DeletedStatus deletedStatus;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
     private Timestamp createdAt;
+
+    @Column(name = "iban", nullable = false, updatable = false, length = 29)
+    private String iBan;
 
     @Column(name = "updated_at", nullable = false, columnDefinition = "DATE")
     @Temporal(TemporalType.TIMESTAMP)

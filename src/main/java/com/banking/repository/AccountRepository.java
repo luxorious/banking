@@ -33,4 +33,6 @@ public interface AccountRepository extends JpaRepository<Account, UUID> {
     List<Account> findAccountsByUpdatedAt(Timestamp dateUpdate);
 
     List<Account> findAccountsByDeletedStatus(DeletedStatus deletedStatus);
+
+    Optional<Account> getAccountByIBan(String iBan);
 }
