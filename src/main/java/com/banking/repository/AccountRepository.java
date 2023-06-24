@@ -36,7 +36,7 @@ public interface AccountRepository extends JpaRepository<Account, UUID> {
 
     List<Account> findAccountsByDeletedStatus(DeletedStatus deletedStatus);
 
-//    Optional<Account> findAccountByIBan(String IBan);
+    Optional<Account> findAccountByIBan(String iBan);
 
     @Query("SELECT account FROM Account account " +
             "WHERE account.iBan = :iBan")
