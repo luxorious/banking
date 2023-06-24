@@ -1,6 +1,6 @@
-package com.banking.component.implementations;
+package com.banking.service.component.implementation;
 
-import com.banking.component.interfaces.IBanGeneratorComponent;
+import com.banking.service.component.interfaces.IBanGeneratorComponent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

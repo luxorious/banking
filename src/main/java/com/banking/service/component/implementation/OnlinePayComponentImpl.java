@@ -1,31 +1,28 @@
-package com.banking.businesslogic.implementation;
+package com.banking.service.component.implementation;
 
-import com.banking.businesslogic.interfaces.PaymentComponent;
+import com.banking.service.component.interfaces.PaymentComponent;
 import com.banking.entity.Account;
-import com.banking.entity.PaymentData;
+import com.banking.entity.pojo.PaymentData;
 import com.banking.entity.Transaction;
 import com.banking.entity.entityEnumerations.AccountStatus;
 import com.banking.exception.BadAccountData;
 import com.banking.repository.AccountRepository;
-import com.banking.service.interfaces.AccountService;
+import com.banking.repository.TransactionRepository;
 import com.banking.service.interfaces.utility.GetEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
 @Slf4j
-//@Component
+@Component
 public class OnlinePayComponentImpl implements PaymentComponent {
     private final AccountRepository accountRepository;
-    private final AccountService accountService;
-    private final Transaction transaction;
+    private final TransactionRepository transactionRepository;
     private final GetEntity<Account> getAccount;
 
     @Override
@@ -44,35 +41,30 @@ public class OnlinePayComponentImpl implements PaymentComponent {
     public void pay(UUID id, PaymentData paymentData) {
         Account sender = accountValidation(id, paymentData);
         sender.setBalance(sender.getBalance().subtract(paymentData.getAmount()));
-        Optional<Account> accountReceiver = accountRepository.getAccountByIBan(paymentData.getIBan());
+        Optional<Account> accountReceiver = accountRepository.findByIBan(paymentData.getIBan());
+        Account receiver;
         if (accountReceiver.isPresent()) {
-            Account receiver = accountReceiver.get();
+            receiver = accountReceiver.get();
+            paymentData.setReceiverId(receiver.getId());
             receiver.setBalance(receiver.getBalance().add(paymentData.getAmount()));
             accountRepository.save(receiver);
-            accountRepository.save(sender);
-            saveTransaction(sender, receiver, paymentData.getAmount());
-        } else {
-            accountRepository.save(sender);
-            saveTransaction(sender, paymentData);
-            log.info("payment successful");
         }
+        saveTransaction(sender, paymentData);
+        accountRepository.save(sender);
         log.info("payment successful");
     }
 
-
-    public void saveTransaction(Account sender, Account receiver, BigDecimal sum) {
-        Transaction transaction = new Transaction();
-        transaction.setDebitAccountId(sender.getId());
-        transaction.setAmount(sum);
-        transaction.setCreditAccountId(receiver.getId());
-        //dosomethig
-    }
-
+    @Override
     public void saveTransaction(Account sender, PaymentData paymentData) {
         Transaction transaction = new Transaction();
+        transaction.setDebitAccountId(sender.getId());
         transaction.setAmount(paymentData.getAmount());
+        transaction.setCreditAccountId(paymentData.getReceiverId());
         transaction.setIBan(paymentData.getIBan());
-        transaction.setDebitAccountId(null);
-        //dosomethig
+        transaction.setType(paymentData.getType());
+        transaction.setDescription(paymentData.getDescription());
+
+        transactionRepository.save(transaction);
+        log.info("transaction saved");
     }
 }

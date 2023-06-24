@@ -1,6 +1,6 @@
 package com.banking.service.implementation;
 
-import com.banking.component.interfaces.IBanGeneratorComponent;
+import com.banking.service.component.interfaces.IBanGeneratorComponent;
 import com.banking.entity.Account;
 import com.banking.entity.entityEnumerations.AccountStatus;
 import com.banking.entity.entityEnumerations.AccountType;
@@ -96,7 +96,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account findAccountByIban(String iban) {
-        return null; // getEntity.getEntity(accountRepository.getAccountByIBan(iban));
+        return getEntity.getEntity(accountRepository.findByIBan(iban));
     }
 
     @Override

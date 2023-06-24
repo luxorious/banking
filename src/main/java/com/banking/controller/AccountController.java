@@ -29,6 +29,11 @@ public class AccountController {
     public Account getAccountById(@PathVariable UUID id) {
         return accountService.findAccountById(id);
     }
+    @GetMapping(value = "/lol/{iban}")
+    @ResponseStatus(HttpStatus.OK)
+    public Account getAccountById(@PathVariable String iban) {
+        return accountService.findAccountByIban(iban);
+    }
 
     @PostMapping(value = "/create_account")
     @ResponseStatus(HttpStatus.OK)

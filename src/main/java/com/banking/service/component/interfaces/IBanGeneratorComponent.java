@@ -1,4 +1,4 @@
-package com.banking.component.interfaces;
+package com.banking.service.component.interfaces;
 
 
 public interface IBanGeneratorComponent {

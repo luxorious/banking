@@ -7,6 +7,8 @@ import com.banking.entity.entityEnumerations.CurrencyCode;
 import com.banking.entity.entityEnumerations.DeletedStatus;
 import io.micrometer.common.lang.NonNullApi;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
@@ -34,5 +36,10 @@ public interface AccountRepository extends JpaRepository<Account, UUID> {
 
     List<Account> findAccountsByDeletedStatus(DeletedStatus deletedStatus);
 
-    Optional<Account> getAccountByIBan(String iBan);
+//    Optional<Account> findAccountByIBan(String IBan);
+
+
+    @Query("select ac from Account ac " +
+            "where ac.iBan = :iBan")
+    Optional<Account> findByIBan(@Param("iBan") String iBan);
 }

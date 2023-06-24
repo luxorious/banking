@@ -1,4 +1,4 @@
-package com.banking.businesslogic.interfaces;
+package com.banking.service.component.interfaces;
 
 import com.banking.entity.Manager;
 import com.banking.entity.entityEnumerations.Role;

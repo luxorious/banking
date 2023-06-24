@@ -1,17 +1,18 @@
-package com.banking.businesslogic.implementation;
+package com.banking.service.component.implementation;
 
-import com.banking.businesslogic.interfaces.RoleManagementService;
+import com.banking.service.component.interfaces.RoleManagementService;
 import com.banking.entity.Manager;
 import com.banking.entity.entityEnumerations.Role;
 import com.banking.service.interfaces.ManagerService;
 import com.banking.service.interfaces.utility.GetEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-@Service
+@Component
 @RequiredArgsConstructor
 @Slf4j
 public class RoleManagementServiceImpl implements RoleManagementService {

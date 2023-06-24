@@ -1,7 +1,16 @@
 package com.banking.entity;
 
 import com.banking.entity.entityEnumerations.*;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -66,7 +75,6 @@ public class Account {
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     private Timestamp updatedAt;
-
 
     public Account(String name, BigDecimal balance) {
         this.name = name;

@@ -1,10 +1,9 @@
-package com.banking.businesslogic.interfaces;
+package com.banking.service.component.interfaces;
 
 import com.banking.entity.Account;
-import com.banking.entity.PaymentData;
+import com.banking.entity.pojo.PaymentData;
 import com.banking.exception.BadAccountData;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 public interface PaymentComponent {
@@ -13,4 +12,5 @@ public interface PaymentComponent {
 
     void pay(UUID id, PaymentData paymentData) throws BadAccountData;
 
+    void saveTransaction(Account sender, PaymentData paymentData);
 }

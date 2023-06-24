@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -15,7 +16,6 @@ import java.util.UUID;
 @NonNullApi
 public interface TransactionRepository extends JpaRepository<Transaction, UUID> {
 
-    @Override
     Optional<Transaction> findById(UUID uuid);
 
     List<Transaction> findTransactionsByType(TransactionType type);
@@ -24,4 +24,13 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
 
     List<Transaction> findTransactionsByDescription(String description);
 
+    List<Transaction> findTransactionsByCreditAccountIdAndCreatedAtBetween(
+            UUID creditId, Timestamp startDate, Timestamp endDate);
+
+//    List<Transaction> findTransactionsByCreditAccountIdAndIBan(UUID creditId, String iban);
+
+    List<Transaction> findTransactionsByCreditAccountIdAndType(UUID creditAccountId, TransactionType type);
+
+    List<Transaction> findTransactionsByCreditAccountIdAndAmountBetween(
+            UUID creditAccountId, BigDecimal amount, BigDecimal amount2);
 }
