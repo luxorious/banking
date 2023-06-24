@@ -16,6 +16,7 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -28,7 +29,7 @@ import java.util.UUID;
 public class Manager {
 
     @Id
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
@@ -53,8 +54,9 @@ public class Manager {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Column(name = "created_at", columnDefinition = "DATE")
+    @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Timestamp createdAt;
 
 }

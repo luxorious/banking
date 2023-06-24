@@ -7,13 +7,13 @@ import com.banking.entity.entityEnumerations.CurrencyCode;
 import com.banking.service.interfaces.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -28,11 +28,6 @@ public class AccountController {
     @ResponseStatus(HttpStatus.OK)
     public Account getAccountById(@PathVariable UUID id) {
         return accountService.findAccountById(id);
-    }
-    @GetMapping(value = "/lol/{iban}")
-    @ResponseStatus(HttpStatus.OK)
-    public Account getAccountById(@PathVariable String iban) {
-        return accountService.findAccountByIban(iban);
     }
 
     @PostMapping(value = "/create_account")

@@ -64,14 +64,14 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private DeletedStatus deletedStatus;
 
+    @Column(name = "iban", nullable = false, updatable = false, length = 29)
+    private String iBan;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
     private Timestamp createdAt;
 
-    @Column(name = "iban", nullable = false, updatable = false, length = 29)
-    private String iBan;
-
-    @Column(name = "updated_at", nullable = false, columnDefinition = "DATE")
+    @Column(name = "updated_at", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     private Timestamp updatedAt;

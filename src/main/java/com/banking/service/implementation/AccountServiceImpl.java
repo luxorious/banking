@@ -13,6 +13,7 @@ import com.banking.service.interfaces.utility.GetEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -100,6 +101,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public Boolean updateAccountById(UUID id, Account accountFromFE) {
         Account accountFromDB = getEntity.getEntity(accountRepository.findAccountById(id));
         Account accountToUpdate = accountConverter.convertFields(accountFromDB, accountFromFE);
@@ -122,6 +124,7 @@ public class AccountServiceImpl implements AccountService {
 
 
     @Override
+    @Transactional
     public void updateStatusById(UUID id, AccountStatus status){
         Account accountFromDB = getEntity.getEntity(accountRepository.findAccountById(id));
         accountFromDB.setStatus(status);
@@ -139,6 +142,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public Account deleteAccountById(UUID id){
         Account deletedAccount = getEntity.getEntity(accountRepository.findAccountById(id));
         deletedAccount.setDeletedStatus(DeletedStatus.DELETED);
@@ -160,6 +164,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public List<Account> deleteAccountsByStatus(AccountStatus status) {
         List<Account> accounts = accountRepository.findAccountsByStatus(status);
         accounts.forEach(account -> account.setDeletedStatus(DeletedStatus.DELETED));
@@ -168,6 +173,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public Account restoreById(UUID id) {
         Account accountToRestore = getEntity.getEntity(accountRepository.findAccountById(id));
         accountToRestore.setDeletedStatus(DeletedStatus.ACTIVE);
@@ -189,12 +195,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public List<Account> restoreAll() {
         List<Account> accounts = accountRepository.findAccountsByDeletedStatus(DeletedStatus.DELETED);
         accounts.forEach(account -> account.setDeletedStatus(DeletedStatus.ACTIVE));
         accountRepository.saveAll(accounts);
         return accounts;
     }
-
 
 }

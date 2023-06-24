@@ -38,8 +38,7 @@ public interface AccountRepository extends JpaRepository<Account, UUID> {
 
 //    Optional<Account> findAccountByIBan(String IBan);
 
-
-    @Query("select ac from Account ac " +
-            "where ac.iBan = :iBan")
+    @Query("SELECT account FROM Account account " +
+            "WHERE account.iBan = :iBan")
     Optional<Account> findByIBan(@Param("iBan") String iBan);
 }

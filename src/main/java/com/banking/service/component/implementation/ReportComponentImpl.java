@@ -4,7 +4,6 @@ import com.banking.entity.Transaction;
 import com.banking.entity.entityEnumerations.TransactionType;
 import com.banking.repository.TransactionRepository;
 import com.banking.service.component.interfaces.ReportComponent;
-import com.banking.service.interfaces.TransactionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -26,7 +25,7 @@ public class ReportComponentImpl implements ReportComponent {
 
     @Override
     public List<Transaction> giveReportByIBan(UUID creditId, String iBan) {
-        return null;//transactionRepository.findTransactionsByCreditAccountIdAndIBan(creditId, iBan);
+        return transactionRepository.findTransactionsByCreditAccountIdAndIBan(creditId, iBan);
     }
 
     @Override

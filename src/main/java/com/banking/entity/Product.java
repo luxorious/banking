@@ -16,6 +16,7 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -30,7 +31,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id")
     private UUID id;
 
     @Column(name = "manager_id")
@@ -57,16 +58,14 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private DeletedStatus deletedStatus = DeletedStatus.ACTIVE;
 
-    @Column(name = "created_at", updatable = false, nullable = false, columnDefinition = "DATE")
+    @Column(name = "created_at", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", updatable = false, nullable = false, columnDefinition = "DATE")
+    @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Timestamp updatedAt;
-
-    public boolean checkDeletedStatus(){
-        return getDeletedStatus() == DeletedStatus.ACTIVE;
-    }
 
 }

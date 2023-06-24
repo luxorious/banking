@@ -15,6 +15,7 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -29,7 +30,7 @@ public class Agreement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id")
     private UUID id;
 
     @Column(name = "account_id")
@@ -52,11 +53,13 @@ public class Agreement {
     @Enumerated(EnumType.STRING)
     private DeletedStatus deletedStatus = DeletedStatus.ACTIVE;
 
-    @Column(name = "created_at", updatable = false, nullable = false, columnDefinition = "DATE")
+    @Column(name = "created_at", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", nullable = false, columnDefinition = "DATE")
+    @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Timestamp updatedAt;
 }

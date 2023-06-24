@@ -15,6 +15,7 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -27,7 +28,7 @@ import java.util.UUID;
 public class Client {
 
     @Id
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
@@ -38,34 +39,36 @@ public class Client {
     @Enumerated(EnumType.STRING)
     private ClientStatus status;
 
-    @Column(name = "tax_code",length = 20)//, columnDefinition = "VARCHAR(20)")
+    @Column(name = "tax_code",length = 20)
     private String taxCode;
 
-    @Column(name = "first_name", length = 58)//, columnDefinition = "VARCHAR(50)")
+    @Column(name = "first_name", length = 58)
     private String firstName;
 
-    @Column(name = "last_name", length = 50)//, columnDefinition = "VARCHAR(50)")
+    @Column(name = "last_name", length = 50)
     private String lastName;
 
-    @Column(name = "email", length = 60)//, columnDefinition = "VARCHAR(60)")
+    @Column(name = "email", length = 60)
     private String email;
 
-    @Column(name = "address", length = 80)//, columnDefinition = "VARCHAR(80)")
+    @Column(name = "address", length = 80)
     private String address;
 
-    @Column(name = "phone", length = 20)//, columnDefinition = "VARCHAR(20)")
+    @Column(name = "phone", length = 20)
     private String phone;
 
     @Column(name = "deleted_status")
     @Enumerated(EnumType.STRING)
     private DeletedStatus deletedStatus = DeletedStatus.ACTIVE;
 
-    @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "DATE")//,columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at", updatable = false)
+    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", nullable = false, columnDefinition = "DATE")//, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Timestamp updatedAt;
 
 }

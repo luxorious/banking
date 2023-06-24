@@ -1,8 +1,4 @@
 {
-    "clientId": null,
     "name": "name",
-    "type": null,
-    "status": null,
     "balance": 1000.11,
-    "currencyCode": null,
 }
