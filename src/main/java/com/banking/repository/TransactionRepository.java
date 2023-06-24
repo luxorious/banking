@@ -4,6 +4,7 @@ import com.banking.entity.Transaction;
 import com.banking.entity.entityEnumerations.TransactionType;
 import io.micrometer.common.lang.NonNullApi;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -27,10 +28,16 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
     List<Transaction> findTransactionsByCreditAccountIdAndCreatedAtBetween(
             UUID creditId, Timestamp startDate, Timestamp endDate);
 
-//    List<Transaction> findTransactionsByCreditAccountIdAndIBan(UUID creditId, String iban);
-
     List<Transaction> findTransactionsByCreditAccountIdAndType(UUID creditAccountId, TransactionType type);
 
     List<Transaction> findTransactionsByCreditAccountIdAndAmountBetween(
             UUID creditAccountId, BigDecimal amount, BigDecimal amount2);
+
+    //    List<Transaction> findTransactionsByCreditAccountIdAndIBan(UUID creditId, String iban);
+
+    @Query("SELECT tr FROM Transaction tr " +
+            "WHERE tr.creditAccountId = :creditAccountId AND " +
+            "tr.iBan = :iBan")
+    List<Transaction> findTransactionsByCreditAccountIdAndIBan(UUID creditAccountId, String iBan);
+
 }
