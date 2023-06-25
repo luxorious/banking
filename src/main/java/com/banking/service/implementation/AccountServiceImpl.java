@@ -2,10 +2,10 @@ package com.banking.service.implementation;
 
 import com.banking.service.component.interfaces.IBanGeneratorComponent;
 import com.banking.entity.Account;
-import com.banking.entity.entityEnumerations.AccountStatus;
-import com.banking.entity.entityEnumerations.AccountType;
-import com.banking.entity.entityEnumerations.CurrencyCode;
-import com.banking.entity.entityEnumerations.DeletedStatus;
+import com.banking.entity.entityenumerations.AccountStatus;
+import com.banking.entity.entityenumerations.AccountType;
+import com.banking.entity.entityenumerations.CurrencyCode;
+import com.banking.entity.entityenumerations.DeletedStatus;
 import com.banking.repository.AccountRepository;
 import com.banking.service.interfaces.AccountService;
 import com.banking.service.interfaces.utility.Converter;

@@ -1,8 +1,8 @@
 package com.banking.service.implementation;
 
 import com.banking.entity.Agreement;
-import com.banking.entity.entityEnumerations.AgreementStatus;
-import com.banking.entity.entityEnumerations.DeletedStatus;
+import com.banking.entity.entityenumerations.AgreementStatus;
+import com.banking.entity.entityenumerations.DeletedStatus;
 import com.banking.repository.AgreementRepository;
 import com.banking.service.implementation.utility.AgreementConverterImpl;
 import com.banking.service.interfaces.AgreementService;

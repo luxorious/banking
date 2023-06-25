@@ -1,8 +1,8 @@
 package com.banking.controller;
 
 import com.banking.entity.Product;
-import com.banking.entity.entityEnumerations.CurrencyCode;
-import com.banking.entity.entityEnumerations.ProductStatus;
+import com.banking.entity.entityenumerations.CurrencyCode;
+import com.banking.entity.entityenumerations.ProductStatus;
 import com.banking.service.interfaces.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

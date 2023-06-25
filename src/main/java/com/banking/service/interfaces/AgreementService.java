@@ -1,7 +1,7 @@
 package com.banking.service.interfaces;
 
 import com.banking.entity.Agreement;
-import com.banking.entity.entityEnumerations.AgreementStatus;
+import com.banking.entity.entityenumerations.AgreementStatus;
 
 
 import java.math.BigDecimal;

@@ -1,8 +1,8 @@
 package com.banking.entity;
 
-import com.banking.entity.entityEnumerations.DeletedStatus;
-import com.banking.entity.entityEnumerations.ManagerStatus;
-import com.banking.entity.entityEnumerations.Role;
+import com.banking.entity.entityenumerations.DeletedStatus;
+import com.banking.entity.entityenumerations.ManagerStatus;
+import com.banking.entity.entityenumerations.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

@@ -1,16 +1,7 @@
 package com.banking.entity;
 
-import com.banking.entity.entityEnumerations.TransactionType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import com.banking.entity.entityenumerations.TransactionType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,8 +26,16 @@ public class Transaction {
     @Column(name = "debit_account_id")
     private UUID debitAccountId;
 
+    @ManyToOne
+    @JoinColumn(name = "debit_account_id", referencedColumnName = "id", updatable = false, insertable = false)
+    private Account debitAccount;
+
     @Column(name = "credit_account_id")
     private UUID creditAccountId;
+
+    @ManyToOne
+    @JoinColumn(name = "credit_account_id", referencedColumnName = "id", updatable = false, insertable = false)
+    private Account creditAccount;
 
     @Column(name = "transaction_type", length = 60)
     @Enumerated(EnumType.STRING)

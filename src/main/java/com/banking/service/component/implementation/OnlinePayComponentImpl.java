@@ -4,7 +4,7 @@ import com.banking.service.component.interfaces.PaymentComponent;
 import com.banking.entity.Account;
 import com.banking.entity.pojo.PaymentData;
 import com.banking.entity.Transaction;
-import com.banking.entity.entityEnumerations.AccountStatus;
+import com.banking.entity.entityenumerations.AccountStatus;
 import com.banking.exception.BadAccountData;
 import com.banking.repository.AccountRepository;
 import com.banking.repository.TransactionRepository;

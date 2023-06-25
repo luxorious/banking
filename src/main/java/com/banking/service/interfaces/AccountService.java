@@ -1,13 +1,12 @@
 package com.banking.service.interfaces;
 
 import com.banking.entity.Account;
-import com.banking.entity.entityEnumerations.AccountStatus;
-import com.banking.entity.entityEnumerations.AccountType;
-import com.banking.entity.entityEnumerations.CurrencyCode;
+import com.banking.entity.entityenumerations.AccountStatus;
+import com.banking.entity.entityenumerations.AccountType;
+import com.banking.entity.entityenumerations.CurrencyCode;
 
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface AccountService {

@@ -1,9 +1,9 @@
 package com.banking.service.implementation;
 
 import com.banking.entity.Product;
-import com.banking.entity.entityEnumerations.CurrencyCode;
-import com.banking.entity.entityEnumerations.DeletedStatus;
-import com.banking.entity.entityEnumerations.ProductStatus;
+import com.banking.entity.entityenumerations.CurrencyCode;
+import com.banking.entity.entityenumerations.DeletedStatus;
+import com.banking.entity.entityenumerations.ProductStatus;
 import com.banking.repository.ProductRepository;
 import com.banking.service.interfaces.ProductService;
 import com.banking.service.interfaces.utility.Converter;

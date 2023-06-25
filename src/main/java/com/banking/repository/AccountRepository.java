@@ -1,10 +1,10 @@
 package com.banking.repository;
 
 import com.banking.entity.Account;
-import com.banking.entity.entityEnumerations.AccountStatus;
-import com.banking.entity.entityEnumerations.AccountType;
-import com.banking.entity.entityEnumerations.CurrencyCode;
-import com.banking.entity.entityEnumerations.DeletedStatus;
+import com.banking.entity.entityenumerations.AccountStatus;
+import com.banking.entity.entityenumerations.AccountType;
+import com.banking.entity.entityenumerations.CurrencyCode;
+import com.banking.entity.entityenumerations.DeletedStatus;
 import io.micrometer.common.lang.NonNullApi;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -36,9 +36,16 @@ public interface AccountRepository extends JpaRepository<Account, UUID> {
 
     List<Account> findAccountsByDeletedStatus(DeletedStatus deletedStatus);
 
-    Optional<Account> findAccountByIBan(String iBan);
+    ///чому не працює?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//    Optional<Account> findAccountByIBan(String iBan);
+
+    //а цей метод ідельно спрацьовує!!!!!!!!! в чому проблема?!
+    Optional<Account> findAccountByBanBan(String iBan);
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     @Query("SELECT account FROM Account account " +
             "WHERE account.iBan = :iBan")
     Optional<Account> findByIBan(@Param("iBan") String iBan);
+
 }

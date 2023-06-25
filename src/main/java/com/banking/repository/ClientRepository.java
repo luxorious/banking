@@ -1,8 +1,8 @@
 package com.banking.repository;
 
 import com.banking.entity.Client;
-import com.banking.entity.entityEnumerations.ClientStatus;
-import com.banking.entity.entityEnumerations.DeletedStatus;
+import com.banking.entity.entityenumerations.ClientStatus;
+import com.banking.entity.entityenumerations.DeletedStatus;
 import io.micrometer.common.lang.NonNullApi;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

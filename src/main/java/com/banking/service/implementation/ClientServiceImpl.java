@@ -1,8 +1,8 @@
 package com.banking.service.implementation;
 
 import com.banking.entity.Client;
-import com.banking.entity.entityEnumerations.ClientStatus;
-import com.banking.entity.entityEnumerations.DeletedStatus;
+import com.banking.entity.entityenumerations.ClientStatus;
+import com.banking.entity.entityenumerations.DeletedStatus;
 import com.banking.repository.ClientRepository;
 import com.banking.service.interfaces.ClientService;
 import com.banking.service.interfaces.utility.Converter;

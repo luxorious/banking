@@ -1,7 +1,7 @@
 package com.banking.service.implementation;
 
 import com.banking.entity.Transaction;
-import com.banking.entity.entityEnumerations.TransactionType;
+import com.banking.entity.entityenumerations.TransactionType;
 import com.banking.repository.TransactionRepository;
 import com.banking.service.interfaces.TransactionService;
 import lombok.RequiredArgsConstructor;

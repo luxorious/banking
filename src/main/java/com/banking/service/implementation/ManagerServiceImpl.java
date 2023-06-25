@@ -1,8 +1,8 @@
 package com.banking.service.implementation;
 
 import com.banking.entity.Manager;
-import com.banking.entity.entityEnumerations.DeletedStatus;
-import com.banking.entity.entityEnumerations.ManagerStatus;
+import com.banking.entity.entityenumerations.DeletedStatus;
+import com.banking.entity.entityenumerations.ManagerStatus;
 import com.banking.repository.ManagerRepository;
 import com.banking.service.interfaces.ManagerService;
 import com.banking.service.interfaces.utility.Converter;

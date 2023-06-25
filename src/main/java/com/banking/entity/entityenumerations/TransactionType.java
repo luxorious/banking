@@ -1,4 +1,4 @@
-package com.banking.entity.entityEnumerations;
+package com.banking.entity.entityenumerations;
 
 public enum TransactionType {
     DEPOSIT,        //Депозит

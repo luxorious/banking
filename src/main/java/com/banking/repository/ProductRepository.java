@@ -1,9 +1,9 @@
 package com.banking.repository;
 
 import com.banking.entity.Product;
-import com.banking.entity.entityEnumerations.CurrencyCode;
-import com.banking.entity.entityEnumerations.DeletedStatus;
-import com.banking.entity.entityEnumerations.ProductStatus;
+import com.banking.entity.entityenumerations.CurrencyCode;
+import com.banking.entity.entityenumerations.DeletedStatus;
+import com.banking.entity.entityenumerations.ProductStatus;
 import io.micrometer.common.lang.NonNullApi;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

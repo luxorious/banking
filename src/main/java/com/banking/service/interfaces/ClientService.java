@@ -1,8 +1,8 @@
 package com.banking.service.interfaces;
 
 import com.banking.entity.Client;
-import com.banking.entity.entityEnumerations.ClientStatus;
-import com.banking.entity.entityEnumerations.DeletedStatus;
+import com.banking.entity.entityenumerations.ClientStatus;
+import com.banking.entity.entityenumerations.DeletedStatus;
 
 import java.util.List;
 import java.util.Optional;

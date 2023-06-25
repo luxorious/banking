@@ -1,7 +1,7 @@
 package com.banking.service.interfaces;
 
 import com.banking.entity.Manager;
-import com.banking.entity.entityEnumerations.ManagerStatus;
+import com.banking.entity.entityenumerations.ManagerStatus;
 
 import java.sql.Timestamp;
 import java.util.List;

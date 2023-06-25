@@ -1,8 +1,8 @@
 package com.banking.service.interfaces;
 
 import com.banking.entity.Product;
-import com.banking.entity.entityEnumerations.CurrencyCode;
-import com.banking.entity.entityEnumerations.ProductStatus;
+import com.banking.entity.entityenumerations.CurrencyCode;
+import com.banking.entity.entityenumerations.ProductStatus;
 
 import java.math.BigDecimal;
 import java.util.List;

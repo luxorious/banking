@@ -1,13 +1,12 @@
 package com.banking.controller;
 
 import com.banking.entity.Account;
-import com.banking.entity.entityEnumerations.AccountStatus;
-import com.banking.entity.entityEnumerations.AccountType;
-import com.banking.entity.entityEnumerations.CurrencyCode;
+import com.banking.entity.entityenumerations.AccountStatus;
+import com.banking.entity.entityenumerations.AccountType;
+import com.banking.entity.entityenumerations.CurrencyCode;
 import com.banking.service.interfaces.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

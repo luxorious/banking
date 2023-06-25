@@ -2,7 +2,7 @@ package com.banking.service.component.implementation;
 
 import com.banking.service.component.interfaces.RoleManagementService;
 import com.banking.entity.Manager;
-import com.banking.entity.entityEnumerations.Role;
+import com.banking.entity.entityenumerations.Role;
 import com.banking.service.interfaces.ManagerService;
 import com.banking.service.interfaces.utility.GetEntity;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
 package com.banking.service.component.interfaces;
 
 import com.banking.entity.Manager;
-import com.banking.entity.entityEnumerations.Role;
+import com.banking.entity.entityenumerations.Role;
 
 import java.util.UUID;
 

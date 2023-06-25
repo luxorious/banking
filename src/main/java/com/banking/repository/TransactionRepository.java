@@ -1,7 +1,7 @@
 package com.banking.repository;
 
 import com.banking.entity.Transaction;
-import com.banking.entity.entityEnumerations.TransactionType;
+import com.banking.entity.entityenumerations.TransactionType;
 import io.micrometer.common.lang.NonNullApi;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

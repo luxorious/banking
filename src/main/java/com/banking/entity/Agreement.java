@@ -1,17 +1,8 @@
 package com.banking.entity;
 
-import com.banking.entity.entityEnumerations.AgreementStatus;
-import com.banking.entity.entityEnumerations.DeletedStatus;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import com.banking.entity.entityenumerations.AgreementStatus;
+import com.banking.entity.entityenumerations.DeletedStatus;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,8 +27,16 @@ public class Agreement {
     @Column(name = "account_id")
     private UUID accountId;
 
+    @ManyToOne
+    @JoinColumn(name = "account_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Account account;
+
     @Column(name = "product_id")
     private UUID productId;
+
+    @OneToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Product product;
 
     @Column(name = "interest_rate", precision = 20, scale = 2)
     private BigDecimal interestRate;

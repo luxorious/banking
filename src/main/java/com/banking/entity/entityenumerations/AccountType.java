@@ -1,4 +1,4 @@
-package com.banking.entity.entityEnumerations;
+package com.banking.entity.entityenumerations;
 
 public enum AccountType {
     IRA,                //індивідуальний пенсійний рахунок

@@ -1,6 +1,6 @@
 package com.banking.entity.pojo;
 
-import com.banking.entity.entityEnumerations.TransactionType;
+import com.banking.entity.entityenumerations.TransactionType;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 

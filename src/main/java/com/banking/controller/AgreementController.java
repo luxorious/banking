@@ -1,7 +1,7 @@
 package com.banking.controller;
 
 import com.banking.entity.Agreement;
-import com.banking.entity.entityEnumerations.AgreementStatus;
+import com.banking.entity.entityenumerations.AgreementStatus;
 import com.banking.service.interfaces.AgreementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

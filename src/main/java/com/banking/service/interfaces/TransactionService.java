@@ -1,7 +1,7 @@
 package com.banking.service.interfaces;
 
 import com.banking.entity.Transaction;
-import com.banking.entity.entityEnumerations.TransactionType;
+import com.banking.entity.entityenumerations.TransactionType;
 
 import java.math.BigDecimal;
 import java.util.List;
