@@ -56,7 +56,6 @@ public class AccountConverterImpl implements Converter<Account> {
                     message + accountFromFE.getBalance());
         }
 
-
         account.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
 
         return account;

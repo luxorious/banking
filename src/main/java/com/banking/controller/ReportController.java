@@ -2,12 +2,10 @@ package com.banking.controller;
 
 import com.banking.entity.Transaction;
 import com.banking.entity.entityenumerations.TransactionType;
-import com.banking.service.component.interfaces.Receipt;
 import com.banking.service.component.interfaces.ReportComponent;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +21,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RequestMapping("/report")
 public class ReportController {
-    private ReportComponent reportComponent;
+    private final ReportComponent reportComponent;
 
     @GetMapping("/date/{creditAccountId}")
     @ResponseStatus(HttpStatus.OK)
@@ -65,6 +63,7 @@ public class ReportController {
             @RequestParam BigDecimal maxSum) {
         return reportComponent.giveIntervalReportBySum(creditAccountId, minSum, maxSum);
     }
+
     @GetMapping("/save")
     public File saveReport(@RequestBody List<Transaction> transactions) {
         return reportComponent.saveReport(transactions);
