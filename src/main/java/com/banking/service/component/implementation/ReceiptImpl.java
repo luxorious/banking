@@ -3,6 +3,7 @@ package com.banking.service.component.implementation;
 import com.banking.entity.Transaction;
 import com.banking.service.component.interfaces.Receipt;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedWriter;
@@ -15,9 +16,14 @@ import java.util.List;
 @Slf4j
 @Component
 public class ReceiptImpl implements Receipt {
+    @Value("${receipt.currentTransaction}")
+    private String currentTransaction;
+
+    @Value("${receipt.fileName}")
+    private String fileName;
 
     @Override
-    public String create(List<Transaction> transactions) {
+    public String  create(List<Transaction> transactions) {
         StringBuilder newTicket = new StringBuilder();
         for (Transaction transaction : transactions) {
             String date = String.valueOf(transaction.getCreatedAt());
@@ -26,15 +32,8 @@ public class ReceiptImpl implements Receipt {
             String description = transaction.getDescription();
             String iban = transaction.getIBan();
 
-            String currentTransaction = """
-                    Date:           %s
-                    Type:           %s
-                    Amount:         %s
-                    Description:    %s
-                    Iban:           %s
-                                
-                    """.formatted(date, type, amount, description, iban);
-            newTicket.append(currentTransaction);
+            String currentReport = currentTransaction.formatted(date, type, amount, description, iban);
+            newTicket.append(currentReport);
         }
         return String.valueOf(newTicket);
     }
@@ -42,10 +41,10 @@ public class ReceiptImpl implements Receipt {
     @Override
     public File saveReport(List<Transaction> transactions) {
         String report = create(transactions);
-        File file = new File("report_"+ LocalDateTime.now() + ".txt");
-        try (BufferedWriter writer= new BufferedWriter(new FileWriter(file))){
+        File file = new File(fileName + LocalDateTime.now() + ".txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(report);
-        } catch (IOException e){
+        } catch (IOException e) {
             log.error("An error occurred while writing to the file: " + file.getName());
         }
         return file;

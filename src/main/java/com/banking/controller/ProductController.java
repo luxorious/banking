@@ -28,7 +28,7 @@ public class ProductController {
 
     @GetMapping("/find/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Product> findById(@PathVariable UUID id){
+    public Product findById(@PathVariable UUID id){
         return productService.findById(id);
     }
 

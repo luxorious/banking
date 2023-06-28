@@ -22,7 +22,7 @@ public class Account {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;//String
+    private UUID id;
 
     @Column(name = "client_id")
     private UUID clientId;
@@ -56,9 +56,6 @@ public class Account {
     @Column(name = "i_ban", nullable = false, updatable = false, length = 29)
     private String iBan;
 
-    @Column(name = "ban_ban", nullable = false, updatable = false, length = 29)
-    private String banBan;
-
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
     private Timestamp createdAt;
@@ -68,6 +65,7 @@ public class Account {
     @CreationTimestamp
     private Timestamp updatedAt;
 
+    //for test in postman
     public Account(String name, BigDecimal balance) {
         this.name = name;
         this.balance = balance;

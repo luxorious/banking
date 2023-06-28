@@ -7,6 +7,8 @@ import com.banking.entity.entityenumerations.ProductStatus;
 import com.banking.repository.ProductRepository;
 import com.banking.service.interfaces.ProductService;
 import com.banking.service.interfaces.utility.Converter;
+import com.banking.service.interfaces.utility.GetEntity;
+import com.banking.service.interfaces.utility.ValidatorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,8 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final Converter<Product> productConverter;
-
+    private final GetEntity<Product> getProduct;
+    private final ValidatorService<Product> validatorService;
     @Override
     public Product createProduct(Product product) {
         log.info("product saved");
@@ -31,32 +34,32 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Optional<Product> findById(UUID uuid) {
+    public Product findById(UUID uuid) {
         log.info("find products by id - " + uuid);
-        return productRepository.findById(uuid);
+        return validatorService.checkEntity(productRepository.findById(uuid));
     }
 
     @Override
     public List<Product> findProductsByStatus(ProductStatus status) {
         log.info("find products by where status - " + status);
-        return productRepository.findProductsByStatus(status);
+        return validatorService.checkList(productRepository.findProductsByStatus(status));
     }
 
     @Override
     public List<Product> findProductsByCurrencyCode(CurrencyCode currencyCode) {
         log.info("find products by currency code - " + currencyCode);
-        return productRepository.findProductsByCurrencyCode(currencyCode);
+        return validatorService.checkList(productRepository.findProductsByCurrencyCode(currencyCode));
     }
 
     @Override
     public List<Product> findProductsByInterestRate(BigDecimal interestRate) {
-        return productRepository.findProductsByInterestRate(interestRate);
+        return validatorService.checkList(productRepository.findProductsByInterestRate(interestRate));
     }
 
     @Override
     public List<Product> findProductsByLimit(BigDecimal limit) {
         log.info("find all products where limit = " + limit);
-        return productRepository.findProductsByLimit(limit);
+        return validatorService.checkList(productRepository.findProductsByLimit(limit));
     }
 
     @Override

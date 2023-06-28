@@ -22,7 +22,6 @@ public interface ClientService {
 
     Client deleteClientById(UUID id);
 
-
     List<Client> deleteClientsByStatus(ClientStatus status);
 
     Client editEmailById(UUID id, String eMail);

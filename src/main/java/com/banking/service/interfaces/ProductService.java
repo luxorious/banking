@@ -6,14 +6,13 @@ import com.banking.entity.entityenumerations.ProductStatus;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface ProductService {
 
     Product createProduct(Product product);
 
-    Optional<Product> findById(UUID uuid);
+    Product findById(UUID uuid);
 
     List<Product> findProductsByStatus(ProductStatus status);
 

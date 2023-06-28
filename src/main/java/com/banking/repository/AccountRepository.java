@@ -36,14 +36,6 @@ public interface AccountRepository extends JpaRepository<Account, UUID> {
 
     List<Account> findAccountsByDeletedStatus(DeletedStatus deletedStatus);
 
-    ///чому не працює?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//    Optional<Account> findAccountByIBan(String iBan);
-
-    //а цей метод ідельно спрацьовує!!!!!!!!! в чому проблема?!
-    Optional<Account> findAccountByBanBan(String iBan);
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
     @Query("SELECT account FROM Account account " +
             "WHERE account.iBan = :iBan")
     Optional<Account> findByIBan(@Param("iBan") String iBan);

@@ -1,6 +1,5 @@
 package com.banking.service.interfaces.utility;
 
-
 public interface Converter<T> {
 
     T copyObjects(T t);

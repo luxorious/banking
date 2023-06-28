@@ -8,10 +8,11 @@ import com.banking.service.interfaces.utility.GetEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-@Component
+@Service
 @RequiredArgsConstructor
 @Slf4j
 public class RoleManagementServiceImpl implements RoleManagementService {
@@ -23,6 +24,6 @@ public class RoleManagementServiceImpl implements RoleManagementService {
     public Manager setRole(UUID id, Role role) {
         Manager manager = getManager.getEntity(managerService.findById(id));
         manager.setRole(role);
-        return managerService.createManager(manager);//managerService or managerRepository, which one is better?
-    }//is it better to do one universal method? or 3 methods for each ROLE?
+        return managerService.createManager(manager);
+    }
 }
