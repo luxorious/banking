@@ -26,7 +26,7 @@ public class ValidatorServiceImpl<T> implements ValidatorService<T> {
     @Override
     public List<T> checkList(List<T> t) {
         if (t == null) {
-            log.error("List = null");
+            log.error("List is null");
             throw new BadListException(error);
         } else if (!CollectionUtils.isEmpty(t)) {
             return t;
