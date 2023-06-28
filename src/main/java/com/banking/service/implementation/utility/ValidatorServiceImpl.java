@@ -18,6 +18,12 @@ public class ValidatorServiceImpl<T> implements ValidatorService<T> {
     @Value("${validatorComponent.error}")
     private String error;
 
+    @Value("${validatorComponent.nullMessage}")
+    private String nullMessage;
+
+    @Value("${validatorComponent.validMessage}")
+    private String validMessage;
+
     @Override
     public T checkEntity(Optional<T> t) {
         return t.orElseThrow(() -> new EntityNotFoundException(error));
@@ -26,11 +32,14 @@ public class ValidatorServiceImpl<T> implements ValidatorService<T> {
     @Override
     public List<T> checkList(List<T> t) {
         if (t == null) {
-            log.error("List is null");
+            log.error(nullMessage);
             throw new BadListException(error);
-        } else if (!CollectionUtils.isEmpty(t)) {
+        } else if (!CollectionUtils.isEmpty(t)) {//есть ли смисл использовать ету проверку?
+            // так как в любом случае возвратит список с сущностями или же пустой, налл обработаем
+            log.info(validMessage + t);
             return t;
         }
+        log.info(error);
         return new ArrayList<>();
     }
 }
