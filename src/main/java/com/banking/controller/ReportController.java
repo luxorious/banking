@@ -68,5 +68,4 @@ public class ReportController {
     public File saveReport(@RequestBody List<Transaction> transactions) {
         return reportComponent.saveReport(transactions);
     }
-    //@controller (file transfer)
 }

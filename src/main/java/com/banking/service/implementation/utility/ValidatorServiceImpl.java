@@ -34,12 +34,8 @@ public class ValidatorServiceImpl<T> implements ValidatorService<T> {
         if (t == null) {
             log.error(nullMessage);
             throw new BadListException(error);
-        } else if (!CollectionUtils.isEmpty(t)) {//есть ли смисл использовать ету проверку?
-            // так как в любом случае возвратит список с сущностями или же пустой, налл обработаем
-            log.info(validMessage + t);
-            return t;
         }
-        log.info(error);
-        return new ArrayList<>();
+        log.info(validMessage + t);
+        return t;
     }
 }

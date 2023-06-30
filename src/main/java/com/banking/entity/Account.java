@@ -65,7 +65,6 @@ public class Account {
     @CreationTimestamp
     private Timestamp updatedAt;
 
-    //for test in postman
     public Account(String name, BigDecimal balance) {
         this.name = name;
         this.balance = balance;

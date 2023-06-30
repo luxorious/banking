@@ -28,7 +28,6 @@ public interface ClientService {
 
     Client editPhoneById(UUID id, String phone);
 
-    //Admin
     List<Client> findClientsByDeletedStatus(DeletedStatus deletedStatus);
 
     Client restoreById(UUID id);

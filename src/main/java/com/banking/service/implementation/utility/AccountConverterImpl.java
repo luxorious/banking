@@ -19,7 +19,6 @@ public class AccountConverterImpl implements Converter<Account> {
         } catch (Exception e){
             log.error("Wrong type of Account");
         }
-
         return accountCopy;
     }
 

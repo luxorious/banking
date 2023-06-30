@@ -29,7 +29,7 @@ public class AccountController {
         return accountService.findAccountById(id);
     }
 
-    @PostMapping(value = "/create_account")
+    @PostMapping(value = "/create")
     @ResponseStatus(HttpStatus.OK)
     public Account createAccount(@RequestBody Account account) {
         log.info("account " + account + " added");
