@@ -7,4 +7,6 @@ public interface ValidatorService<T> {
     T checkEntity(Optional<T> t);
     List<T> checkList(List<T> t);
 
+
+
 }

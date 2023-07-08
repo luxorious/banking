@@ -32,9 +32,15 @@ public class AccountServiceImpl implements AccountService {
     private final ValidatorService<Account> validatorService;
 
     @Override
-    public Account createAccount(Account account) {
+    public Account save(Account account) {
+        return accountRepository.save(account);
+    }
+
+    @Override
+    public Account createAccount(Account account){//, UUID clientId) {
         account.setDeletedStatus(DeletedStatus.ACTIVE);
         account.setIBan(iBanGenerator.generate());
+//        account.setClientId(clientId);
         log.info("creating account " + account);
         return accountRepository.save(account);
     }
@@ -149,6 +155,11 @@ public class AccountServiceImpl implements AccountService {
         accountRepository.save(accountToRestore);
         log.info("account restored");
         return accountToRestore;
+    }
+
+    @Override
+    public Account findAccountByIdAndCurrencyCode(UUID id, CurrencyCode currencyCode) {
+        return validatorService.checkEntity(accountRepository.findAccountByIdAndCurrencyCode(id, currencyCode));
     }
 
     @Override

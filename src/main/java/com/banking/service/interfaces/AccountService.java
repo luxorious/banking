@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.UUID;
 
 public interface AccountService {
+
+    Account save(Account account);
     Account createAccount(Account account);
 
     List<Account> findAllActive();
@@ -37,6 +39,7 @@ public interface AccountService {
     List<Account> deleteAccountsByStatus(AccountStatus status);
 
     Account restoreById(UUID id);
+    Account findAccountByIdAndCurrencyCode(UUID id, CurrencyCode currencyCode);
 
     List<Account> restoreAll();
 

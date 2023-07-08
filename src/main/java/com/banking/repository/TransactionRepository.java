@@ -33,6 +33,11 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
     List<Transaction> findTransactionsByCreditAccountIdAndAmountBetween(
             UUID creditAccountId, BigDecimal amount, BigDecimal amount2);
 
+    List<Transaction> findTransactionsByIdAndType(UUID id, TransactionType type);
+
+    List<Transaction> findTransactionsByCreditAccountIdAndTypeAndCreatedAtBetween(
+            UUID creditAccountId, TransactionType type, Timestamp createdAt, Timestamp createdAt2);
+
     @Query("SELECT tr FROM Transaction tr " +
             "WHERE tr.creditAccountId = :creditAccountId AND " +
             "tr.iBan = :iBan")

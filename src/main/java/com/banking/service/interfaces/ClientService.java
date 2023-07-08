@@ -12,7 +12,7 @@ public interface ClientService {
 
     Client createClient(Client client);
 
-    Optional<Client> findById(UUID uuid);
+    Client findById(UUID uuid);
 
     Optional<Client> findClientByFirstNameAndLastName(String firstName, String lastName);
 
@@ -31,8 +31,8 @@ public interface ClientService {
     List<Client> findClientsByDeletedStatus(DeletedStatus deletedStatus);
 
     Client restoreById(UUID id);
+
     List<Client> restoreAll();
+
+    Client save(Client client);
 }
-
-
-

@@ -21,6 +21,7 @@ import java.util.UUID;
 @Slf4j
 @Component
 public class OnlinePayComponentImpl implements PaymentComponent {
+
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
     private final GetEntity<Account> getAccount;
@@ -49,13 +50,15 @@ public class OnlinePayComponentImpl implements PaymentComponent {
             receiver.setBalance(receiver.getBalance().add(paymentData.getAmount()));
             accountRepository.save(receiver);
         }
-        saveTransaction(sender, paymentData);
+        Transaction transaction = createTransaction(sender, paymentData);
+        transactionRepository.save(transaction);
+        log.info("transaction saved");
         accountRepository.save(sender);
         log.info("payment successful");
     }
 
     @Override
-    public void saveTransaction(Account sender, PaymentData paymentData) {
+    public Transaction createTransaction(Account sender, PaymentData paymentData) {
         Transaction transaction = new Transaction();
         transaction.setDebitAccountId(sender.getId());
         transaction.setAmount(paymentData.getAmount());
@@ -64,7 +67,6 @@ public class OnlinePayComponentImpl implements PaymentComponent {
         transaction.setType(paymentData.getType());
         transaction.setDescription(paymentData.getDescription());
 
-        transactionRepository.save(transaction);
-        log.info("transaction saved");
+        return transaction;
     }
 }

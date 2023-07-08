@@ -1,6 +1,7 @@
 package com.banking.service.component.interfaces;
 
 import com.banking.entity.Account;
+import com.banking.entity.Transaction;
 import com.banking.entity.pojo.PaymentData;
 import com.banking.exception.BadAccountData;
 
@@ -12,5 +13,6 @@ public interface PaymentComponent {
 
     void pay(UUID id, PaymentData paymentData) throws BadAccountData;
 
-    void saveTransaction(Account sender, PaymentData paymentData);
+    Transaction createTransaction(Account sender, PaymentData paymentData);
+
 }

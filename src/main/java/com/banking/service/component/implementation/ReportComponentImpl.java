@@ -19,8 +19,11 @@ import java.util.UUID;
 @Slf4j
 @Component
 public class ReportComponentImpl implements ReportComponent {
+
     private final TransactionRepository transactionRepository;
+
     private Receipt receipt;
+
     @Override
     public List<Transaction> giveIntervalReportByDate(UUID creditId, Timestamp startDate, Timestamp endDate) {
         return transactionRepository.findTransactionsByCreditAccountIdAndCreatedAtBetween(creditId, startDate, endDate);
