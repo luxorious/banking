@@ -16,6 +16,7 @@ import java.util.List;
 @Slf4j
 @Component
 public class ReceiptImpl implements Receipt {
+
     @Value("${receipt.currentTransaction}")
     private String currentTransaction;
 

@@ -10,12 +10,16 @@ import java.util.Random;
 @Slf4j
 @Component
 public class IBanGeneratorComponentImpl implements IBanGeneratorComponent {
+
     @Value("${iBan.countryCode}")
     private String countryCode;
+
     @Value("${iBan.controlNumber}")
     private int controlNumber;
+
     @Value("${iBan.bankCode}")
     private int bankCode;
+
     @Value("${iBan.additionalSymbols}")
     private String additionalSymbols;
 

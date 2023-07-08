@@ -1,7 +1,21 @@
 package com.banking.entity;
 
-import com.banking.entity.entityenumerations.*;
-import jakarta.persistence.*;
+import com.banking.entity.entityenumerations.AccountStatus;
+import com.banking.entity.entityenumerations.AccountType;
+import com.banking.entity.entityenumerations.CurrencyCode;
+import com.banking.entity.entityenumerations.DeletedStatus;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -65,7 +79,6 @@ public class Account {
     @CreationTimestamp
     private Timestamp updatedAt;
 
-    //for test in postman
     public Account(String name, BigDecimal balance) {
         this.name = name;
         this.balance = balance;

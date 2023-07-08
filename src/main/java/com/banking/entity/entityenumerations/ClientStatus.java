@@ -1,11 +1,11 @@
 package com.banking.entity.entityenumerations;
 
 public enum ClientStatus {
-    ACTIVE,         //активний
-    INACTIVE,       //неактивний
-    BLOCKED,        //блокований
-    DECEASED,       //померлий
-    PENDING,        //очікує: цей статус вказує на те, що рахунок клієнта в банку знаходиться в процесі відкриття
+    ACTIVE,
+    INACTIVE,
+    BLOCKED,
+    DECEASED,
+    PENDING,
     VIP,
-    BLACKLISTED     //у чорному списку
+    BLACKLISTED
 }

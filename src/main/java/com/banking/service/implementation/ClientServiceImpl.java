@@ -6,6 +6,7 @@ import com.banking.entity.entityenumerations.DeletedStatus;
 import com.banking.repository.ClientRepository;
 import com.banking.service.interfaces.ClientService;
 import com.banking.service.interfaces.utility.Converter;
+import com.banking.service.interfaces.utility.ValidatorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository clientRepository;
     private final Converter<Client> clientConverter;
+    private final ValidatorService<Client> validatorService;
 
     @Override
     public Client createClient(Client client) {
@@ -28,8 +30,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Optional<Client> findById(UUID uuid) {
-        return clientRepository.findById(uuid);
+    public Client findById(UUID uuid) {
+        return validatorService.checkEntity(clientRepository.findById(uuid));
     }
 
     @Override
@@ -135,5 +137,10 @@ public class ClientServiceImpl implements ClientService {
         clientRepository.saveAll(clients);
         log.info("all deleted Clients are restored!");
         return clients;
+    }
+
+    @Override
+    public Client save(Client client) {
+        return clientRepository.save(client);
     }
 }

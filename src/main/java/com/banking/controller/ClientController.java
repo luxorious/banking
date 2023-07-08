@@ -26,7 +26,7 @@ public class ClientController {
 
     @GetMapping("/find/id/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Client> findById(@PathVariable UUID id){
+    public Client findById(@PathVariable UUID id){
         return clientService.findById(id);
     }
 
