@@ -7,7 +7,7 @@ import com.banking.entity.Transaction;
 import com.banking.entity.entityenumerations.ClientStatus;
 import com.banking.entity.entityenumerations.CreditStatus;
 import com.banking.entity.entityenumerations.TransactionType;
-import com.banking.mailservice.MailSender;
+import com.banking.service.mailservice.MailSender;
 import com.banking.service.interfaces.AccountService;
 import com.banking.service.interfaces.ClientService;
 import com.banking.service.interfaces.CreditService;

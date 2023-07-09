@@ -14,6 +14,8 @@ public interface AgreementService {
 
     Agreement createAgreement(Agreement agreement);
 
+    Agreement createAgreement(Agreement agreement, UUID accountId);
+
     List<Agreement> findAgreementByInterestRate(BigDecimal interestRate);
 
     Agreement editAgreement(UUID id, Agreement agreementFE);

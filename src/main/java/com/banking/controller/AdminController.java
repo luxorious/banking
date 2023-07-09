@@ -27,7 +27,6 @@ public class AdminController {
     private final ManagerService managerService;
     private final DocumentService documentService;
 
-
     @PutMapping("/restore-product-by-id/{id}")
     public Product restoreProductById(@PathVariable UUID id){
         return productService.restoreById(id);

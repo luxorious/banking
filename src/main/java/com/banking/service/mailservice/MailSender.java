@@ -1,4 +1,4 @@
-package com.banking.mailservice;
+package com.banking.service.mailservice;
 
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -6,5 +6,5 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 public interface MailSender {
     JsonNode createMessage(String receiverEmail) throws UnirestException;
 
-    JsonNode send(String receiverEmail);
+    void send(String receiverEmail);
 }

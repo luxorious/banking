@@ -1,4 +1,4 @@
-package com.banking.mailservice;
+package com.banking.service.mailservice;
 
 import com.banking.exception.BadAccountData;
 import com.mashape.unirest.http.HttpResponse;
@@ -43,11 +43,10 @@ public class MailSenderImpl implements MailSender{
     }
 
     @Override
-    public JsonNode send(String receiverEmail) {
+    public void send(String receiverEmail) {
         try {
             JsonNode response = createMessage(receiverEmail);
-            log.info("message sent");
-            return response;
+            log.info("message sent " + response.toString());
         } catch (UnirestException e) {
             log.info("some error " + e.getMessage());
             // какое здесь лучше визвать исключение?
@@ -55,3 +54,6 @@ public class MailSenderImpl implements MailSender{
         }
     }
 }
+
+
+

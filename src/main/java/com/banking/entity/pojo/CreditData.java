@@ -28,13 +28,13 @@ public class CreditData {
 
     private BigDecimal paymentPerMonth;
 
-    public Timestamp getStartDate(){
+    public Timestamp getStartDate() {
         LocalDate currentDate = LocalDate.now();
         LocalDate startDate = currentDate.minusMonths(paymentsNumber);
         return Timestamp.valueOf(startDate.atStartOfDay());
     }
 
-    public BigDecimal getMonthlyPayment(){
+    public BigDecimal getMonthlyPayment() {
         //null pointer
         paymentPerMonth = sumOfCredit.divide(new BigDecimal(paymentsNumber), RoundingMode.HALF_UP);
         return paymentPerMonth;
