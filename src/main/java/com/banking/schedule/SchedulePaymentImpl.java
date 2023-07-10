@@ -1,12 +1,10 @@
 package com.banking.schedule;
 
-import com.banking.entity.Account;
-import com.banking.entity.Client;
-import com.banking.entity.Credit;
-import com.banking.entity.Transaction;
+import com.banking.entity.*;
 import com.banking.entity.entityenumerations.ClientStatus;
 import com.banking.entity.entityenumerations.CreditStatus;
 import com.banking.entity.entityenumerations.TransactionType;
+import com.banking.repository.BankRepository;
 import com.banking.service.mailservice.MailSender;
 import com.banking.service.interfaces.AccountService;
 import com.banking.service.interfaces.ClientService;
@@ -33,6 +31,7 @@ public class SchedulePaymentImpl implements SchedulePayment {
     private final AccountService accountService;
     private final TransactionService transactionService;
     private final MailSender mailSender;
+    private final BankRepository bankRepository;
 
     @Value(value = "${schedule.transactionDescription}")
     private String transactionDescription;
@@ -48,6 +47,7 @@ public class SchedulePaymentImpl implements SchedulePayment {
     @Transactional
     public void monthlyPayment() {
         List<Credit> credits = creditService.findAllActive();
+        Bank bank = bankRepository.getReferenceById(bankUuid);
 
         for (Credit credit : credits) {
             Client client = clientService.findById(credit.getClientId());
@@ -56,7 +56,8 @@ public class SchedulePaymentImpl implements SchedulePayment {
 
             if (account.getBalance().compareTo(credit.getPaymentPerMonth()) >= 0) {
                 if (isLastPayment(credit)) {
-                    lastPayment(account, credit);
+                    BigDecimal payment = lastPayment(account, credit);
+                    bank.setBalance(bank.getBalance().add(payment));
                     continue;
                 }
                 account.setBalance(account.getBalance().subtract(credit.getPaymentPerMonth()));
@@ -69,14 +70,18 @@ public class SchedulePaymentImpl implements SchedulePayment {
                 creditService.save(credit);
             }
         }
+        bankRepository.save(bank);
     }
 
-    private void lastPayment(Account account, Credit credit) {
-        account.setBalance(account.getBalance().subtract(credit.getSumOfCredit()));
+    private BigDecimal lastPayment(Account account, Credit credit) {
+        BigDecimal payment = credit.getSumOfCredit();
+        account.setBalance(account.getBalance().subtract(payment));
         credit.setSumOfCredit(BigDecimal.valueOf(0));
         credit.setCreditStatus(CreditStatus.PAID);
-        Transaction transaction = initialTransaction(credit.getSumOfCredit(), account);
+        Transaction transaction = initialTransaction(payment, account);
         saveAll(account,credit,transaction);
+
+        return payment;
     }
 
     private boolean isLastPayment(Credit credit) {

@@ -1,13 +1,16 @@
 package com.banking.service.implementation;
 
+import com.banking.entity.Bank;
 import com.banking.entity.Credit;
 import com.banking.entity.entityenumerations.CreditStatus;
 import com.banking.entity.pojo.CreditData;
+import com.banking.repository.BankRepository;
 import com.banking.repository.CreditRepository;
 import com.banking.service.interfaces.CreditService;
 import com.banking.service.interfaces.utility.ValidatorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -22,6 +25,10 @@ public class CreditServiceImpl implements CreditService {
 
     private final CreditRepository creditRepository;
     private final ValidatorService<Credit> entityValidation;
+    private final BankRepository bankRepository;
+
+    @Value("${bankUuid}")
+    private UUID bankId;
 
     //циклиская зависимость в schedulePaymentImpl
 ////    private final CreditValidationToApprove creditApprove;
@@ -42,6 +49,11 @@ public class CreditServiceImpl implements CreditService {
                 BigDecimal.valueOf((credit.getNumberOfMonth())), 2, RoundingMode.HALF_UP));
         credit.setCreditType(creditData.getType());
         credit.setCurrencyCode(creditData.getCurrencyCode());
+
+        Bank bank = bankRepository.getReferenceById(bankId);
+        bank.setBalance(bank.getBalance().subtract(credit.getSumOfCredit()));
+        bankRepository.save(bank);
+
         return creditRepository.save(credit);
     }
 

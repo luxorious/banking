@@ -28,9 +28,6 @@ public class Credit {
     @Column(name = "credit_sum")
     private BigDecimal sumOfCredit;
 
-//    @Column(name = "interest")
-//    private Double interest;
-
     @Column(name = "client_id")
     private UUID clientId;
 
@@ -48,7 +45,7 @@ public class Credit {
     @Enumerated(EnumType.STRING)
     private CreditType creditType;
 
-    @Column(name = "curency_code")
+    @Column(name = "currency_code")
     @Enumerated(EnumType.STRING)
     private CurrencyCode currencyCode;
 
