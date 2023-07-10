@@ -62,16 +62,8 @@ public class Filler {
 
     @Value("${filler.firstNames}")
     private String firstNames;
-
     @Value("${filler.surnames}")
     private String surnames;
-
-    private List<ManagerStatus> managerStatusList = Arrays.asList(ManagerStatus.ACTIVE,
-            ManagerStatus.INACTIVE, ManagerStatus.SUSPENDED, ManagerStatus.TERMINATED,
-            ManagerStatus.ON_LEAVE, ManagerStatus.PROBATIONARY, ManagerStatus.PROMOTED,
-            ManagerStatus.DEMOTED, ManagerStatus.TRANSFERRED, ManagerStatus.RETIRED
-    );
-
     @Value("${filler.taxCodes}")
     private String taxCodes;
     @Value("${filler.phoneNumbers}")
@@ -85,6 +77,7 @@ public class Filler {
     @Value("${filler.transactionDescriptions}")
     private String transactionDescriptions;
 
+    private List<ManagerStatus> managerStatusList = Arrays.asList(ManagerStatus.values());
     private List<AccountType> accountTypes = Arrays.asList(AccountType.values());
     private List<AccountStatus> accountStatusList = Arrays.asList(AccountStatus.values());
     private List<CurrencyCode> currencyCodes = Arrays.asList(CurrencyCode.values());
