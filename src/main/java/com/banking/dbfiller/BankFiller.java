@@ -20,10 +20,13 @@ public class BankFiller {
 
     @Value("${bankIban}")
     private String iban;
-    private final BigDecimal balance = BigDecimal.valueOf(500000.00);
+
+    @Value("${bankCapital}")
+    private String balance;
 
     public void fillBank(){
-        Bank bank = new Bank(id,iban, balance);
+        BigDecimal capital = BigDecimal.valueOf(Long.parseLong(this.balance));
+        Bank bank = new Bank(id,iban, capital);
         bankRepository.save(bank);
     }
 }
