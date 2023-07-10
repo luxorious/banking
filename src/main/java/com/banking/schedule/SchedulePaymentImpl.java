@@ -43,7 +43,7 @@ public class SchedulePaymentImpl implements SchedulePayment {
     private UUID bankUuid;
 
     @Override
-    @Scheduled(cron = "0 0 0 1 * *")
+    @Scheduled(cron = "${schedule.cronMonthlyPayment}")
     @Transactional
     public void monthlyPayment() {
         List<Credit> credits = creditService.findAllActive();
@@ -107,7 +107,7 @@ public class SchedulePaymentImpl implements SchedulePayment {
     }
 
     @Override
-    @Scheduled(cron = "0 0 0 L-7 * ?")
+    @Scheduled(cron = "${schedule.cronNotification}")
     public void notification(){
         List<Credit> credits = creditService.findAllActive();
         for (Credit credit : credits) {
