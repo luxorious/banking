@@ -11,7 +11,7 @@ public interface DocumentService {
 
     Document save(Document document);
 
-    Document create(Document document);
+    Document create(Document document, UUID clientId);
 
     Document findDocumentByClientId(UUID id);
 

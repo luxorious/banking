@@ -62,8 +62,8 @@ public class AdminController {
         return managerService.showAllManagersForAdmin();
     }
 
-    Document createDocument(Document document){
-        return documentService.create(document);
+    Document createDocument(Document document, UUID clientId){
+        return documentService.create(document, clientId);
     }
     Document findDocumentByClientId(UUID id){
         return documentService.findDocumentByClientId(id);

@@ -1,5 +1,6 @@
 package com.banking.entity.pojo;
 
+import com.banking.entity.entityenumerations.CreditType;
 import com.banking.entity.entityenumerations.CurrencyCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +28,8 @@ public class CreditData {
     private UUID id;
 
     private BigDecimal paymentPerMonth;
+
+    private CreditType type;
 
     public Timestamp getStartDate() {
         LocalDate currentDate = LocalDate.now();

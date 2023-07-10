@@ -13,8 +13,6 @@ public interface AgreementService {
     List<Agreement> findAll();
     Agreement save(Agreement agreement);
 
-    Agreement createAgreement(Agreement agreement);
-
     Agreement createAgreement(Agreement agreement, UUID accountId);
 
     List<Agreement> findAgreementByInterestRate(BigDecimal interestRate);

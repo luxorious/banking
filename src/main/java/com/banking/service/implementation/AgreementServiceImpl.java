@@ -33,13 +33,9 @@ public class AgreementServiceImpl implements AgreementService {
         return agreementRepository.save(agreement);
     }
 
-    @Override
-    public Agreement createAgreement(Agreement agreement) {
-        return agreementRepository.save(agreement);
-    }
 
     @Override
-    public Agreement createAgreement(Agreement agreement, UUID accountId) {
+    public Agreement createAgreement(Agreement agreement, UUID accountId){
         agreement.setAccountId(accountId);
         return agreementRepository.save(agreement);
     }

@@ -41,7 +41,7 @@ public class Credit {
     @Column(name = "number_of_month")
     private Integer numberOfMonth;
 
-    @Column(name = "paymentPerMonth")
+    @Column(name = "payment_per_month")
     private BigDecimal paymentPerMonth;
 
     @Column(name = "credit_type")

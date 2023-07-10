@@ -12,7 +12,6 @@ import java.util.UUID;
 public interface AccountService {
 
     Account save(Account account);
-    Account createAccount(Account account);
 
     Account createAccount(Account account, UUID clientId);
 

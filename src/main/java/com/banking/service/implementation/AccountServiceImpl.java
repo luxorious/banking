@@ -36,10 +36,6 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.save(account);
     }
 
-    @Override
-    public Account createAccount(Account account) {
-        return accountRepository.save(account);
-    }
 
     @Override
     public Account createAccount(Account account, UUID clientId) {

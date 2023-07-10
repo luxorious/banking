@@ -33,7 +33,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product createProduct(Product product) {
+    public Product createProduct(Product product, UUID managerId) {
+        product.setManagerId(managerId);
         log.info("product saved");
         return productRepository.save(product);
     }

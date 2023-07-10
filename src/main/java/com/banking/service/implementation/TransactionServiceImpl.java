@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,7 +23,8 @@ public class TransactionServiceImpl implements TransactionService {
     private final ValidatorService<Transaction> validatorService;
 
     @Override
-    public Transaction createTransaction(Transaction transaction) {
+    public Transaction createTransaction(Transaction transaction, UUID creditAccountId) {
+        transaction.setCreditAccountId(creditAccountId);
         return transactionRepository.save(transaction);
     }
 

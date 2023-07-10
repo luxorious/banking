@@ -12,7 +12,7 @@ public interface ProductService {
 
     Product save(Product product);
 
-    Product createProduct(Product product);
+    Product createProduct(Product product, UUID managerId);
 
     Product findById(UUID uuid);
 

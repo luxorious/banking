@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public interface ClientService {
 
-    Client createClient(Client client);
+    Client createClient(Client client, UUID managerId);
 
     Client findById(UUID uuid);
 

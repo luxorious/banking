@@ -29,7 +29,8 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public Document create(Document document) {
+    public Document create(Document document, UUID clientId) {
+        document.setClientId(clientId);
         log.info("document with id - " + document.getId() + " saved");
         return documentRepository.save(document);
     }

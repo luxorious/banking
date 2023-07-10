@@ -10,6 +10,9 @@ public interface CreditService {
 
 //    Boolean getCredit(CreditData creditData);
 
+
+    Credit createCredit(CreditData creditData, UUID clientId);
+
     List<Credit> findAllCreditsByClientId(UUID clientId);
 
     List<Credit> findAll();
