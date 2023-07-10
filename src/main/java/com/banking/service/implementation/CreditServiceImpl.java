@@ -13,8 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,8 +43,7 @@ public class CreditServiceImpl implements CreditService {
         credit.setCreditStatus(CreditStatus.ACTIVE);
         credit.setSumOfCredit(creditData.getSumOfCredit());
         credit.setNumberOfMonth(creditData.getPaymentsNumber());
-        credit.setPaymentPerMonth(credit.getSumOfCredit().divide(
-                BigDecimal.valueOf((credit.getNumberOfMonth())), 2, RoundingMode.HALF_UP));
+        credit.setPaymentPerMonth(creditData.getPaymentPerMonth());
         credit.setCreditType(creditData.getType());
         credit.setCurrencyCode(creditData.getCurrencyCode());
 
