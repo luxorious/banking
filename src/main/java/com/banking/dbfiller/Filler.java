@@ -57,7 +57,6 @@ public class Filler {
     private final ManagerService managerService;
     private final ProductService productService;
     private final TransactionService transactionService;
-
     private final FileUtil fileUtil;
 
     @Value("${filler.firstNames}")
@@ -90,8 +89,6 @@ public class Filler {
     private List<Role> roles = Arrays.asList(Role.values());
     private List<ClientStatus> clientStatuses = Arrays.asList(ClientStatus.values());
     private List<Double> interestRates = List.of(0.5, 0.8, 1.2, 0.3, 0.9, 1.5, 1.0, 0.7, 0.6, 1.3);
-
-
 
     public void fillAll() {
         Random r = new Random();//NOSONAR
@@ -216,14 +213,14 @@ public class Filler {
     private Document generateDocument(UUID clientId) {
         Document document = new Document();
         document.setClientId(clientId);
-        document.setPassport(generateBytes());
-        document.setRegistration(generateBytes());
+        document.setPassport(generateRandomBytesArray());
+        document.setRegistration(generateRandomBytesArray());
 
         return documentService.save(document);
 
     }
 
-    private byte[] generateBytes() {
+    private byte[] generateRandomBytesArray() {
         Random random = new Random();
         byte[] byteArray = new byte[random.nextInt(500)];
         random.nextBytes(byteArray);
