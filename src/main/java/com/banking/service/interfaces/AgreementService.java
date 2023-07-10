@@ -11,6 +11,7 @@ import java.util.UUID;
 public interface AgreementService {
 
     List<Agreement> findAll();
+    Agreement save(Agreement agreement);
 
     Agreement createAgreement(Agreement agreement);
 

@@ -28,8 +28,8 @@ public class Credit {
     @Column(name = "credit_sum")
     private BigDecimal sumOfCredit;
 
-    @Column(name = "interest")
-    private Double interest;
+//    @Column(name = "interest")
+//    private Double interest;
 
     @Column(name = "client_id")
     private UUID clientId;

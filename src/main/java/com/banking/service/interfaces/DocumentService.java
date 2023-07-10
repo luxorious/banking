@@ -9,6 +9,8 @@ import java.util.UUID;
 
 public interface DocumentService {
 
+    Document save(Document document);
+
     Document create(Document document);
 
     Document findDocumentByClientId(UUID id);

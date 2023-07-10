@@ -23,12 +23,15 @@ public class Transaction {
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "debit_account_id")
-    private UUID debitAccountId;
+//    @Column(name = "debit_account_id")
+//    private UUID debitAccountId;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "debit_account_id", referencedColumnName = "id", updatable = false, insertable = false)
+//    private Account debitAccount;
 
-    @ManyToOne
-    @JoinColumn(name = "debit_account_id", referencedColumnName = "id", updatable = false, insertable = false)
-    private Account debitAccount;
+    @Column(name = "credit_account_iban")
+    private String receiverIban;
 
     @Column(name = "credit_account_id")
     private UUID creditAccountId;
@@ -48,7 +51,7 @@ public class Transaction {
     private String description;
 
     @Column(name = "iban", length = 29)
-    private String iBan;
+    private String senderIBan;
 
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)

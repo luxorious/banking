@@ -10,6 +10,8 @@ import java.util.UUID;
 
 public interface ProductService {
 
+    Product save(Product product);
+
     Product createProduct(Product product);
 
     Product findById(UUID uuid);

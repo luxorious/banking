@@ -24,6 +24,11 @@ public class DocumentServiceImpl implements DocumentService {
     private final Converter<Document> converter;
 
     @Override
+    public Document save(Document document) {
+        return documentRepository.save(document);
+    }
+
+    @Override
     public Document create(Document document) {
         log.info("document with id - " + document.getId() + " saved");
         return documentRepository.save(document);

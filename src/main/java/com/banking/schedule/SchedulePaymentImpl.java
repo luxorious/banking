@@ -87,10 +87,10 @@ public class SchedulePaymentImpl implements SchedulePayment {
         Transaction transaction = new Transaction();
         transaction.setDescription(transactionDescription);
         transaction.setType(TransactionType.PAYMENT);
-        transaction.setIBan(bankIban);
+        transaction.setSenderIBan(account.getIBan());
         transaction.setAmount(payment);
-        transaction.setDebitAccountId(account.getId());
-        transaction.setCreditAccountId(bankUuid);
+        transaction.setCreditAccountId(account.getId());
+        transaction.setReceiverIban(bankIban);
 
         return transaction;
     }

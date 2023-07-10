@@ -24,6 +24,11 @@ public class ManagerServiceImpl implements ManagerService {
     private final Converter<Manager> managerConverter;
 
     @Override
+    public Manager save(Manager manager) {
+        return managerRepository.save(manager);
+    }
+
+    @Override
     public Manager createManager(Manager manager) {
         return managerRepository.save(manager);
     }
