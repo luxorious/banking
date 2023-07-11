@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface TransactionService {
 
-    Transaction createTransaction(Transaction transaction);
+    Transaction createTransaction(Transaction transaction, UUID debitAccountId);
 
     Optional<Transaction> findById(UUID uuid);
 

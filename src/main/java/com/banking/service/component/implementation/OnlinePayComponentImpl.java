@@ -60,10 +60,10 @@ public class OnlinePayComponentImpl implements PaymentComponent {
     @Override
     public Transaction createTransaction(Account sender, PaymentData paymentData) {
         Transaction transaction = new Transaction();
-        transaction.setDebitAccountId(sender.getId());
+        transaction.setCreditAccountId(sender.getId());
         transaction.setAmount(paymentData.getAmount());
-        transaction.setCreditAccountId(paymentData.getReceiverId());
-        transaction.setIBan(paymentData.getIBan());
+        transaction.setReceiverIban(paymentData.getIBan());
+        transaction.setSenderIBan(sender.getIBan());
         transaction.setType(paymentData.getType());
         transaction.setDescription(paymentData.getDescription());
 

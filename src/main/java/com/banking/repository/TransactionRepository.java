@@ -40,7 +40,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
 
     @Query("SELECT tr FROM Transaction tr " +
             "WHERE tr.creditAccountId = :creditAccountId AND " +
-            "tr.iBan = :iBan")
-    List<Transaction> findTransactionsByCreditAccountIdAndIBan(UUID creditAccountId, String iBan);
+            "tr.receiverIban = :receiverIban")
+    List<Transaction> findTransactionsByCreditAccountIdAndIBan(UUID creditAccountId, String receiverIban);
 
 }

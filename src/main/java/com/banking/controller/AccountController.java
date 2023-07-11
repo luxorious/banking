@@ -29,11 +29,11 @@ public class AccountController {
         return accountService.findAccountById(id);
     }
 
-    @PostMapping(value = "/create")
+    @PostMapping(value = "/create/{clientId}")
     @ResponseStatus(HttpStatus.OK)
-    public Account createAccount(@RequestBody Account account) {
+    public Account createAccount(@RequestBody Account account, @PathVariable UUID clientId) {
         log.info("account " + account + " added");
-        return accountService.createAccount(account);
+        return accountService.createAccount(account, clientId);
     }
 
     @GetMapping(value = "/name/{name}")

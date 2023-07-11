@@ -31,7 +31,7 @@ public class ReceiptImpl implements Receipt {
             String type = String.valueOf((transaction.getType()));
             String amount = String.valueOf(transaction.getAmount());
             String description = transaction.getDescription();
-            String iban = transaction.getIBan();
+            String iban = transaction.getSenderIBan();
 
             String currentReport = currentTransaction.formatted(date, type, amount, description, iban);
             newTicket.append(currentReport);

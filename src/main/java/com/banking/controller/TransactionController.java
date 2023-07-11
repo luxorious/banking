@@ -19,10 +19,10 @@ public class TransactionController {
 
     private final TransactionService transactionService;
 
-    @PostMapping("/create")
+    @PostMapping("/create/{creditAccountId}")
     @ResponseStatus(HttpStatus.OK)
-    public Transaction createTransaction(@RequestBody Transaction transaction) {
-        return transactionService.createTransaction(transaction);
+    public Transaction createTransaction(@RequestBody Transaction transaction, @PathVariable UUID creditAccountId) {
+        return transactionService.createTransaction(transaction, creditAccountId);
     }
 
     @GetMapping("/find/id/{id}")

@@ -27,7 +27,6 @@ public class AdminController {
     private final ManagerService managerService;
     private final DocumentService documentService;
 
-
     @PutMapping("/restore-product-by-id/{id}")
     public Product restoreProductById(@PathVariable UUID id){
         return productService.restoreById(id);
@@ -63,8 +62,8 @@ public class AdminController {
         return managerService.showAllManagersForAdmin();
     }
 
-    Document createDocument(Document document){
-        return documentService.create(document);
+    Document createDocument(Document document, UUID clientId){
+        return documentService.create(document, clientId);
     }
     Document findDocumentByClientId(UUID id){
         return documentService.findDocumentByClientId(id);

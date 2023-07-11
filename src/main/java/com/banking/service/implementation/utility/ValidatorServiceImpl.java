@@ -15,6 +15,7 @@ import java.util.Optional;
 @Service
 @Slf4j
 public class ValidatorServiceImpl<T> implements ValidatorService<T> {
+
     @Value("${validatorComponent.error}")
     private String error;
 

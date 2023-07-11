@@ -25,7 +25,7 @@ public class ClientServiceImpl implements ClientService {
     private final ValidatorService<Client> validatorService;
 
     @Override
-    public Client createClient(Client client) {
+    public Client createClient(Client client, UUID managerId) {
         return clientRepository.save(client);
     }
 

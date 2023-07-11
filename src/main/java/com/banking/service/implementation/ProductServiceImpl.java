@@ -25,10 +25,16 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final Converter<Product> productConverter;
-    private final GetEntity<Product> getProduct;
     private final ValidatorService<Product> validatorService;
+
     @Override
-    public Product createProduct(Product product) {
+    public Product save(Product product) {
+        return productRepository.save(product);
+    }
+
+    @Override
+    public Product createProduct(Product product, UUID managerId) {
+        product.setManagerId(managerId);
         log.info("product saved");
         return productRepository.save(product);
     }

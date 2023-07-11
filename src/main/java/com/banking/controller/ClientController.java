@@ -18,10 +18,10 @@ public class ClientController {
 
     private final ClientService clientService;
 
-    @PostMapping("/create")
+    @PostMapping("/create/{managerId}")
     @ResponseStatus(HttpStatus.OK)
-    public Client createClient(@RequestBody Client client){
-        return clientService.createClient(client);
+    public Client createClient(@RequestBody Client client, @PathVariable UUID managerId){
+        return clientService.createClient(client, managerId);
     }
 
     @GetMapping("/find/id/{id}")

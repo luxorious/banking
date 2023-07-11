@@ -2,6 +2,7 @@ package com.banking.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
@@ -11,9 +12,9 @@ import java.util.UUID;
 @Table(name = "bank")
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class Bank {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(name = "iban")

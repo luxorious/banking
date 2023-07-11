@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.w3c.dom.Text;
 
 import java.util.UUID;
 
@@ -25,9 +26,11 @@ public class Document {
     @JoinColumn(name = "client_id", referencedColumnName = "id", updatable = false, insertable = false)
     private Client client;
 
+    @Lob
     @Column(name = "passport")
     private byte[] passport;
 
+    @Lob
     @Column(name = "registration")
     private byte[] registration;
 }

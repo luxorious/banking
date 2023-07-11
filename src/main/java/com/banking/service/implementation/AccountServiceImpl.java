@@ -36,11 +36,12 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.save(account);
     }
 
+
     @Override
-    public Account createAccount(Account account){//, UUID clientId) {
+    public Account createAccount(Account account, UUID clientId) {
         account.setDeletedStatus(DeletedStatus.ACTIVE);
         account.setIBan(iBanGenerator.generate());
-//        account.setClientId(clientId);
+        account.setClientId(clientId);
         log.info("creating account " + account);
         return accountRepository.save(account);
     }

@@ -20,10 +20,10 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @PostMapping("/create")
+    @PostMapping("/create/{managerId}")
     @ResponseStatus(HttpStatus.OK)
-    public Product createProduct(Product product){
-        return productService.createProduct(product);
+    public Product createProduct(@RequestBody Product product,@PathVariable UUID managerId){
+        return productService.createProduct(product, managerId);
     }
 
     @GetMapping("/find/{id}")

@@ -28,9 +28,6 @@ public class Credit {
     @Column(name = "credit_sum")
     private BigDecimal sumOfCredit;
 
-    @Column(name = "interest")
-    private Double interest;
-
     @Column(name = "client_id")
     private UUID clientId;
 
@@ -41,14 +38,14 @@ public class Credit {
     @Column(name = "number_of_month")
     private Integer numberOfMonth;
 
-    @Column(name = "paymentPerMonth")
+    @Column(name = "payment_per_month")
     private BigDecimal paymentPerMonth;
 
     @Column(name = "credit_type")
     @Enumerated(EnumType.STRING)
     private CreditType creditType;
 
-    @Column(name = "curency_code")
+    @Column(name = "currency_code")
     @Enumerated(EnumType.STRING)
     private CurrencyCode currencyCode;
 
