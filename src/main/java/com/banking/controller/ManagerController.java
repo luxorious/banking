@@ -4,6 +4,7 @@ import com.banking.entity.Manager;
 import com.banking.entity.entityenumerations.ManagerStatus;
 import com.banking.service.interfaces.ManagerService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/manager")
 public class ManagerController {
 

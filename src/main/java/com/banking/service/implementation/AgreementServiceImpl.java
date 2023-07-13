@@ -6,6 +6,7 @@ import com.banking.entity.entityenumerations.DeletedStatus;
 import com.banking.repository.AgreementRepository;
 import com.banking.service.implementation.utility.AgreementConverterImpl;
 import com.banking.service.interfaces.AgreementService;
+import com.banking.service.interfaces.utility.ValidatorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class AgreementServiceImpl implements AgreementService {
 
     private final AgreementRepository agreementRepository;
     private final AgreementConverterImpl agreementConverter;
+    private final ValidatorService<Agreement> agreementValidator;
 
     @Override
     public List<Agreement> findAll() {
@@ -43,6 +45,16 @@ public class AgreementServiceImpl implements AgreementService {
     @Override
     public List<Agreement> findAgreementByInterestRate(BigDecimal interestRate) {
         return agreementRepository.findAgreementByInterestRate(interestRate);
+    }
+
+    @Override
+    public List<Agreement> findAgreementByIdAndInterestRate(UUID id, BigDecimal interestRate) {
+        return agreementRepository.findAgreementByIdAndInterestRate(id,interestRate);
+    }
+
+    @Override
+    public List<Agreement> findAgreementsByIdAndStatus(UUID id, AgreementStatus status) {
+        return agreementRepository.findAgreementsByIdAndStatus(id, status);
     }
 
     @Override

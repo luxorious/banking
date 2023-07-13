@@ -7,8 +7,8 @@ import com.banking.entity.entityenumerations.ClientStatus;
 import com.banking.entity.entityenumerations.CreditStatus;
 import com.banking.entity.entityenumerations.TransactionType;
 import com.banking.entity.pojo.CreditData;
+import com.banking.repository.CreditRepository;
 import com.banking.service.interfaces.ClientService;
-import com.banking.service.interfaces.CreditService;
 import com.banking.service.interfaces.TransactionService;
 import com.banking.service.interfaces.utility.CreditValidationToApprove;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class CreditValidationToApproveImpl implements CreditValidationToApprove 
 
     private final TransactionService transactionService;
     private final ClientService clientService;
-    private final CreditService creditService;
+    private final CreditRepository creditRepository;
 
     private boolean getTotalSumForCredit(CreditData creditData) {
         List<Transaction> transactions =
@@ -57,7 +57,7 @@ public class CreditValidationToApproveImpl implements CreditValidationToApprove 
         List<Boolean> checkList = new ArrayList<>();
         checkList.add(getTotalSumForCredit(creditData));
         checkList.add(checkClientStatus(clientService.findById(creditData.getId())));
-        checkList.add(checkClientsCreditHistory(creditService.findAllCreditsByClientId(creditData.getId())));
+        checkList.add(checkClientsCreditHistory(creditRepository.findAllByClientId(creditData.getId())));
         return checkList;
     }
 

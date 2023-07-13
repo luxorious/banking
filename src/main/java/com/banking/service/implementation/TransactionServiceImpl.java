@@ -44,8 +44,8 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<Transaction> findTransactionsByAmount(BigDecimal amount) {
-        return transactionRepository.findTransactionsByAmount(amount);
+    public List<Transaction> findTransactionsByCreditAccountIdAndAmount(UUID creditAccountId, BigDecimal amount) {
+        return transactionRepository.findTransactionsByCreditAccountIdAndAmount(creditAccountId, amount);
     }
 
     @Override

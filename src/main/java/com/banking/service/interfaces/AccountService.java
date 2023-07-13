@@ -15,17 +15,17 @@ public interface AccountService {
 
     Account createAccount(Account account, UUID clientId);
 
-    List<Account> findAllActive();
+    List<Account> findAllActiveById(UUID id);
 
-    Account findAccountById(UUID uuid);
+    Account findAccountById(UUID id);
 
-    List<Account> findAccountsByName(String name);
+    List<Account> findAccountsByIdAndName(UUID id, String name);
 
-    List<Account> findAccountsByStatus(AccountStatus status);
+    List<Account> findAccountsByIdAndStatus(UUID id, AccountStatus status);
 
-    List<Account> findAccountsByType(AccountType type);
+    List<Account> findAccountsByIdAndType(UUID id, AccountType type);
 
-    List<Account> findAccountsByCurrencyCode(CurrencyCode currencyCode);
+    List<Account> findAccountsByIdAndCurrencyCode(UUID id, CurrencyCode currencyCode);
 
     List<Account> findAccountsByCreatedAt(Timestamp dateCreation);
 
@@ -37,12 +37,12 @@ public interface AccountService {
 
     Account deleteAccountById(UUID id);
 
-    List<Account> deleteAccountsByStatus(AccountStatus status);
+    List<Account> deleteAccountsByIdAndStatus(UUID id, AccountStatus status);
 
     Account restoreById(UUID id);
     Account findAccountByIdAndCurrencyCode(UUID id, CurrencyCode currencyCode);
 
-    List<Account> restoreAll();
+    List<Account> restoreAllById(UUID id);
 
     Account findAccountByIban(String iban);
 

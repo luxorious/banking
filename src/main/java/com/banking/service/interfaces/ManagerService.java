@@ -9,8 +9,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ManagerService {
-    Manager save(Manager manager);
-
     Manager createManager(Manager manager);
 
     Optional<Manager> findById(UUID uuid);

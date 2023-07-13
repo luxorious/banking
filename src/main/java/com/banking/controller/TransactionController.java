@@ -37,10 +37,15 @@ public class TransactionController {
         return transactionService.findTransactionsByType(type);
     }
 
-    @GetMapping("/find/amount")
+    @GetMapping("/find/amount/{creditAccountId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Transaction> findTransactionsByAmount(@RequestParam BigDecimal amount) {
-        return transactionService.findTransactionsByAmount(amount);
+    public List<Transaction> findTransactionsByAmount(@PathVariable UUID creditAccountId, @RequestParam BigDecimal amount) {
+        return transactionService.findTransactionsByCreditAccountIdAndAmount(creditAccountId, amount);
+    }
+
+    @GetMapping("/find-all/type/{id}")
+    public List<Transaction> findTransactionsByIdAndType(@PathVariable UUID id, @RequestParam TransactionType type) {
+        return transactionService.findTransactionsByIdAndType(id, type);
     }
 
     @GetMapping("/find/description")

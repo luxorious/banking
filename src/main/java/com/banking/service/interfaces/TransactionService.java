@@ -17,9 +17,10 @@ public interface TransactionService {
 
     List<Transaction> findTransactionsByType(TransactionType type);
 
+
     List<Transaction> findTransactionsByIdAndType(UUID id, TransactionType type);
 
-    List<Transaction> findTransactionsByAmount(BigDecimal amount);
+    List<Transaction> findTransactionsByCreditAccountIdAndAmount(UUID creditAccountId, BigDecimal amount);
 
     List<Transaction> findTransactionsByDescription(String description);
 

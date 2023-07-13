@@ -4,10 +4,14 @@ import com.banking.entity.Manager;
 import com.banking.entity.entityenumerations.DeletedStatus;
 import com.banking.entity.entityenumerations.ManagerStatus;
 import com.banking.repository.ManagerRepository;
+import com.banking.security.interfaces.AuthorisationService;
 import com.banking.service.interfaces.ManagerService;
 import com.banking.service.interfaces.utility.Converter;
+import com.banking.service.mailservice.MailSender;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -22,14 +26,12 @@ public class ManagerServiceImpl implements ManagerService {
 
     private final ManagerRepository managerRepository;
     private final Converter<Manager> managerConverter;
+private final AuthorisationService authorisationService;
 
-    @Override
-    public Manager save(Manager manager) {
-        return managerRepository.save(manager);
-    }
 
     @Override
     public Manager createManager(Manager manager) {
+        authorisationService.createManager(manager);
         return managerRepository.save(manager);
     }
 

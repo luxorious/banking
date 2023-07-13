@@ -14,4 +14,6 @@ public interface CreditRepository extends JpaRepository<Credit, UUID> {
     List<Credit> findAllByClientId(UUID id);
 
     List<Credit> findAllByCreditStatus(CreditStatus creditStatus);
+
+    List<Credit> findAllByCreditStatusAndClientId(CreditStatus creditStatus, UUID clientId);
 }

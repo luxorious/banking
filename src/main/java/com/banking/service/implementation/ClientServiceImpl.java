@@ -3,7 +3,10 @@ package com.banking.service.implementation;
 import com.banking.entity.Client;
 import com.banking.entity.entityenumerations.ClientStatus;
 import com.banking.entity.entityenumerations.DeletedStatus;
+import com.banking.entity.entityenumerations.Role;
 import com.banking.repository.ClientRepository;
+import com.banking.security.Authorisation;
+import com.banking.security.interfaces.AuthorisationService;
 import com.banking.service.interfaces.ClientService;
 import com.banking.service.interfaces.utility.Converter;
 import com.banking.service.interfaces.utility.ValidatorService;
@@ -23,9 +26,11 @@ public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
     private final Converter<Client> clientConverter;
     private final ValidatorService<Client> validatorService;
+    private final AuthorisationService authorisationService;
 
     @Override
     public Client createClient(Client client, UUID managerId) {
+        authorisationService.createClient(client);
         return clientRepository.save(client);
     }
 

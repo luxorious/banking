@@ -47,9 +47,9 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<Account> findAllActive() {
+    public List<Account> findAllActiveById(UUID id) {
         log.info("get all active accounts");
-        return validatorService.checkList(accountRepository.findAccountsByDeletedStatus(DeletedStatus.ACTIVE));
+        return validatorService.checkList(accountRepository.findAccountsByIdAndDeletedStatus(id, DeletedStatus.ACTIVE));
     }
 
     @Override
@@ -69,27 +69,27 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<Account> findAccountsByName(String name) {
+    public List<Account> findAccountsByIdAndName(UUID id, String name) {
         log.info("find all accounts where name - " + name);
-        return validatorService.checkList(accountRepository.findAccountsByName(name));
+        return validatorService.checkList(accountRepository.findAccountsByIdAndName(id, name));
     }
 
     @Override
-    public List<Account> findAccountsByStatus(AccountStatus status) {
+    public List<Account> findAccountsByIdAndStatus(UUID id, AccountStatus status) {
         log.info("find all accounts where status - " + status);
-        return validatorService.checkList(accountRepository.findAccountsByStatus(status));
+        return validatorService.checkList(accountRepository.findAccountsByIdAndStatus(id, status));
     }
 
     @Override
-    public List<Account> findAccountsByType(AccountType type) {
+    public List<Account> findAccountsByIdAndType(UUID id, AccountType type) {
         log.info("find all accounts where type - " + type);
-        return validatorService.checkList(accountRepository.findAccountsByType(type));
+        return validatorService.checkList(accountRepository.findAccountsByIdAndType(id, type));
     }
 
     @Override
-    public List<Account> findAccountsByCurrencyCode(CurrencyCode currencyCode) {
+    public List<Account> findAccountsByIdAndCurrencyCode(UUID id, CurrencyCode currencyCode) {
         log.info("find all accounts where currency code - " + currencyCode);
-        return validatorService.checkList(accountRepository.findAccountsByCurrencyCode(currencyCode));
+        return validatorService.checkList(accountRepository.findAccountsByIdAndCurrencyCode(id, currencyCode));
     }
 
     @Override
@@ -141,8 +141,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
-    public List<Account> deleteAccountsByStatus(AccountStatus status) {
-        List<Account> accounts = validatorService.checkList(accountRepository.findAccountsByStatus(status));
+    public List<Account> deleteAccountsByIdAndStatus(UUID id, AccountStatus status) {
+        List<Account> accounts = validatorService.checkList(accountRepository.findAccountsByIdAndStatus(id, status));
         accounts.forEach(account -> account.setDeletedStatus(DeletedStatus.DELETED));
         log.info("deleting accounts where Account Status - " + status);
         return accounts;
@@ -165,9 +165,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
-    public List<Account> restoreAll() {
+    public List<Account> restoreAllById(UUID id) {
         List<Account> accounts = validatorService.checkList(
-                accountRepository.findAccountsByDeletedStatus(DeletedStatus.DELETED));
+                accountRepository.findAccountsByIdAndDeletedStatus(id, DeletedStatus.DELETED));
         accounts.forEach(account -> account.setDeletedStatus(DeletedStatus.ACTIVE));
         accountRepository.saveAll(accounts);
         return accounts;

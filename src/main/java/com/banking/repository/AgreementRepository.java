@@ -16,11 +16,10 @@ import java.util.UUID;
 @NonNullApi
 public interface AgreementRepository extends JpaRepository<Agreement, UUID> {
     Optional<Agreement> findById(UUID uuid);
-
     List<Agreement> findAgreementByInterestRate(BigDecimal interestRate);
-
+    List<Agreement> findAgreementByIdAndInterestRate(UUID id, BigDecimal interestRate);
+    List<Agreement> findAgreementsByIdAndStatus(UUID id, AgreementStatus status);
     List<Agreement> findAgreementsByStatus(AgreementStatus status);
-
     List<Agreement> findAgreementsByDeletedStatus(DeletedStatus status);
 
 }

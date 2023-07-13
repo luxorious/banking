@@ -24,18 +24,19 @@ public interface AccountRepository extends JpaRepository<Account, UUID> {
 
     Optional<Account> findAccountByIdAndCurrencyCode(UUID id, CurrencyCode currencyCode);
 
-    List<Account> findAccountsByName(String name);
+    List<Account> findAccountsByIdAndName(UUID id, String name);
 
-    List<Account> findAccountsByStatus(AccountStatus status);
+    List<Account> findAccountsByIdAndStatus(UUID id, AccountStatus status);
 
-    List<Account> findAccountsByType(AccountType type);
+    List<Account> findAccountsByIdAndType(UUID id, AccountType type);
 
-    List<Account> findAccountsByCurrencyCode(CurrencyCode currencyCode);
+    List<Account> findAccountsByIdAndCurrencyCode(UUID id, CurrencyCode currencyCode);
 
     List<Account> findAccountsByCreatedAt(Timestamp dateCreation);
 
     List<Account> findAccountsByUpdatedAt(Timestamp dateUpdate);
 
+    List<Account> findAccountsByIdAndDeletedStatus(UUID id, DeletedStatus deletedStatus);
     List<Account> findAccountsByDeletedStatus(DeletedStatus deletedStatus);
 
     @Query("SELECT account FROM Account account " +

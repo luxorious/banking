@@ -36,34 +36,34 @@ public class AccountController {
         return accountService.createAccount(account, clientId);
     }
 
-    @GetMapping(value = "/name/{name}")
+    @GetMapping(value = "/name/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Account> findAccountsByName(@PathVariable String name) {
-        return accountService.findAccountsByName(name);
+    public List<Account> findAccountsByName(@PathVariable UUID id, @RequestParam String name) {
+        return accountService.findAccountsByIdAndName(id, name);
     }
 
-    @GetMapping(value = "/status/{status}")
+    @GetMapping(value = "/status/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Account> findAccountsByStatus(@PathVariable AccountStatus status) {
-        return accountService.findAccountsByStatus(status);
+    public List<Account> findAccountsByStatus(@PathVariable UUID id, @RequestParam AccountStatus status) {
+        return accountService.findAccountsByIdAndStatus(id, status);
     }
 
-    @GetMapping(value = "/get-all")
+    @GetMapping(value = "/get-all/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Account> getAll(){
-        return accountService.findAllActive();
+    public List<Account> getAll(@PathVariable UUID id){
+        return accountService.findAllActiveById(id);
     }
 
-    @GetMapping(value = "/type/{type}")
+    @GetMapping(value = "/type/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Account> findAccountsByType(@PathVariable AccountType type) {
-        return accountService.findAccountsByType(type);
+    public List<Account> findAccountsByType(@PathVariable UUID id, @RequestParam AccountType type) {
+        return accountService.findAccountsByIdAndType(id, type);
     }
 
-    @GetMapping(value = "/currency-code/{currencyCode}")
+    @GetMapping(value = "/currency-code/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Account> findAccountsByCurrencyCode(@PathVariable CurrencyCode currencyCode) {
-        return accountService.findAccountsByCurrencyCode(currencyCode);
+    public List<Account> findAccountsByCurrencyCode(@PathVariable UUID id, @RequestParam CurrencyCode currencyCode) {
+        return accountService.findAccountsByIdAndCurrencyCode(id, currencyCode);
     }
 
     @GetMapping(value = "/date-create/{dateCreation}")
@@ -99,10 +99,10 @@ public class AccountController {
         return accountService.deleteAccountById(id);
     }
 
-    @DeleteMapping(value = "/delete/status/{status}")
+    @DeleteMapping(value = "/delete/status/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Account> deleteAccountsByStatus(@PathVariable AccountStatus status){
-        return accountService.deleteAccountsByStatus(status);
+    public List<Account> deleteAccountsByStatus(@PathVariable UUID id, @RequestParam AccountStatus status){
+        return accountService.deleteAccountsByIdAndStatus(id, status);
     }
 
     @PutMapping(value = "/restore/{id}")
@@ -111,9 +111,9 @@ public class AccountController {
         return accountService.restoreById(id);
     }
 
-    @PutMapping(value = "/restore/all")
+    @PutMapping(value = "/restore/all/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Account> restoreAll(){
-        return accountService.restoreAll();
+    public List<Account> restoreAll(@PathVariable UUID id){
+        return accountService.restoreAllById(id);
     }
 }

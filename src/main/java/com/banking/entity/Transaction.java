@@ -23,13 +23,6 @@ public class Transaction {
     @Column(name = "id")
     private UUID id;
 
-//    @Column(name = "debit_account_id")
-//    private UUID debitAccountId;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "debit_account_id", referencedColumnName = "id", updatable = false, insertable = false)
-//    private Account debitAccount;
-
     @Column(name = "credit_account_iban")
     private String receiverIban;
 
