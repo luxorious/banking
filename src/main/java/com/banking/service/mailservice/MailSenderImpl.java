@@ -1,6 +1,6 @@
 package com.banking.service.mailservice;
 
-import com.banking.exception.BadAccountData;
+import com.banking.exception.BadAccountDataException;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -22,14 +22,8 @@ public class MailSenderImpl implements MailSender{
     @Value(value = "${mailSander.domainName}")
     private String domainName;
 
-    @Value(value = "${mailSander.subject}")
-    private String subject;
-
-    @Value(value = "${mailSander.text}")
-    private String text;
-
     @Override
-    public JsonNode createMessage(String receiverEmail) throws UnirestException {
+    public JsonNode createMessage(String receiverEmail, String text,String subject) throws UnirestException {
 
         HttpResponse<JsonNode> request = Unirest.post("https://api.mailgun.net/v3/" + domainName + "/messages")
                 .basicAuth("api", apiKey)
@@ -43,17 +37,13 @@ public class MailSenderImpl implements MailSender{
     }
 
     @Override
-    public void send(String receiverEmail) {
+    public void send(String receiverEmail, String text,String subject) {
         try {
-            JsonNode response = createMessage(receiverEmail);
+            JsonNode response = createMessage(receiverEmail, text, subject);
             log.info("message sent " + response.toString());
         } catch (UnirestException e) {
             log.info("some error " + e.getMessage());
-            // какое здесь лучше визвать исключение?
-            throw new BadAccountData("I can't send an email, maybe you forgot to buy more shipments");
+            throw new BadAccountDataException("I can't send an email, maybe you forgot to buy more shipments");
         }
     }
 }
-
-
-

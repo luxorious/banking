@@ -2,6 +2,7 @@ package com.banking.service.interfaces;
 
 import com.banking.entity.Manager;
 import com.banking.entity.entityenumerations.ManagerStatus;
+import com.banking.entity.entityenumerations.Role;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ManagerService {
-    Manager createManager(Manager manager);
+    Manager createManager(Manager manager, Role role);
 
     Optional<Manager> findById(UUID uuid);
 

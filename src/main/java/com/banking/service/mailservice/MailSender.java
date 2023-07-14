@@ -4,7 +4,7 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 public interface MailSender {
-    JsonNode createMessage(String receiverEmail) throws UnirestException;
+    JsonNode createMessage(String receiverEmail, String text,String subject) throws UnirestException;
 
-    void send(String receiverEmail);
+    void send(String receiverEmail, String text,String subject);
 }

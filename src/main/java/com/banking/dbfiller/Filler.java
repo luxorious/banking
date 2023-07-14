@@ -97,6 +97,7 @@ public class Filler {
             Manager manager = generateManager();
             for (int j = 0; j < r.nextInt(1,10); j++) {
                 Client client = generateClient(manager.getId());
+                log.info("client0000-id=" + client.getId());
                 generateDocument(client.getId());//NOSONAR
                 Product product = productGenerator(manager.getId());
                 for (int k = 0; k < r.nextInt(1,10); k++) {
@@ -121,7 +122,7 @@ public class Filler {
         manager.setDeletedStatus(DeletedStatus.ACTIVE);
         manager.setRole(randomChoice(roles));
 
-        return managerService.save(manager);
+        return managerService.createManager(manager, randomChoice(roles));
     }
 
     private Client generateClient(UUID managerId) {
@@ -136,7 +137,7 @@ public class Filler {
         client.setStatus(ClientStatus.ACTIVE);
         client.setManagerId(managerId);
 
-        return clientService.save(client);
+        return clientService.createClient(client, managerId);
     }
 
     private Account generateAccount(UUID clientId) {

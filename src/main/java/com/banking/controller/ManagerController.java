@@ -2,6 +2,7 @@ package com.banking.controller;
 
 import com.banking.entity.Manager;
 import com.banking.entity.entityenumerations.ManagerStatus;
+import com.banking.entity.entityenumerations.Role;
 import com.banking.service.interfaces.ManagerService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,8 @@ public class ManagerController {
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.OK)
-    public Manager createManager(@RequestBody Manager manager){
-        return managerService.createManager(manager);
+    public Manager createManager(@RequestBody Manager manager, Role role){
+        return managerService.createManager(manager, role);
     }
 
     @GetMapping("/find/{id}")

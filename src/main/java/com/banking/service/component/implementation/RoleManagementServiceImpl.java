@@ -24,6 +24,6 @@ public class RoleManagementServiceImpl implements RoleManagementService {
     public Manager setRole(UUID id, Role role) {
         Manager manager = getManager.getEntity(managerService.findById(id));
         manager.setRole(role);
-        return managerService.createManager(manager);
+        return managerService.createManager(manager, role);
     }
 }

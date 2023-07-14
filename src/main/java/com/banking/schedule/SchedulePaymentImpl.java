@@ -35,12 +35,15 @@ public class SchedulePaymentImpl implements SchedulePayment {
 
     @Value(value = "${schedule.transactionDescription}")
     private String transactionDescription;
-
     @Value(value = "${bankIban}")
     private String bankIban;
-
     @Value("${bankUuid}")
     private UUID bankUuid;
+    @Value(value = "${mailSander.subject}")
+    private String subject;
+    @Value(value = "${mailSander.text}")
+    private String text;
+
 
     @Override
     @Scheduled(cron = "${schedule.cronMonthlyPayment}")
@@ -61,7 +64,7 @@ public class SchedulePaymentImpl implements SchedulePayment {
                     continue;
                 }
                 account.setBalance(account.getBalance().subtract(credit.getPaymentPerMonth()));
-                saveAll(account,credit,transaction);
+                saveAll(account, credit, transaction);
 
             } else {
                 client.setStatus(ClientStatus.BLACKLISTED);
@@ -79,7 +82,7 @@ public class SchedulePaymentImpl implements SchedulePayment {
         credit.setSumOfCredit(BigDecimal.valueOf(0));
         credit.setCreditStatus(CreditStatus.PAID);
         Transaction transaction = initialTransaction(payment, account);
-        saveAll(account,credit,transaction);
+        saveAll(account, credit, transaction);
 
         return payment;
     }
@@ -100,7 +103,7 @@ public class SchedulePaymentImpl implements SchedulePayment {
         return transaction;
     }
 
-    private void saveAll(Account account, Credit credit, Transaction transaction){
+    private void saveAll(Account account, Credit credit, Transaction transaction) {
         accountService.save(account);
         creditService.save(credit);
         transactionService.save(transaction);
@@ -108,7 +111,7 @@ public class SchedulePaymentImpl implements SchedulePayment {
 
     @Override
     @Scheduled(cron = "${schedule.cronNotification}")
-    public void notification(){
+    public void notification() {
         List<Credit> credits = creditService.findAllActive();
         for (Credit credit : credits) {
             Client client = clientService.findById(credit.getClientId());
@@ -118,6 +121,6 @@ public class SchedulePaymentImpl implements SchedulePayment {
     }
 
     private void sendNotification(String eMail) {
-        mailSender.send(eMail);
+        mailSender.send(eMail, text, subject);
     }
 }

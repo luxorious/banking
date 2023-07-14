@@ -30,8 +30,10 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client createClient(Client client, UUID managerId) {
-        authorisationService.createClient(client);
-        return clientRepository.save(client);
+        Client dbClient = clientRepository.save(client);
+        log.info("dbclient - " + dbClient.getId());
+        authorisationService.createClient(dbClient);
+        return dbClient;
     }
 
     @Override

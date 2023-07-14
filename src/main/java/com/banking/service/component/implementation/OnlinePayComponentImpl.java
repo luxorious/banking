@@ -5,7 +5,7 @@ import com.banking.entity.Account;
 import com.banking.entity.pojo.PaymentData;
 import com.banking.entity.Transaction;
 import com.banking.entity.entityenumerations.AccountStatus;
-import com.banking.exception.BadAccountData;
+import com.banking.exception.BadAccountDataException;
 import com.banking.repository.AccountRepository;
 import com.banking.repository.TransactionRepository;
 import com.banking.service.interfaces.utility.GetEntity;
@@ -33,7 +33,7 @@ public class OnlinePayComponentImpl implements PaymentComponent {
                 accountFromDB.getBalance().compareTo(paymentData.getAmount()) >= 0) {
             return accountFromDB;
         } else {
-            throw new BadAccountData("account can`t pay");
+            throw new BadAccountDataException("account can`t pay");
         }
     }
 

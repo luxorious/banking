@@ -1,0 +1,15 @@
+/account/{id}
+/account/create/{clientId}
+/account/name/{name}
+/account/status/{status}
+/account/get-all
+/account/type/{type}
+/account/currency-code/{currencyCode}
+/account/date-create/{dateCreation}
+/account/date-update/{dateUpdate}
+/account/update/{id}
+/account/update/status/{id}
+/account/delete/{id}
+/account/delete/status/{status}
+/account/restore/{id}
+/account/restore/all

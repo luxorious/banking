@@ -1,7 +1,7 @@
 package com.banking.service.implementation;
 
 import com.banking.entity.Document;
-import com.banking.exception.BadAccountData;
+import com.banking.exception.BadAccountDataException;
 import com.banking.repository.DocumentRepository;
 import com.banking.service.interfaces.DocumentService;
 import com.banking.service.interfaces.utility.Converter;
@@ -55,7 +55,7 @@ public class DocumentServiceImpl implements DocumentService {
             return updatedDocument;
         } else {
             log.error("something went wrong");
-            throw new BadAccountData("Error");
+            throw new BadAccountDataException("Error");
         }
     }
 

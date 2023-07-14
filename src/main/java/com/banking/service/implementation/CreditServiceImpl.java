@@ -4,7 +4,7 @@ import com.banking.entity.Bank;
 import com.banking.entity.Credit;
 import com.banking.entity.entityenumerations.CreditStatus;
 import com.banking.entity.pojo.CreditData;
-import com.banking.exception.BadAccountData;
+import com.banking.exception.BadAccountDataException;
 import com.banking.repository.BankRepository;
 import com.banking.repository.CreditRepository;
 import com.banking.service.interfaces.CreditService;
@@ -54,7 +54,7 @@ public class CreditServiceImpl implements CreditService {
 
             return creditRepository.save(credit);
         } else {
-            throw new BadAccountData("you cannot apply for a loan");
+            throw new BadAccountDataException("you cannot apply for a loan");
         }
     }
 

@@ -3,6 +3,7 @@ package com.banking.service.implementation;
 import com.banking.entity.Manager;
 import com.banking.entity.entityenumerations.DeletedStatus;
 import com.banking.entity.entityenumerations.ManagerStatus;
+import com.banking.entity.entityenumerations.Role;
 import com.banking.repository.ManagerRepository;
 import com.banking.security.interfaces.AuthorisationService;
 import com.banking.service.interfaces.ManagerService;
@@ -30,9 +31,10 @@ private final AuthorisationService authorisationService;
 
 
     @Override
-    public Manager createManager(Manager manager) {
-        authorisationService.createManager(manager);
-        return managerRepository.save(manager);
+    public Manager createManager(Manager manager, Role role) {
+        Manager dbManager = managerRepository.save(manager);
+        authorisationService.createManager(dbManager, role);
+        return dbManager;
     }
 
     @Override

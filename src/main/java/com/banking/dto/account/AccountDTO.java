@@ -15,5 +15,4 @@ public class AccountDTO {
     private String balance;
     private String currencyCode;
     private String iBan;
-
 }

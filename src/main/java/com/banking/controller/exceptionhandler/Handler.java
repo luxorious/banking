@@ -1,6 +1,6 @@
 package com.banking.controller.exceptionhandler;
 
-import com.banking.exception.BadAccountData;
+import com.banking.exception.BadAccountDataException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ import java.io.IOException;
 @ControllerAdvice
 @Slf4j
 public class Handler {
-    @ExceptionHandler(BadAccountData.class)
+    @ExceptionHandler(BadAccountDataException.class)
     public ResponseEntity<String> handleBadAccountData(){
         log.error("the account has not been validated");
         return ResponseEntity.unprocessableEntity().build();

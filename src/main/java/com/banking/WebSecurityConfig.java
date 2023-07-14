@@ -35,22 +35,22 @@
 //        return http.build();
 //    }
 //
-////    @Bean
-////    public UserDetailsService userDetailsService() {
-////        List<Account> accounts = userRepository.findAll();
-////        List<UserDetails> users = new ArrayList<>();
-////
-////        for (Account account : accounts) {
-////            UserDetails userDetails = User
-////                    .withUsername(account.getName() + "_" + account.getId())
-////                    .password("1")
-////                    .roles("SUPER_USER")
-////                    .build();
-////            users.add(userDetails);
-////        }
-////
-////        return new InMemoryUserDetailsManager(users);
-////    }
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        List<Account> accounts = userRepository.findAll();
+//        List<UserDetails> users = new ArrayList<>();
+//
+//        for (Account account : accounts) {
+//            UserDetails userDetails = User
+//                    .withUsername(account.getName() + "_" + account.getId())
+//                    .password("1")
+//                    .roles("SUPER_USER")
+//                    .build();
+//            users.add(userDetails);
+//        }
+//
+//        return new InMemoryUserDetailsManager(users);
+//    }
 //
 //    @Bean
 //    public static NoOpPasswordEncoder passwordEncoder() {
