@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,31 +26,35 @@ import java.util.List;
 public class SecurityConfig extends WebSecurityConfiguration {
 
     private final UserDetailsService userDetailsService;
-    private final FileUtil fileUtil;
 
     @Value("${security.userLinks}")
-    private String userLinks;
+    private static String userLinks;
     @Value("${security.managerLinks}")
-    private String managerLinks;
+    private static String managerLinks;
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
 
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    protected static SecurityFilterChain configure(HttpSecurity http,
+                                                   @Value("${security.userLinks}") String userLinks,
+                                                   @Value("${security.managerLinks}") String managerLinks) throws Exception {
         http.authorizeHttpRequests(auth -> auth
+                //почему когда ени реквест поставить в начало прога падает?
                         .requestMatchers(convertStringToList(userLinks).toArray(
                                 new String[0])).hasRole(String.valueOf(Role.USER))
                         .requestMatchers(convertStringToList(managerLinks).toArray(
                                 new String[0])).hasRole(String.valueOf(Role.MANAGER))
+                        .requestMatchers("/swagger-ui/index.html").permitAll()
                         .anyRequest().hasRole(String.valueOf(Role.ADMINISTRATOR))
                 )
-                .httpBasic(Customizer.withDefaults())
-                .build();
+                .httpBasic(Customizer.withDefaults());
+        return http.build();
     }
 
-    public List<String> convertStringToList(String input) {
+    public static List<String> convertStringToList(String input) {
         String[] values = input.split(",\\s*");
         return Arrays.asList(values);
     }
