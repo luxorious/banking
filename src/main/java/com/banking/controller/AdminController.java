@@ -4,10 +4,7 @@ import com.banking.entity.*;
 import com.banking.entity.entityenumerations.DeletedStatus;
 import com.banking.service.interfaces.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -27,80 +24,93 @@ public class AdminController {
     private final ManagerService managerService;
     private final DocumentService documentService;
 
-    @PutMapping("/restore-product-by-id/{id}")
+    @PutMapping("/products/restore-by-id/{id}")
     public Product restoreProductById(@PathVariable UUID id){
         return productService.restoreById(id);
     }
+
+    @GetMapping("/products/restore-all")
     public List<Product> restoreAllProducts(){
         return productService.restoreAll();
     }
 
+    @GetMapping("/products/show-all-deleted")
     public List<Product> showAllDeletedProducts(){
         return productService.showAllDeleted();
     }
 
+    @GetMapping("/products/show-all")
     public List<Product> showAllProductsForAdmin(){
         return productService.showAllProductsForAdmin();
     }
 
+    @GetMapping("/managers/find0-by-date-creation")
     public List<Manager> findManagersByCreatedAt(Timestamp dateCreation){
         return managerService.findManagersByCreatedAt(dateCreation);
     }
-    public Manager restoreManagerById(UUID id){
+
+    @GetMapping("/managers/restore-by-id/{id}")
+    public Manager restoreManagerById(@PathVariable UUID id){
         return managerService.restoreById(id);
     }
 
+    @PutMapping("/managers/restore-all")
     public List<Manager> restoreAllManagers(){
         return managerService.restoreAll();
     }
 
+    @GetMapping("/managers/show-all-deleted")
     List<Manager> showAllDeleted(){
         return managerService.showAllDeleted();
     }
 
+    @GetMapping("/managers/show-all")
     public List<Manager> showAllManagersForAdmin(){
         return managerService.showAllManagersForAdmin();
     }
 
-    Document createDocument(Document document, UUID clientId){
+    @PostMapping("/document/create/{clientId}")
+    Document createDocument(@RequestBody Document document, @PathVariable UUID clientId){
         return documentService.create(document, clientId);
     }
-    Document findDocumentByClientId(UUID id){
+
+    @GetMapping("/document/find-by-id/{id}")
+    Document findDocumentByClientId(@PathVariable UUID id){
         return documentService.findDocumentByClientId(id);
     }
 
-    Document findDocumentById(Integer id){
-        return documentService.findDocumentById(id);
-    }
-
-    Document editDocument(UUID clientId, Document documentFE){
+    @PutMapping("/document/edit/{clientId}")
+    Document editDocument(@PathVariable UUID clientId, @RequestBody Document documentFE){
         return documentService.edit(clientId, documentFE);
     }
 
-    Document editImageById(Integer id, MultipartFile image, boolean isPassport) throws IOException{
-        return null;
-    }
 
-
-    List<Client> findClientsByDeletedStatus(DeletedStatus deletedStatus){
+    @GetMapping("/clients/find-active-not-active")
+    List<Client> findClientsByDeletedStatus(@RequestParam DeletedStatus deletedStatus){
         return clientService.findClientsByDeletedStatus(deletedStatus);
     }
 
-    Client restoreClientById(UUID id){
+    @PutMapping("/clients/restore-by-id/{id}")
+    Client restoreClientById(@PathVariable UUID id){
         return clientService.restoreById(id);
     }
+
+    @PutMapping("/clients/restore-all")
     List<Client> restoreAllClients(){
         return clientService.restoreAll();
     }
 
+    @GetMapping("/agreements/show-deleted")
     List<Agreement> showDeletedAgreements(){
         return agreementService.showDeleted();
     }
 
+    @GetMapping("/accounts/find-deleted")
     List<Account> findAllDeletedAccounts(){
         return accountService.findAllDeleted();
     }
 
+    @GetMapping("/accounts/find-all")
     List<Account> findAllAccountsForAdmin(){
         return accountService.findAllAccountsForAdmin();
     }
