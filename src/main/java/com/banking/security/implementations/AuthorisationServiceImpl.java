@@ -4,27 +4,20 @@ import com.banking.entity.Client;
 import com.banking.entity.Manager;
 import com.banking.entity.entityenumerations.Role;
 import com.banking.exception.BadLoginOrPasswordException;
-import com.banking.exception.UserException;
 import com.banking.security.Authorisation;
 import com.banking.security.interfaces.AuthorisationService;
 import com.banking.security.repository.AuthorisationRepository;
-import com.banking.service.interfaces.ClientService;
-import com.banking.service.interfaces.ManagerService;
 import com.banking.service.interfaces.utility.ValidatorService;
 import com.banking.service.mailservice.MailSender;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.UnsatisfiedDependencyException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -81,11 +74,14 @@ public class AuthorisationServiceImpl implements AuthorisationService {
 
     }
 
-    //зробити параметризованим методом щоб повертати клієнта або менеджера
     @Override
     public String findByLoginAndPassword(String login, String password) {
         Authorisation user = validatorService.checkEntity(authorisationRepository.findByLogin(login));
-        throw new BadLoginOrPasswordException("wrong e-mail");
+        if (Boolean.TRUE.equals(checkPassword(password, user.getPassword()))) {
+            throw new BadLoginOrPasswordException("wrong e-mail");
+        } else {
+            return "user found";
+        }
     }
 
     @Override
@@ -128,7 +124,7 @@ public class AuthorisationServiceImpl implements AuthorisationService {
         auth.setLogin(manager.getFirstName() + "_" + manager.getLastName() + postService);
         auth.setPassword(generatePassword());
         auth.setRole(Role.MANAGER);
-        if (manager.getRole() == Role.ADMINISTRATOR){
+        if (manager.getRole() == Role.ADMINISTRATOR) {
             auth.setRole(role);
         } else {
             auth.setRole(Role.MANAGER);

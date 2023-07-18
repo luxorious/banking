@@ -29,7 +29,6 @@ public class AuthorisationController {
     public List<Authorisation> getAll(){
         return authorisationService.findAll();
     }
-
     @GetMapping("/get-by")
     public String findByLoginAndPassword(@RequestParam String login, @RequestParam String password) {
         return authorisationService.findByLoginAndPassword(login, password);

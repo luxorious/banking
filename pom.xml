@@ -60,10 +60,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-                <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-security</artifactId>
-                </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -71,6 +71,20 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.security/spring-security-ldap &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.security</groupId>-->
+<!--            <artifactId>spring-security-ldap</artifactId>-->
+<!--            <version>6.1.1</version>-->
+<!--        </dependency>-->
+
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/com.unboundid/unboundid-ldapsdk &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.unboundid</groupId>-->
+<!--            <artifactId>unboundid-ldapsdk</artifactId>-->
+<!--            <version>6.0.9</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>io.micrometer</groupId>
@@ -105,6 +119,12 @@
             <artifactId>feign-core</artifactId>
             <version>12.4</version>
         </dependency>
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.ldap/spring-ldap-core &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.ldap</groupId>-->
+<!--            <artifactId>spring-ldap-core</artifactId>-->
+<!--            <version>3.1.0</version>-->
+<!--        </dependency>-->
 
 
         <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
