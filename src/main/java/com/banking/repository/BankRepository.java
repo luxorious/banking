@@ -6,6 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
+/**
+ * Repository interface for managing Bank entities.
+ * This interface extends JpaRepository to provide basic CRUD operations for Bank entities.
+ */
 @Repository
 public interface BankRepository extends JpaRepository<Bank, UUID> {
 }

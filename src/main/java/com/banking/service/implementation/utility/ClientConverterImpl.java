@@ -7,10 +7,17 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
-
+/**
+ * An implementation of the {@link Converter} interface for the {@link Client} entity.
+ * This class is responsible for converting and copying client data between objects.
+ */
 @Slf4j
 @Component
-public class ClientConverterImpl implements Converter<Client> {
+public class ClientConverterImpl implements Converter<Client> {    /**
+ * Copy the properties from the source client object to a new client object.
+ * @param clientFromDB The source client object.
+ * @return A new client object with copied properties.
+ */
     @Override
     public Client copyObjects(Client clientFromDB) {
         Client clientCopy = new Client();
@@ -22,7 +29,12 @@ public class ClientConverterImpl implements Converter<Client> {
         return clientCopy;
 
     }
-
+    /**
+     * Convert and update the properties of the source client object with the values from the frontend client object.
+     * @param clientFromDB The source client object retrieved from the database.
+     * @param clientFromFE The client object received from the frontend.
+     * @return The updated client object with modified properties.
+     */
     @Override
     public Client convertFields(Client clientFromDB, Client clientFromFE) {
         Client client = copyObjects(clientFromDB);

@@ -8,9 +8,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Implementation of the FileUtil interface to read data from a file and store it in a list.
+ */
 @Component
 public class FileUtilImpl implements FileUtil {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<String> writeFromFileToList(String filePath) {
         File file = new File(filePath);

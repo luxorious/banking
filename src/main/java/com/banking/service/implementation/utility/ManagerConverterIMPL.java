@@ -7,11 +7,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
+/**
+ * An implementation of the {@link Converter} interface for the {@link Manager} entity.
+ * This class is responsible for converting and copying manager data between objects.
+ */
 @Slf4j
 @Component
 public class ManagerConverterIMPL implements Converter<Manager> {
 
-
+    /**
+     * Create a copy of the Manager entity.
+     *
+     * @param managerFromDB The Manager entity to copy from.
+     * @return A new Manager entity with the same property values as the original.
+     */
     @Override
     public Manager copyObjects(Manager managerFromDB) {
         Manager managerCopy = new Manager();
@@ -23,6 +32,13 @@ public class ManagerConverterIMPL implements Converter<Manager> {
         return managerCopy;
     }
 
+    /**
+     * Convert and update the Manager entity with new property values from the Manager entity received from the front-end.
+     *
+     * @param managerFromDB The original Manager entity fetched from the database.
+     * @param managerFromFE The Manager entity received from the front-end with updated property values.
+     * @return The updated Manager entity.
+     */
     @Override
     public Manager convertFields(Manager managerFromDB, Manager managerFromFE) {
         Manager manager = copyObjects(managerFromDB);

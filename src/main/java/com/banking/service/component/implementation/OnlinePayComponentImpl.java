@@ -16,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.UUID;
-
+/**
+ * Implements the PaymentComponent interface to handle online payment transactions.
+ */
 @RequiredArgsConstructor
 @Slf4j
 @Component
@@ -26,6 +28,14 @@ public class OnlinePayComponentImpl implements PaymentComponent {
     private final TransactionRepository transactionRepository;
     private final GetEntity<Account> getAccount;
 
+    /**
+     * Validates the account for making an online payment transaction.
+     *
+     * @param id          The ID of the account.
+     * @param paymentData The payment data containing transaction details.
+     * @return The validated account for payment.
+     * @throws BadAccountDataException If the account cannot make the payment.
+     */
     @Override
     public Account accountValidation(UUID id, PaymentData paymentData) {
         Account accountFromDB = getAccount.getEntity(accountRepository.findAccountById(id));
@@ -37,6 +47,12 @@ public class OnlinePayComponentImpl implements PaymentComponent {
         }
     }
 
+    /**
+     * Processes the online payment transaction.
+     *
+     * @param id          The ID of the account.
+     * @param paymentData The payment data containing transaction details.
+     */
     @Override
     @Transactional
     public void pay(UUID id, PaymentData paymentData) {
@@ -57,6 +73,13 @@ public class OnlinePayComponentImpl implements PaymentComponent {
         log.info("payment successful");
     }
 
+    /**
+     * Creates a transaction entity for the online payment.
+     *
+     * @param sender      The account initiating the payment.
+     * @param paymentData The payment data containing transaction details.
+     * @return The transaction entity.
+     */
     @Override
     public Transaction createTransaction(Account sender, PaymentData paymentData) {
         Transaction transaction = new Transaction();

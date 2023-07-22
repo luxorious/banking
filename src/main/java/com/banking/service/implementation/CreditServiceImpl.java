@@ -18,6 +18,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Service implementation for managing clients.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -31,11 +34,25 @@ public class CreditServiceImpl implements CreditService {
     @Value("${bankUuid}")
     private UUID bankId;
 
+    /**
+     * Approves a credit based on the provided CreditData.
+     *
+     * @param creditData The CreditData object containing credit-related information.
+     * @return true if the credit is approved, false otherwise.
+     */
     @Override
     public Boolean getCredit(CreditData creditData) {
         return creditApprove.approveCredit(creditData);
     }
 
+    /**
+     * Creates a new credit for the specified client with the provided CreditData.
+     *
+     * @param creditData The CreditData object containing credit-related information.
+     * @param clientId The UUID of the client applying for the credit.
+     * @return The created and saved Credit object.
+     * @throws BadAccountDataException if the credit is not approved.
+     */
     @Override
     public Credit createCredit(CreditData creditData, UUID clientId) {
         if (Boolean.TRUE.equals(getCredit(creditData))) {
@@ -58,27 +75,55 @@ public class CreditServiceImpl implements CreditService {
         }
     }
 
+    /**
+     * Finds all credits associated with the specified client.
+     *
+     * @param clientId The UUID of the client to find credits for.
+     * @return List of credits associated with the specified client.
+     */
     @Override
     public List<Credit> findAllCreditsByClientId(UUID clientId) {
         return entityValidation.checkList(creditRepository.findAllByClientId(clientId));
     }
 
+    /**
+     * Finds all active credits associated with the specified client.
+     *
+     * @param clientId The UUID of the client to find active credits for.
+     * @return List of active credits associated with the specified client.
+     */
     @Override
     public List<Credit> findAllActiveByClientId(UUID clientId) {
         return entityValidation.checkList(creditRepository
                 .findAllByCreditStatusAndClientId(CreditStatus.ACTIVE, clientId));
     }
 
+    /**
+     * Finds all credits in the repository.
+     *
+     * @return List of all credits.
+     */
     @Override
     public List<Credit> findAll() {
         return entityValidation.checkList(creditRepository.findAll());
     }
 
+    /**
+     * Finds all active credits in the repository.
+     *
+     * @return List of all active credits.
+     */
     @Override
     public List<Credit> findAllActive() {
         return entityValidation.checkList(creditRepository.findAllByCreditStatus(CreditStatus.ACTIVE));
     }
 
+    /**
+     * Saves a credit to the repository.
+     *
+     * @param credit The credit to be saved.
+     * @return The saved credit.
+     */
     @Override
     public Credit save(Credit credit) {
         return creditRepository.save(credit);

@@ -15,6 +15,11 @@ import org.springframework.security.web.SecurityFilterChain;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Spring Security configuration class that defines security settings for the application.
+ *
+ * @since 2023-07-19
+ */
 @Configuration
 @EnableWebSecurity
 @Slf4j
@@ -29,7 +34,14 @@ public class SecurityConfig {
     @Value("${security.domainName}")
     private String domainName;
 
-
+    /**
+     * Configures the security filter chain to handle different types of requests based on the user's role.
+     *
+     * @param http The {@link HttpSecurity} object used for configuring security.
+     * @return The configured security filter chain.
+     * @throws Exception If there is an error while configuring the security.
+     * @since 2023-07-19
+     */
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
@@ -49,6 +61,13 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Converts a comma-separated string of links to a list of fully qualified links by appending the domainName.
+     *
+     * @param input The comma-separated string of links.
+     * @return A list of fully qualified links.
+     * @since 2023-07-19
+     */
     private List<String> convertStringToList(String input) {
         String[] values = input.split(",\\s*");
         for (int i = 0; i < values.length; i++) {
@@ -57,6 +76,12 @@ public class SecurityConfig {
         return Arrays.asList(values);
     }
 
+    /**
+     * Creates a BCryptPasswordEncoder bean for password encoding.
+     *
+     * @return A BCryptPasswordEncoder bean.
+     * @since 2023-07-19
+     */
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

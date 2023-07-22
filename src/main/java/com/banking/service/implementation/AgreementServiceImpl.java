@@ -6,7 +6,6 @@ import com.banking.entity.entityenumerations.DeletedStatus;
 import com.banking.repository.AgreementRepository;
 import com.banking.service.implementation.utility.AgreementConverterImpl;
 import com.banking.service.interfaces.AgreementService;
-import com.banking.service.interfaces.utility.ValidatorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,6 +15,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Service implementation for managing agreements.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -23,44 +25,63 @@ public class AgreementServiceImpl implements AgreementService {
 
     private final AgreementRepository agreementRepository;
     private final AgreementConverterImpl agreementConverter;
-    private final ValidatorService<Agreement> agreementValidator;
 
+    /**
+     * Retrieves a list of all active agreements.
+     *
+     * @return List of all active agreements.
+     */
     @Override
     public List<Agreement> findAll() {
         return agreementRepository.findAgreementsByDeletedStatus(DeletedStatus.ACTIVE);
     }
 
+    /**
+     * Saves an agreement to the repository.
+     *
+     * @param agreement The agreement to be saved.
+     * @return The saved agreement.
+     */
     @Override
     public Agreement save(Agreement agreement) {
         return agreementRepository.save(agreement);
     }
 
-
+    /**
+     * Creates an agreement associated with the given account ID and saves it to the repository.
+     *
+     * @param agreement The agreement to be created and saved.
+     * @param accountId The UUID of the account to which the agreement is associated.
+     * @return The created and saved agreement.
+     */
     @Override
-    public Agreement createAgreement(Agreement agreement, UUID accountId){
+    public Agreement createAgreement(Agreement agreement, UUID accountId) {
         agreement.setAccountId(accountId);
         return agreementRepository.save(agreement);
     }
 
+    /**
+     * Finds agreements with the specified interest rate.
+     *
+     * @param interestRate The interest rate to search for.
+     * @return List of agreements with the specified interest rate.
+     */
     @Override
     public List<Agreement> findAgreementByInterestRate(BigDecimal interestRate) {
         return agreementRepository.findAgreementByInterestRate(interestRate);
     }
 
-    @Override
-    public List<Agreement> findAgreementByIdAndInterestRate(UUID id, BigDecimal interestRate) {
-        return agreementRepository.findAgreementByIdAndInterestRate(id,interestRate);
-    }
-
-    @Override
-    public List<Agreement> findAgreementsByIdAndStatus(UUID id, AgreementStatus status) {
-        return agreementRepository.findAgreementsByIdAndStatus(id, status);
-    }
-
+    /**
+     * Edits an existing agreement with the specified ID using the information from the provided Agreement object.
+     *
+     * @param id          The UUID of the agreement to edit.
+     * @param agreementFE The Agreement object containing the updated information.
+     * @return The edited and saved agreement.
+     */
     @Override
     public Agreement editAgreement(UUID id, Agreement agreementFE) {
         Optional<Agreement> agreement = agreementRepository.findById(id);
-        if (agreement.isPresent()){
+        if (agreement.isPresent()) {
             Agreement changedAgreement = agreementConverter.convertFields(agreement.get(), agreementFE);
             agreementRepository.save(changedAgreement);
             log.info("agreement changed!");
@@ -71,10 +92,16 @@ public class AgreementServiceImpl implements AgreementService {
         }
     }
 
+    /**
+     * Soft deletes the agreement with the specified ID by setting its deleted status to "DELETED".
+     *
+     * @param id The UUID of the agreement to delete.
+     * @return The deleted Agreement object.
+     */
     @Override
     public Agreement deleteAgreementById(UUID id) {
         Optional<Agreement> agreement = agreementRepository.findById(id);
-        if (agreement.isPresent()){
+        if (agreement.isPresent()) {
             Agreement changedAgreement = agreement.get();
             changedAgreement.setDeletedStatus(DeletedStatus.DELETED);
             agreementRepository.save(changedAgreement);
@@ -86,20 +113,33 @@ public class AgreementServiceImpl implements AgreementService {
         }
     }
 
+    /**
+     * Soft deletes multiple agreements associated with the specified status by setting their deleted status to "DELETED".
+     *
+     * @param status The AgreementStatus of the agreements to delete.
+     * @return List of deleted Agreement objects.
+     */
     @Override
     public List<Agreement> deleteAgreementsByStatus(AgreementStatus status) {
         List<Agreement> agreementsTODeleting = agreementRepository.findAgreementsByStatus(status);
-        for (Agreement agreement : agreementsTODeleting){
+        for (Agreement agreement : agreementsTODeleting) {
             agreement.setDeletedStatus(DeletedStatus.DELETED);
         }
         agreementRepository.saveAll(agreementsTODeleting);
         return agreementsTODeleting;
     }
 
+    /**
+     * Changes the sum of an agreement with the specified ID.
+     *
+     * @param id     The UUID of the agreement to edit.
+     * @param newSum The new sum to set for the agreement.
+     * @return The edited and saved agreement.
+     */
     @Override
     public Agreement changeSumById(UUID id, BigDecimal newSum) {
         Optional<Agreement> agreement = agreementRepository.findById(id);
-        if (agreement.isPresent()){
+        if (agreement.isPresent()) {
             Agreement changedAgreement = agreement.get();
             changedAgreement.setSum(newSum);
             log.info("agreement changed!");
@@ -111,6 +151,11 @@ public class AgreementServiceImpl implements AgreementService {
         }
     }
 
+    /**
+     * Retrieves a list of all deleted agreements.
+     *
+     * @return List of all deleted agreements.
+     */
     @Override
     public List<Agreement> showDeleted() {
         log.info("Show all deleted clients:");

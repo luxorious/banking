@@ -42,6 +42,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+/**
+ * Filler random data in DB.
+ */
 @Data
 @RequiredArgsConstructor
 @Component
@@ -90,20 +93,24 @@ public class Filler {
     private List<ClientStatus> clientStatuses = Arrays.asList(ClientStatus.values());
     private List<Double> interestRates = List.of(0.5, 0.8, 1.2, 0.3, 0.9, 1.5, 1.0, 0.7, 0.6, 1.3);
 
+    /**
+     * Generates random data to fill the banking system entities including Managers, Clients, Documents, Products,
+     * Accounts, Credits, Agreements, and Transactions.
+     */
     public void fillAll() {
         Random r = new Random();//NOSONAR
         long startTime = System.currentTimeMillis();
-        for (int i = 0; i < r.nextInt(1,10); i++) {
+        for (int i = 0; i < r.nextInt(1, 10); i++) {
             Manager manager = generateManager();
-            for (int j = 0; j < r.nextInt(1,10); j++) {
+            for (int j = 0; j < r.nextInt(1, 10); j++) {
                 Client client = generateClient(manager.getId());
                 log.info("client0000-id=" + client.getId());
                 generateDocument(client.getId());//NOSONAR
                 Product product = productGenerator(manager.getId());
-                for (int k = 0; k < r.nextInt(1,10); k++) {
+                for (int k = 0; k < r.nextInt(1, 10); k++) {
                     Account account = generateAccount(client.getId());
                     generateCredit(client.getId());//NOSONAR
-                    for (int l = 0; l < r.nextInt(1,10); l++) {
+                    for (int l = 0; l < r.nextInt(1, 10); l++) {
                         agreementGenerate(account.getId(), product.getId());//NOSONAR
                         generateTransaction(account.getId());//NOSONAR
                     }
@@ -113,6 +120,11 @@ public class Filler {
         log.info("time millis = " + (System.currentTimeMillis() - startTime));
     }
 
+    /**
+     * Generates a new Manager entity with random values.
+     *
+     * @return The generated Manager entity.
+     */
     private Manager generateManager() {
         Manager manager = new Manager();
         manager.setFirstName(randomChoice(firstNames));
@@ -125,6 +137,12 @@ public class Filler {
         return managerService.createManager(manager, randomChoice(roles));
     }
 
+    /**
+     * Generates a new Client entity with random values.
+     *
+     * @param managerId The UUID of the client associated with the account.
+     * @return The generated Account entity.
+     */
     private Client generateClient(UUID managerId) {
         Client client = new Client();
         client.setFirstName(randomChoice(firstNames));
@@ -140,6 +158,12 @@ public class Filler {
         return clientService.createClient(client, managerId);
     }
 
+    /**
+     * Generates a new Account entity with random values.
+     *
+     * @param clientId The UUID of the client associated with the account.
+     * @return The generated Account entity.
+     */
     private Account generateAccount(UUID clientId) {
         Account account = new Account();
         account.setClientId(clientId);
@@ -155,6 +179,13 @@ public class Filler {
 
     }
 
+    /**
+     * Generates an Agreement with random data and saves it to the database.
+     *
+     * @param accountId The UUID of the Account associated with the Agreement.
+     * @param productId The UUID of the Product associated with the Agreement.
+     * @return The generated Agreement object.
+     */
     private Agreement agreementGenerate(UUID accountId, UUID productId) {
         Agreement agreement = new Agreement();
         agreement.setAccountId(accountId);
@@ -168,6 +199,12 @@ public class Filler {
 
     }
 
+    /**
+     * Generates a Product with random data and saves it to the database.
+     *
+     * @param managerId The UUID of the Manager associated with the Product.
+     * @return The generated Product object.
+     */
     private Product productGenerator(UUID managerId) {
         Product product = new Product();
         product.setManagerId(managerId);
@@ -182,6 +219,12 @@ public class Filler {
 
     }
 
+    /**
+     * Generates a new Credit entity with random values.
+     *
+     * @param clientId The UUID of the client associated with the credit.
+     * @return The generated Credit entity.
+     */
     private Credit generateCredit(UUID clientId) {
         Credit credit = new Credit();
         credit.setSumOfCredit(BigDecimal.valueOf(new Random().nextDouble()));
@@ -198,6 +241,12 @@ public class Filler {
         return credit;
     }
 
+    /**
+     * Generates a Transaction with random data and saves it to the database.
+     *
+     * @param debitAccountId The UUID of the Account associated with the Transaction.
+     * @return The generated Transaction object.
+     */
     private Transaction generateTransaction(UUID debitAccountId) {
         Transaction transaction = new Transaction();
         transaction.setCreditAccountId(debitAccountId);
@@ -211,6 +260,12 @@ public class Filler {
 
     }
 
+    /**
+     * Generates a Document with random data and saves it to the database.
+     *
+     * @param clientId The UUID of the Client associated with the Document.
+     * @return The generated Document object.
+     */
     private Document generateDocument(UUID clientId) {
         Document document = new Document();
         document.setClientId(clientId);
@@ -221,6 +276,11 @@ public class Filler {
 
     }
 
+    /**
+     * Generates a byte array with random data of a random length between 0 and 499 (inclusive).
+     *
+     * @return The generated byte array.
+     */
     private byte[] generateRandomBytesArray() {
         Random random = new Random();
         byte[] byteArray = new byte[random.nextInt(500)];
@@ -228,11 +288,24 @@ public class Filler {
         return byteArray;
     }
 
+    /**
+     * Randomly selects an element from the given list.
+     *
+     * @param list The list of elements to choose from.
+     * @param <T>  The type of elements in the list.
+     * @return The randomly chosen element.
+     */
     private <T> T randomChoice(List<T> list) {
         int choice = new Random().nextInt(list.size());
         return list.get(choice);
     }
 
+    /**
+     * Randomly selects a string from the file located at the given path.
+     *
+     * @param path The file path to read strings from.
+     * @return The randomly chosen string from the file.
+     */
     private String randomChoice(String path) {
         List<String> list = fileUtil.writeFromFileToList(path);
         return randomChoice(list);
