@@ -110,7 +110,6 @@ public interface AccountRepository extends JpaRepository<Account, UUID> {
      */
     List<Account> findAccountsByDeletedStatus(DeletedStatus deletedStatus);
 
-
     /**
      * Custom query to find an Account by its IBAN.
      *

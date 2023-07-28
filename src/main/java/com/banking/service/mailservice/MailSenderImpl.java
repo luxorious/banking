@@ -36,7 +36,6 @@ public class MailSenderImpl implements MailSender{
      */
     @Override
     public JsonNode createMessage(String receiverEmail, String text,String subject) throws UnirestException {
-
         HttpResponse<JsonNode> request = Unirest.post("https://api.mailgun.net/v3/" + domainName + "/messages")
                 .basicAuth("api", apiKey)
                 .queryString("from", eMail)
