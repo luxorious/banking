@@ -1,4 +1,4 @@
-package com.banking.dbfiller;
+package com.banking.service.dbfiller;
 
 import java.util.List;
 /**

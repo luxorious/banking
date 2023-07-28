@@ -18,10 +18,9 @@ public interface ManagerService {
      * Creates a new manager with the specified role and saves it to the database.
      *
      * @param manager The manager to be created.
-     * @param role    The role of the manager (e.g., admin, employee).
      * @return The created manager.
      */
-    Manager createManager(Manager manager, Role role);
+    Manager createManager(Manager manager);
 
     /**
      * Retrieves the manager with the specified ID.

@@ -173,7 +173,6 @@ public class AuthorisationServiceImpl implements AuthorisationService {
      *
      * @param login       The login of the user whose password needs to be changed.
      * @param newPassword The new password to set for the user.
-     * @throws com.banking.exception.UserException If the user with the given login does not exist in the database.
      * @since 2023-07-19
      */
     @Override
@@ -221,13 +220,11 @@ public class AuthorisationServiceImpl implements AuthorisationService {
      * with their login credentials using the {@link com.banking.service.mailservice.MailSender} service.
      *
      * @param manager The manager for whom to create the user (manager) and authorization details.
-     * @param role    The role to assign to the manager. If the manager's role is ADMINISTRATOR, this role will be used;
-     *                otherwise, the role will be set as MANAGER.
      * @return The newly created {@link Authorisation} entity containing the manager's authorization details.
      * @since 2023-07-19
      */
     @Override
-    public Authorisation createManager(Manager manager, Role role) {
+    public Authorisation createManager(Manager manager) {
         Authorisation auth = new Authorisation();
         auth.setUserId(manager.getId());
         log.info("Manager id - " + auth.getUserId());
@@ -235,11 +232,6 @@ public class AuthorisationServiceImpl implements AuthorisationService {
         auth.setLogin(manager.getFirstName() + "_" + manager.getLastName() + postService);
         auth.setPassword(generatePassword());
         auth.setRole(Role.MANAGER);
-        if (manager.getRole() == Role.ADMINISTRATOR) {
-            auth.setRole(role);
-        } else {
-            auth.setRole(Role.MANAGER);
-        }
         String message = String.format(text, auth.getLogin(), auth.getPassword());
         mailSender.send(auth.getLogin(), message, subject);
         return authorisationRepository.save(auth);

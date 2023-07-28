@@ -1,6 +1,5 @@
 package com.banking.security;
 
-
 import com.banking.entity.entityenumerations.Role;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,12 +44,18 @@ public class SecurityConfig {
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
+                        .requestMatchers(convertStringToList(userLinks).toArray(
+                                new String[0])).hasAnyRole(
+                                String.valueOf(Role.USER),
+                                String.valueOf(Role.MANAGER),
+                                String.valueOf(Role.ADMINISTRATOR))
+                        .requestMatchers(convertStringToList(managerLinks).toArray(
+                                new String[0])).hasAnyRole(
+                                String.valueOf(Role.MANAGER),
+                                String.valueOf(Role.ADMINISTRATOR))
                         .requestMatchers(convertStringToList(adminLinks).toArray(
                                 new String[0])).hasRole(String.valueOf(Role.ADMINISTRATOR))
-                        .requestMatchers(convertStringToList(userLinks).toArray(
-                                new String[0])).hasRole(String.valueOf(Role.USER))
-                        .requestMatchers(convertStringToList(managerLinks).toArray(
-                                new String[0])).hasRole(String.valueOf(Role.MANAGER))
+
                         .anyRequest().permitAll()
                 )
                 .logout(out -> out

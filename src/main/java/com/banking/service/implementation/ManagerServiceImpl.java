@@ -33,13 +33,12 @@ public class ManagerServiceImpl implements ManagerService {
      * Creates a new manager with the specified role.
      *
      * @param manager The Manager object containing manager-related information.
-     * @param role    The role of the manager.
      * @return The created and saved Manager object.
      */
     @Override
-    public Manager createManager(Manager manager, Role role) {
+    public Manager createManager(Manager manager) {
         Manager dbManager = managerRepository.save(manager);
-        authorisationService.createManager(dbManager, role);
+        authorisationService.createManager(dbManager);
         return dbManager;
     }
 

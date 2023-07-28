@@ -31,8 +31,8 @@ public class ManagerController {
      */
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.OK)
-    public Manager createManager(@RequestBody Manager manager, Role role) {
-        return managerService.createManager(manager, role);
+    public Manager createManager(@RequestBody Manager manager) {
+        return managerService.createManager(manager);
     }
 
     /**

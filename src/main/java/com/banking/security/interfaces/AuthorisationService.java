@@ -98,7 +98,7 @@ public interface AuthorisationService {
      * @return The created {@link com.banking.security.Authorisation} entity.
      * @since 2023-07-19
      */
-    Authorisation createManager(Manager manager, Role role);
+    Authorisation createManager(Manager manager);
 
     /**
      * Retrieves a list of all user authorizations.

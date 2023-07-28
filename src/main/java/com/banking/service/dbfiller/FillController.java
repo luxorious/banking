@@ -1,4 +1,4 @@
-package com.banking.dbfiller;
+package com.banking.service.dbfiller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

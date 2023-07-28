@@ -1,4 +1,4 @@
-package com.banking.dbfiller;
+package com.banking.service.dbfiller;
 
 import com.banking.entity.Account;
 import com.banking.entity.Agreement;
@@ -134,7 +134,7 @@ public class Filler {
         manager.setDeletedStatus(DeletedStatus.ACTIVE);
         manager.setRole(randomChoice(roles));
 
-        return managerService.createManager(manager, randomChoice(roles));
+        return managerService.createManager(manager);
     }
 
     /**
