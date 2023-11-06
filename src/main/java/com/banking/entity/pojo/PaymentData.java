@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.UUID;
-
+/**
+ * A POJO class representing payment data used for processing payments in the banking application.
+ */
 @RequiredArgsConstructor
 @Data
 public class PaymentData {

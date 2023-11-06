@@ -7,6 +7,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
+/**
+ * Implementation of the IBanGeneratorComponent interface that generates International Bank Account Numbers (IBANs)
+ * based on the provided configuration settings.
+ */
 @Slf4j
 @Component
 public class IBanGeneratorComponentImpl implements IBanGeneratorComponent {
@@ -23,6 +27,11 @@ public class IBanGeneratorComponentImpl implements IBanGeneratorComponent {
     @Value("${iBan.additionalSymbols}")
     private String additionalSymbols;
 
+    /**
+     * Generates an International Bank Account Number (IBAN) based on the configured settings.
+     *
+     * @return The generated IBAN.
+     */
     @Override
     public String generate() {
         StringBuilder iBanNumber = new StringBuilder(countryCode + controlNumber + bankCode + additionalSymbols);

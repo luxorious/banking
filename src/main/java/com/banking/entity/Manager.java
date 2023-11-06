@@ -48,7 +48,7 @@ public class Manager {
 
     @Column(name = "deleted_status")
     @Enumerated(EnumType.STRING)
-    private DeletedStatus deletedStatus = DeletedStatus.ACTIVE;
+    private DeletedStatus deletedStatus;
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)

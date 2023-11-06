@@ -20,6 +20,13 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * This class provides implementation for the {@link AccountService} interface.
+ * It is responsible for managing accounts, including creating, updating, deleting, and restoring accounts.
+ *
+ * @author [Your Name]
+ * @version [Version Number]
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -31,83 +38,161 @@ public class AccountServiceImpl implements AccountService {
     private final GetEntity<Account> getEntity;
     private final ValidatorService<Account> validatorService;
 
+    /**
+     * Saves the given account in the database.
+     *
+     * @param account The account to be saved.
+     * @return The saved account.
+     */
     @Override
     public Account save(Account account) {
         return accountRepository.save(account);
     }
 
+    /**
+     * Creates a new account with the provided client ID and saves it in the database.
+     * The account is set to ACTIVE status and assigned a generated IBAN.
+     *
+     * @param account  The account to be created.
+     * @param clientId The UUID of the client to whom the account belongs.
+     * @return The newly created and saved account.
+     */
     @Override
-    public Account createAccount(Account account){//, UUID clientId) {
+    public Account createAccount(Account account, UUID clientId) {
         account.setDeletedStatus(DeletedStatus.ACTIVE);
         account.setIBan(iBanGenerator.generate());
-//        account.setClientId(clientId);
+        account.setClientId(clientId);
         log.info("creating account " + account);
         return accountRepository.save(account);
     }
 
+    /**
+     * Retrieves a list of all active accounts associated with the specified client ID.
+     *
+     * @param id The UUID of the client.
+     * @return A list of active accounts associated with the client ID.
+     */
     @Override
-    public List<Account> findAllActive() {
+    public List<Account> findAllActiveById(UUID id) {
         log.info("get all active accounts");
-        return validatorService.checkList(accountRepository.findAccountsByDeletedStatus(DeletedStatus.ACTIVE));
+        return validatorService.checkList(accountRepository.findAccountsByIdAndDeletedStatus(id, DeletedStatus.ACTIVE));
     }
 
+    /**
+     * Retrieves a list of all deleted accounts.
+     *
+     * @return A list of deleted accounts.
+     */
     @Override
-    public List<Account> findAllDeleted(){
+    public List<Account> findAllDeleted() {
         return validatorService.checkList(accountRepository.findAccountsByDeletedStatus(DeletedStatus.DELETED));
     }
 
+    /**
+     * Retrieves a list of all accounts for admin use.
+     *
+     * @return A list of all accounts.
+     */
     @Override
-    public List<Account> findAllAccountsForAdmin(){
+    public List<Account> findAllAccountsForAdmin() {
         return validatorService.checkList(accountRepository.findAll());
     }
 
+    /**
+     * Retrieves the account with the specified UUID if it exists.
+     *
+     * @param uuid The UUID of the account to find.
+     * @return The account with the given UUID if it exists.
+     */
     @Override
     public Account findAccountById(UUID uuid) {
         log.info("find account if exist with UUID - " + uuid);
         return getEntity.getEntity(accountRepository.findAccountById(uuid));
     }
 
+    /**
+     * Retrieves a list of accounts associated with the specified client ID and name.
+     *
+     * @param id   The UUID of the client.
+     * @param name The name of the accounts to find.
+     * @return A list of accounts associated with the client ID and name.
+     */
     @Override
-    public List<Account> findAccountsByName(String name) {
+    public List<Account> findAccountsByIdAndName(UUID id, String name) {
         log.info("find all accounts where name - " + name);
-        return validatorService.checkList(accountRepository.findAccountsByName(name));
+        return validatorService.checkList(accountRepository.findAccountsByIdAndName(id, name));
     }
 
+    /**
+     * Retrieves a list of accounts associated with the specified client ID and status.
+     *
+     * @param id     The UUID of the client.
+     * @param status The status of the accounts to find.
+     * @return A list of accounts associated with the client ID and status.
+     */
     @Override
-    public List<Account> findAccountsByStatus(AccountStatus status) {
+    public List<Account> findAccountsByIdAndStatus(UUID id, AccountStatus status) {
         log.info("find all accounts where status - " + status);
-        return validatorService.checkList(accountRepository.findAccountsByStatus(status));
+        return validatorService.checkList(accountRepository.findAccountsByIdAndStatus(id, status));
     }
 
+    /**
+     * Retrieves a list of accounts associated with the specified client ID and type.
+     *
+     * @param id   The UUID of the client.
+     * @param type The type of the accounts to find.
+     * @return A list of accounts associated with the client ID and type.
+     */
     @Override
-    public List<Account> findAccountsByType(AccountType type) {
+    public List<Account> findAccountsByIdAndType(UUID id, AccountType type) {
         log.info("find all accounts where type - " + type);
-        return validatorService.checkList(accountRepository.findAccountsByType(type));
+        return validatorService.checkList(accountRepository.findAccountsByIdAndType(id, type));
     }
 
+    /**
+     * Retrieves a list of accounts associated with the specified client ID and currency code.
+     *
+     * @param id           The UUID of the client.
+     * @param currencyCode The currency code of the accounts to find.
+     * @return A list of accounts associated with the client ID and currency code.
+     */
     @Override
-    public List<Account> findAccountsByCurrencyCode(CurrencyCode currencyCode) {
+    public List<Account> findAccountsByIdAndCurrencyCode(UUID id, CurrencyCode currencyCode) {
         log.info("find all accounts where currency code - " + currencyCode);
-        return validatorService.checkList(accountRepository.findAccountsByCurrencyCode(currencyCode));
+        return validatorService.checkList(accountRepository.findAccountsByIdAndCurrencyCode(id, currencyCode));
     }
 
+    /**
+     * Retrieves a list of accounts created at the specified date of creation.
+     *
+     * @param dateCreation The date of creation to filter the accounts.
+     * @return A list of accounts created at the specified date of creation.
+     */
     @Override
     public List<Account> findAccountsByCreatedAt(Timestamp dateCreation) {
         log.info("find all accounts where date of creation - " + dateCreation);
         return validatorService.checkList(accountRepository.findAccountsByCreatedAt(dateCreation));
     }
 
+    /**
+     * Retrieves a list of accounts updated at the specified date of update.
+     *
+     * @param dateUpdate The date of update to filter the accounts.
+     * @return A list of accounts updated at the specified date of update.
+     */
     @Override
     public List<Account> findAccountsByUpdatedAt(Timestamp dateUpdate) {
         log.info("find all accounts where date of update - " + dateUpdate);
         return validatorService.checkList(accountRepository.findAccountsByUpdatedAt(dateUpdate));
     }
 
-    @Override
-    public Account findAccountByIban(String iban) {
-        return getEntity.getEntity(accountRepository.findByIBan(iban));
-    }
-
+    /**
+     * Updates the account with the specified ID using the information from the provided Account object.
+     *
+     * @param id            The UUID of the account to update.
+     * @param accountFromFE The Account object containing the updated information.
+     * @return true if the account was updated successfully.
+     */
     @Override
     @Transactional
     public Boolean updateAccountById(UUID id, Account accountFromFE) {
@@ -118,19 +203,30 @@ public class AccountServiceImpl implements AccountService {
         return true;
     }
 
-
+    /**
+     * Updates the status of the account with the specified ID.
+     *
+     * @param id     The UUID of the account to update.
+     * @param status The new status of the account.
+     */
     @Override
     @Transactional
-    public void updateStatusById(UUID id, AccountStatus status){
+    public void updateStatusById(UUID id, AccountStatus status) {
         Account accountFromDB = getEntity.getEntity(accountRepository.findAccountById(id));
         accountFromDB.setStatus(status);
         accountRepository.save(accountFromDB);
         log.info("Account status successfully updated: " + id);
     }
 
+    /**
+     * Soft deletes the account with the specified ID by setting its deleted status to "DELETED".
+     *
+     * @param id The UUID of the account to delete.
+     * @return The deleted Account object.
+     */
     @Override
     @Transactional
-    public Account deleteAccountById(UUID id){
+    public Account deleteAccountById(UUID id) {
         Account deletedAccount = getEntity.getEntity(accountRepository.findAccountById(id));
         deletedAccount.setDeletedStatus(DeletedStatus.DELETED);
         accountRepository.save(deletedAccount);
@@ -138,15 +234,29 @@ public class AccountServiceImpl implements AccountService {
         return deletedAccount;
     }
 
+    /**
+     * Soft deletes multiple accounts associated with the specified client ID and status
+     * by setting their deleted status to "DELETED".
+     *
+     * @param id     The UUID of the client.
+     * @param status The status of the accounts to delete.
+     * @return A list of deleted Account objects.
+     */
     @Override
     @Transactional
-    public List<Account> deleteAccountsByStatus(AccountStatus status) {
-        List<Account> accounts = validatorService.checkList(accountRepository.findAccountsByStatus(status));
+    public List<Account> deleteAccountsByIdAndStatus(UUID id, AccountStatus status) {
+        List<Account> accounts = validatorService.checkList(accountRepository.findAccountsByIdAndStatus(id, status));
         accounts.forEach(account -> account.setDeletedStatus(DeletedStatus.DELETED));
         log.info("deleting accounts where Account Status - " + status);
         return accounts;
     }
 
+    /**
+     * Restores the soft-deleted account with the specified ID by setting its deleted status to ACTIVE.
+     *
+     * @param id The UUID of the account to restore.
+     * @return The restored Account object.
+     */
     @Override
     @Transactional
     public Account restoreById(UUID id) {
@@ -157,16 +267,29 @@ public class AccountServiceImpl implements AccountService {
         return accountToRestore;
     }
 
+    /**
+     * Finds the account with the specified ID and currency code.
+     *
+     * @param id           The UUID of the account to find.
+     * @param currencyCode The currency code of the account.
+     * @return The Account object with the specified ID and currency code.
+     */
     @Override
     public Account findAccountByIdAndCurrencyCode(UUID id, CurrencyCode currencyCode) {
         return validatorService.checkEntity(accountRepository.findAccountByIdAndCurrencyCode(id, currencyCode));
     }
 
+    /**
+     * Restores all soft-deleted accounts associated with the specified client ID by setting their deleted status to ACTIVE.
+     *
+     * @param id The UUID of the client.
+     * @return A list of restored Account objects.
+     */
     @Override
     @Transactional
-    public List<Account> restoreAll() {
+    public List<Account> restoreAllById(UUID id) {
         List<Account> accounts = validatorService.checkList(
-                accountRepository.findAccountsByDeletedStatus(DeletedStatus.DELETED));
+                accountRepository.findAccountsByIdAndDeletedStatus(id, DeletedStatus.DELETED));
         accounts.forEach(account -> account.setDeletedStatus(DeletedStatus.ACTIVE));
         accountRepository.saveAll(accounts);
         return accounts;
